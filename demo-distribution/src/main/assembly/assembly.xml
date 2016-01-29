@@ -32,6 +32,8 @@
             <unpack>false</unpack>
             <scope>runtime</scope>
             <includes>
+                <!-- Directory -->
+                <include>org.osivia.services.directory.socle:osivia-services-directory-socle-interfaces:jar:${directory.version}</include>
                 <!-- Identity SSO -->
                 <include>org.osivia.portal.identity:osivia-portal-identity-sso-lib:jar:${identity-sso.version}</include>
                 <!-- Java Melody -->
@@ -54,6 +56,7 @@
             <excludes>
                 <!-- Exclude distribution environment specific files -->
                 <exclude>custom/params/environnement_portail.properties.*</exclude>
+                <exclude>jboss-as/server/production/run.conf.*</exclude>
                 <exclude>jboss-as/server/production/conf/jboss-log4j.*</exclude>
                 <exclude>jboss-as/server/production/deploy/jboss-portal-ha.sar/conf/data/default-object.xml</exclude>
                 <exclude>jboss-as/server/production/deploy/jboss-portal-ha.sar/conf/identity/ldap_identity-config.xml</exclude>
@@ -82,6 +85,17 @@
             <outputDirectory>/${artifactId}-${dest-env}-${project.version}/custom/params</outputDirectory>
             <destName>environnement_portail.properties</destName>
         </file>
+        <file>
+            <source>src/main/resources/custom/params/ldap-portlets.properties</source>
+            <outputDirectory>/${project.artifactId}-${dest-env}-${project.version}/custom/params</outputDirectory>
+            <destName>ldap-portlets.properties</destName>
+        </file>
+        <file>
+            <source>src/main/resources/jboss-as/server/production/deploy/jboss-portal-ha.sar/conf/identity/ldap_identity-config.xml.${dest-env}</source>
+            <outputDirectory>/${project.artifactId}-${dest-env}-${project.version}/jboss-as/server/production/deploy/jboss-portal-ha.sar/conf/identity</outputDirectory>
+            <destName>ldap_identity-config.xml</destName>
+        </file>
+        
         <file>
             <source>target/toutatice-distribution/jboss-as/server/production/conf/jboss-log4j.xml.${src-env}</source>
             <outputDirectory>/${artifactId}-${dest-env}-${project.version}/jboss-as/server/production/conf</outputDirectory>
