@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<themes>
+    <theme>
+        <name>demo-charte</name>
+        
+        <!-- CSS -->
+        <link rel="stylesheet" href="/css/demo.min.css" title="Demo" />
+    </theme>
+</themes>
