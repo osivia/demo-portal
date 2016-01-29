@@ -17,6 +17,12 @@
         <!-- Toutatice -->
         <toutatice.version>4.2.1</toutatice.version>
         
+        <!-- Directory -->
+        <directory.version>4.2.0-RC3</directory.version>
+        
+        <!-- Collaboration -->
+        <collaboration.version>4.2.0</collaboration.version>
+        
         <!-- Identity SSO -->
         <identity-sso.version>3.0.6</identity-sso.version>
         

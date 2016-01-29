@@ -45,6 +45,22 @@
             <type>war</type>
         </dependency>
         
+        <!-- Directory -->
+        <dependency>
+            <groupId>org.osivia.services.directory</groupId>
+            <artifactId>osivia-services-directory-ear</artifactId>
+            <version>${directory.version}</version>
+            <type>ear</type>
+        </dependency>
+
+        <!-- Collaboration -->        
+        <dependency>
+            <groupId>org.osivia.services</groupId>
+            <artifactId>osivia-services-collaboration-ear</artifactId>
+            <version>${collaboration.version}</version>
+            <type>ear</type>
+        </dependency>
+        
         <!-- Identity SSO -->
         <dependency>
             <groupId>org.osivia.portal.identity</groupId>

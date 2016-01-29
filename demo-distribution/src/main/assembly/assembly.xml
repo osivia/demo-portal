@@ -20,6 +20,10 @@
                 <include>${project.groupId}:demo-customizer:war:${project.version}</include>
                 <!-- Toutatice CMS -->
                 <include>toutatice-portail.cms:toutatice-portail-cms-nuxeo-web:war:${toutatice.version}</include>
+                <!-- Directory -->
+                <include>org.osivia.services.directory:osivia-services-directory-ear:ear:${directory.version}</include>
+                <!-- Collaboration -->
+                <include>org.osivia.services:osivia-services-collaboration-ear:ear:${collaboration.version}</include>
             </includes>
         </dependencySet>
         
