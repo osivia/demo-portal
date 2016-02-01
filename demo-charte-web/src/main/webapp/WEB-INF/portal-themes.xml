@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<themes>
+    <theme>
+        <name>demo-charte-web</name>
+        
+        <link rel="icon" href="/img/osivia.ico" />
+        
+        <!-- CSS -->
+        <link rel="stylesheet" href="/css/demo-web.min.css" title="Demo" />
+    </theme>
+</themes>

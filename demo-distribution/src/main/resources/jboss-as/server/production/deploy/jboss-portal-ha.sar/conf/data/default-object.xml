@@ -148,7 +148,7 @@
                 </property>
                 <property>
                     <name>theme.id</name>
-                    <value>osivia-demo-charte</value>
+                    <value>demo-charte</value>
                 </property>
                 <property>
                     <name>osivia.cms.requestFilteringPolicy</name>
@@ -160,7 +160,7 @@
                 </property>
                 <property>
                     <name>layout.id</name>
-                    <value>osivia-demo-2cols</value>
+                    <value>demo-2-cols</value>
                 </property>
             </properties>
             <security-constraint>
@@ -178,7 +178,7 @@
                     <unchecked />
                 </policy-permission>
             </security-constraint>
-    
+
             <page>
                 <page-name>home</page-name>
                 <properties>
@@ -199,89 +199,235 @@
                 </security-constraint>
                 <display-name xml:lang="fr">Accueil</display-name>
             </page>
-    
+
             <page>
                 <page-name>templates</page-name>
-                <properties>
-                    <property>
-                        <name>order</name>
-                        <value>2</value>
-                    </property>
-                </properties>
-                <security-constraint>
-                    <policy-permission>
-                        <action-name>view</action-name>
-                        <unchecked />
-                    </policy-permission>
-                </security-constraint>
+                <properties />
+                <security-constraint />
+
+                <page>
+                    <page-name>publish</page-name>
+                    <properties />
+                    <security-constraint />
+                </page>
+
+                <page>
+                    <page-name>portalSitePublish</page-name>
+                    <properties />
+                    <security-constraint />
+                </page>
+
                 <page>
                     <page-name>search</page-name>
+                    <display-name xml:lang="fr">Recherche</display-name>
                     <properties>
-                        <property>
-                            <name>order</name>
-                            <value>1</value>
-                        </property>
                         <property>
                             <name>osivia.cms.outgoingRecontextualizationSupport</name>
                             <value>1</value>
                         </property>
+                        <property>
+                            <name>layout.id</name>
+                            <value>demo-1-col</value>
+                        </property>
                     </properties>
-                    <security-constraint>
-                        <policy-permission>
-                            <action-name>view</action-name>
-                            <unchecked />
-                        </policy-permission>
-                    </security-constraint>
+                    <security-constraint />
                     <window>
-                        <window-name>toutatice-portail-cms-nuxeo-searchPortletInstance_1</window-name>
+                        <window-name>toutatice-portail-cms-nuxeo-searchPortletInstance_1454324303069</window-name>
                         <instance-ref>toutatice-portail-cms-nuxeo-searchPortletInstance</instance-ref>
-                        <region>col2</region>
-                        <height>0</height>
+                        <region>col-1</region>
                         <properties>
+                            <property>
+                                <name>osivia.title</name>
+                                <value>Résultats de la recherche</value>
+                            </property>
+                            <property>
+                                <name>osivia.bootstrapPanelStyle</name>
+                                <value>false</value>
+                            </property>
                             <property>
                                 <name>portal.windowContentType</name>
                                 <value>portlet</value>
                             </property>
                             <property>
+                                <name>theme.dyna.partial_refresh_enabled</name>
+                                <value>true</value>
+                            </property>
+                            <property>
                                 <name>theme.order</name>
                                 <value>0</value>
                             </property>
+                            <property>
+                                <name>osivia.maximized.cms.url</name>
+                                <value>false</value>
+                            </property>
+                            <property>
+                                <name>osivia.ajaxLink</name>
+                                <value>1</value>
+                            </property>
+                            <property>
+                                <name>osivia.hideDecorators</name>
+                                <value>1</value>
+                            </property>
+                            <property>
+                                <name>osivia.mobileCollapse</name>
+                                <value>false</value>
+                            </property>
                         </properties>
+                        <height>0</height>
                     </window>
-                    <display-name xml:lang="fr">Recherche</display-name>
                 </page>
+
                 <page>
-                    <page-name>publish</page-name>
+                    <page-name>advancedSearch</page-name>
+                    <display-name xml:lang="fr">Recherche avancée</display-name>
                     <properties>
                         <property>
-                            <name>order</name>
-                            <value>2</value>
+                            <name>osivia.cms.outgoingRecontextualizationSupport</name>
+                            <value>1</value>
                         </property>
                     </properties>
-                    <security-constraint>
-                        <policy-permission>
-                            <action-name>view</action-name>
-                            <unchecked />
-                        </policy-permission>
-                    </security-constraint>
-                </page>
-                <page>
-                    <page-name>portalSitePublish</page-name>
-                    <properties>
-                        <property>
-                            <name>order</name>
-                            <value>3</value>
-                        </property>
-                    </properties>
-                    <security-constraint>
-                        <policy-permission>
-                            <action-name>view</action-name>
-                            <unchecked />
-                        </policy-permission>
-                    </security-constraint>
+                    <security-constraint />
+                    <window>
+                        <window-name>toutatice-portail-cms-nuxeo-keywordsSelectorPortletInstance_1454087760560</window-name>
+                        <instance-ref>toutatice-portail-cms-nuxeo-keywordsSelectorPortletInstance</instance-ref>
+                        <region>col-1</region>
+                        <properties>
+                            <property>
+                                <name>osivia.title</name>
+                                <value>Sélecteur par titre</value>
+                            </property>
+                            <property>
+                                <name>osivia.keywordMonoValued</name>
+                                <value>1</value>
+                            </property>
+                            <property>
+                                <name>theme.order</name>
+                                <value>0</value>
+                            </property>
+                            <property>
+                                <name>osivia.maximized.cms.url</name>
+                                <value>false</value>
+                            </property>
+                            <property>
+                                <name>osivia.ajaxLink</name>
+                                <value>1</value>
+                            </property>
+                            <property>
+                                <name>osivia.bootstrapPanelStyle</name>
+                                <value>false</value>
+                            </property>
+                            <property>
+                                <name>osivia.libelle</name>
+                                <value>Titre</value>
+                            </property>
+                            <property>
+                                <name>portal.windowContentType</name>
+                                <value>portlet</value>
+                            </property>
+                            <property>
+                                <name>osivia.hideDecorators</name>
+                                <value>1</value>
+                            </property>
+                            <property>
+                                <name>theme.dyna.partial_refresh_enabled</name>
+                                <value>true</value>
+                            </property>
+                            <property>
+                                <name>osivia.mobileCollapse</name>
+                                <value>false</value>
+                            </property>
+                            <property>
+                                <name>osivia.hideTitle</name>
+                                <value>1</value>
+                            </property>
+                            <property>
+                                <name>osivia.selectorId</name>
+                                <value>title</value>
+                            </property>
+                        </properties>
+                        <height>0</height>
+                    </window>
+                    <window>
+                        <window-name>toutatice-portail-cms-nuxeo-viewListPortletInstance_1454087803544</window-name>
+                        <instance-ref>toutatice-portail-cms-nuxeo-viewListPortletInstance</instance-ref>
+                        <region>col-2</region>
+                        <properties>
+                            <property>
+                                <name>osivia.title</name>
+                                <value>Résultats de la recherche</value>
+                            </property>
+                            <property>
+                                <name>osivia.beanShell</name>
+                                <value>on</value>
+                            </property>
+                            <property>
+                                <name>theme.order</name>
+                                <value>0</value>
+                            </property>
+                            <property>
+                                <name>osivia.cms.pageSize</name>
+                                <value>20</value>
+                            </property>
+                            <property>
+                                <name>osivia.cms.displayLiveVersion</name>
+                                <value>2</value>
+                            </property>
+                            <property>
+                                <name>osivia.maximized.cms.url</name>
+                                <value>false</value>
+                            </property>
+                            <property>
+                                <name>osivia.nuxeoRequest</name>
+                                <value>StringBuilder nuxeoRequest = new StringBuilder();&#13;
+nuxeoRequest.append("ecm:path STARTSWITH '/' ");&#13;
+&#13;
+// Title&#13;
+if (params.get("title") != null) {&#13;
+nuxeoRequest.append("AND ").append(NXQLFormater.formatTextSearch("dc:title", params.get("title"))).append(" ");&#13;
+}&#13;
+&#13;
+&#13;
+nuxeoRequest.append("ORDER BY dc:modified DESC");&#13;
+return nuxeoRequest.toString();</value>
+                            </property>
+                            <property>
+                                <name>osivia.ajaxLink</name>
+                                <value>1</value>
+                            </property>
+                            <property>
+                                <name>osivia.bootstrapPanelStyle</name>
+                                <value>false</value>
+                            </property>
+                            <property>
+                                <name>portal.windowContentType</name>
+                                <value>portlet</value>
+                            </property>
+                            <property>
+                                <name>osivia.hideDecorators</name>
+                                <value>1</value>
+                            </property>
+                            <property>
+                                <name>osivia.displayNuxeoRequest</name>
+                                <value>on</value>
+                            </property>
+                            <property>
+                                <name>theme.dyna.partial_refresh_enabled</name>
+                                <value>true</value>
+                            </property>
+                            <property>
+                                <name>osivia.mobileCollapse</name>
+                                <value>false</value>
+                            </property>
+                            <property>
+                                <name>osivia.cms.style</name>
+                                <value>search-results</value>
+                            </property>
+                        </properties>
+                        <height>0</height>
+                    </window>
                 </page>
             </page>
-    
+
         </portal>
     </deployment>
 

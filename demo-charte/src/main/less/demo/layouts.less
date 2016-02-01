@@ -1,0 +1,44 @@
+//
+// Charte Demo - Layouts
+// -----------------------------------------------------
+
+
+// Variables
+@import "../bootstrap/variables.less";
+
+
+body {
+    background-image: url("../img/background.png");
+    background-repeat: no-repeat;
+    background-position: 125px 60px;
+}
+
+
+header {
+    margin-bottom: @line-height-computed;
+    
+    .banner {
+        position: relative;
+        
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: 16px;
+            left: 260px;
+            right: 0;
+            height: 16px;
+            z-index: -1;
+            
+            background-color: @brand-primary;
+        }
+        
+        #search {
+            margin-top: @line-height-computed;
+        }
+    }
+}
+
+
+#page-content {
+    margin-bottom: @line-height-computed;
+}

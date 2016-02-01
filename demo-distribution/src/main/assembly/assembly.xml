@@ -17,6 +17,7 @@
             <includes>
                 <!-- Demo -->
                 <include>${project.groupId}:demo-charte:war:${project.version}</include>
+                <include>${project.groupId}:demo-charte-web:war:${project.version}</include>
                 <include>${project.groupId}:demo-customizer:war:${project.version}</include>
                 <!-- Toutatice CMS -->
                 <include>toutatice-portail.cms:toutatice-portail-cms-nuxeo-web:war:${toutatice.version}</include>
@@ -62,7 +63,6 @@
                 <exclude>jboss-as/server/production/deploy/jboss-portal-ha.sar/conf/identity/ldap_identity-config.xml</exclude>
                 <exclude>jboss-as/server/production/deploy/jboss-portal-ha.sar/conf/identity/profile-config.xml</exclude>
                 <exclude>jboss-as/server/production/deploy/jboss-portal-ha.sar/portal-server.war/WEB-INF/context.xml</exclude>
-                <exclude>jboss-as/server/production/deploy/jboss-portal-ha.sar/portal-server.war/WEB-INF/jboss-web.xml</exclude>
                 <exclude>jboss-as/server/production/deploy/jboss-portal-ha.sar/portal-server.war/WEB-INF/web.xml</exclude>
             </excludes>
         </fileSet>

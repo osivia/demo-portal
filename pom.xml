@@ -15,7 +15,7 @@
     <properties>
         
         <!-- Toutatice -->
-        <toutatice.version>4.2.1</toutatice.version>
+        <toutatice.version>4.2.2-SNAPSHOT</toutatice.version>
         
         <!-- Directory -->
         <directory.version>4.2.0-RC3</directory.version>
@@ -34,6 +34,7 @@
     
     <modules>
         <module>demo-charte</module>
+        <module>demo-charte-web</module>
         <module>demo-customizer</module>
         <module>demo-distribution</module>
     </modules>

@@ -24,7 +24,7 @@ portlets.rendering=div
 
 # Generic template
 template.generic.name=/default/templates/publish
-template.generic.region=col1
+template.generic.region=col-1
 
 # LDAP
 # Base DN utilisateurs

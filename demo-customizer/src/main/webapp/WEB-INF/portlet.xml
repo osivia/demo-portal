@@ -5,7 +5,7 @@
     version="2.0">
 
     <portlet>
-        <portlet-name>demo-customizer</portlet-name>
+        <portlet-name>demo-plugin</portlet-name>
         <portlet-class>org.osivia.demo.customizer.plugin.DemoPlugin</portlet-class>
 
         <supports>
@@ -13,7 +13,49 @@
         </supports>
         
         <portlet-info>
-            <title>Customizer</title>
+            <title>Plugin</title>
+        </portlet-info>
+    </portlet>
+    
+    
+    <portlet>
+        <portlet-name>demo-regions-customizer</portlet-name>
+        <portlet-class>org.osivia.demo.customizer.regions.RegionsCustomizer</portlet-class>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+        </supports>
+          
+        <portlet-info>
+            <title>Regions customizer</title>
+        </portlet-info>
+    </portlet>
+    
+    
+    <portlet>
+        <portlet-name>demo-attributes-customizer</portlet-name>
+        <portlet-class>org.osivia.demo.customizer.attributes.AttributesCustomizer</portlet-class>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+        </supports>
+          
+        <portlet-info>
+            <title>Attributes customizer</title>
+        </portlet-info>
+    </portlet>
+    
+    
+    <portlet>
+        <portlet-name>demo-internationalization-customizer</portlet-name>
+        <portlet-class>org.osivia.demo.customizer.internationalization.InternationalizationCustomizer</portlet-class>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+        </supports>
+          
+        <portlet-info>
+            <title>Internationalization customizer</title>
         </portlet-info>
     </portlet>
 

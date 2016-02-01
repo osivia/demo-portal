@@ -1,0 +1,50 @@
+//
+// Charte Demo Web - Layouts
+// -----------------------------------------------------
+
+
+// Variables
+@import "../bootstrap/variables.less";
+
+
+body {
+    @media screen and (min-width: @screen-sm-min) {
+        background-color: tint(@brand-primary, 90%);
+    }
+}
+
+
+.banner {
+    margin-bottom: @line-height-computed;
+    
+    border-bottom-style: solid;
+    border-width: 2px;
+    border-color: lighten(@brand-primary, 10%);
+}
+
+
+.simple-menubar {
+    margin-top: floor(@line-height-computed / 2);
+}
+
+
+#page-content {
+    @media screen and (min-width: @screen-sm-min) {
+        margin-top: @line-height-computed;
+        margin-bottom: @line-height-computed;
+        padding: @panel-body-padding;
+        
+        background-color: #fff;
+        border-radius: @border-radius-large;
+        
+        &:extend(.clearfix all);
+    }
+}
+
+
+#drawer {
+    @media screen and (max-width: @screen-xs-max) {
+        padding-top: @padding-base-vertical;
+        padding-bottom: @padding-base-vertical;
+    }
+}

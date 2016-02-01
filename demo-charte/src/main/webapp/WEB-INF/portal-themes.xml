@@ -3,7 +3,12 @@
     <theme>
         <name>demo-charte</name>
         
+        <link rel="icon" href="/img/osivia.ico" />
+        
         <!-- CSS -->
         <link rel="stylesheet" href="/css/demo.min.css" title="Demo" />
+        
+        <!-- JavaScript -->
+        <script type="text/javascript" src="/js/demo.js"></script>
     </theme>
 </themes>
