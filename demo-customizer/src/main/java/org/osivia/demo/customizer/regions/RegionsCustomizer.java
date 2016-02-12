@@ -32,7 +32,7 @@ public class RegionsCustomizer extends GenericPortlet implements ICustomizationM
     private static final String CHARTE_WEB_CONTEXT_PATH = "/demo-charte-web";
 
 
-    /** Internationalization customization module metadatas. */
+    /** Customization module metadatas. */
     private final CustomizationModuleMetadatas metadatas;
 
 

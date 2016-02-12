@@ -29,7 +29,7 @@ public class AttributesCustomizer extends GenericPortlet implements ICustomizati
     private static final String ATTRIBUTE_CUSTOMIZATION_MODULES_REPOSITORY = "CustomizationModulesRepository";
 
 
-    /** Internationalization customization module metadatas. */
+    /** Customization module metadatas. */
     private final CustomizationModuleMetadatas metadatas;
     /** Customized bundles. */
     private final List<IAttributesBundle> bundles;

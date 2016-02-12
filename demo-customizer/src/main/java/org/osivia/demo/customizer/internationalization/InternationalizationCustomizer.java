@@ -33,7 +33,7 @@ public class InternationalizationCustomizer extends GenericPortlet implements IC
     private static final String RESOURCE_BUNDLE_NAME = "Resource";
 
 
-    /** Internationalization customization module metadatas. */
+    /** Customization module metadatas. */
     private final CustomizationModuleMetadatas metadatas;
 
 

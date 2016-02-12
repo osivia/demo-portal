@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <%@ taglib uri="portal-layout" prefix="p" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
 <html>
@@ -23,7 +24,7 @@
                 
                 <div class="row">
                     <!-- Drawer -->
-                    <div id="drawer">
+                    <div id="drawer" class="taskbar-container taskbar-affix">
                         <p:region regionName="drawer-toolbar" />
                         
                         <div class="col-auto">
