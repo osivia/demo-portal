@@ -6,7 +6,7 @@
 
     <groupId>org.osivia.demo</groupId>
     <artifactId>demo-parent</artifactId>
-    <version>4.2.2-SNAPSHOT</version>
+    <version>4.2.5-SNAPSHOT</version>
     <packaging>pom</packaging>
     
     <name>Demo - Parent</name>
@@ -15,13 +15,13 @@
     <properties>
         
         <!-- Toutatice -->
-        <toutatice.version>4.2.2-SNAPSHOT</toutatice.version>
+        <toutatice.version>4.2.5</toutatice.version>
         
         <!-- Directory -->
-        <directory.version>4.2.0-RC3</directory.version>
+        <directory.version>4.2.4-SNAPSHOT</directory.version>
         
         <!-- Collaboration -->
-        <collaboration.version>4.2.0</collaboration.version>
+        <collaboration.version>4.2.4-SNAPSHOT</collaboration.version>
         
         <!-- Identity SSO -->
         <identity-sso.version>3.0.6</identity-sso.version>

@@ -34,9 +34,19 @@
                     </div>
                     
                     <div class="col-sm-8 col-md-9">
-                        <p:region regionName="col-2-before" cms="true" />
-                        <p:region regionName="col-2" />
-                        <p:region regionName="col-2-after" cms="true" />
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p:region regionName="col-2-before" cms="true" />
+                                <p:region regionName="col-2" />
+                                <p:region regionName="col-2-after" cms="true" />
+                            </div>
+                            
+                            <div class="col-sm-6">
+                                <p:region regionName="col-3-before" cms="true" />
+                                <p:region regionName="col-3" />
+                                <p:region regionName="col-3-after" cms="true" />
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
