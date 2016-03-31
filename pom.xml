@@ -18,10 +18,10 @@
         <toutatice.version>4.2.5</toutatice.version>
         
         <!-- Directory -->
-        <directory.version>4.2.4-SNAPSHOT</directory.version>
+        <directory.version>4.2.0-RC3</directory.version>
         
         <!-- Collaboration -->
-        <collaboration.version>4.2.4-SNAPSHOT</collaboration.version>
+        <collaboration.version>4.2.4</collaboration.version>
         
         <!-- Identity SSO -->
         <identity-sso.version>3.0.6</identity-sso.version>
