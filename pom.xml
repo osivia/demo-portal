@@ -4,7 +4,7 @@
 
     <groupId>org.osivia.demo</groupId>
     <artifactId>demo-parent</artifactId>
-    <version>4.2.5</version>
+    <version>4.2.6-SNAPSHOT</version>
     <packaging>pom</packaging>
     
     <name>Demo - Parent</name>
@@ -173,7 +173,7 @@
     
     
     <scm>
-        <developerConnection>scm:svn:http://www.osivia.org/repos/osivia-demo/demo/tags/4.2.5</developerConnection>
+        <developerConnection>scm:svn:http://www.osivia.org/repos/osivia-demo/demo/trunk</developerConnection>
     </scm>
     
     
