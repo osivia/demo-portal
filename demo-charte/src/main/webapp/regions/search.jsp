@@ -6,9 +6,9 @@
 <c:set var="placeholder"><op:translate key="SEARCH_PLACEHOLDER" /></c:set>
 
 
-<form action="${requestScope['osivia.search.url']}" method="post" onsubmit="onsubmitSearch(this)" class="form-inline" role="search">
+<form action="${requestScope['osivia.search.url']}" method="post" class="form-inline" role="search">
     <div class="form-group">
-        <label for="search-input" class="sr-only">${placeholder}</label>
+        <label for="search-input" class="sr-only"><op:translate key="SEARCH" /></label>
         <div class="input-group input-group-sm">
             <input id="search-input" type="text" name="keywords" class="form-control" placeholder="${placeholder}">
             <span class="input-group-btn">

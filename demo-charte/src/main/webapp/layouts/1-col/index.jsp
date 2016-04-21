@@ -21,6 +21,13 @@
                 <!-- Notifications -->
                 <p:region regionName="notifications" />
                 
+                <div class="row">
+                    <!-- Drawer -->
+                    <div id="drawer">
+                        <p:region regionName="drawer-toolbar" />
+                    </div>
+                </div>
+
                 <p:region regionName="col-1" />
             </div>
         </div>
