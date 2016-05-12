@@ -13,7 +13,8 @@
             <input id="search-input" type="text" name="keywords" class="form-control" placeholder="${placeholder}">
             <span class="input-group-btn">
                 <button type="submit" class="btn btn-default" title="${title}" data-toggle="tooltip" data-placement="bottom">
-                    <span class="glyphicons halflings search"></span>
+                    <span class="halflings halflings-search"></span>
+                    <span class="sr-only">${title}</span>
                 </button>
             </span>
         </div>
