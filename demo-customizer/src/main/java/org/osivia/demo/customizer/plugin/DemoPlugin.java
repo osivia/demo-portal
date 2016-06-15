@@ -1,5 +1,6 @@
 package org.osivia.demo.customizer.plugin;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.portlet.PortletException;
@@ -9,6 +10,7 @@ import org.osivia.portal.api.internationalization.Bundle;
 import org.osivia.portal.api.internationalization.IBundleFactory;
 import org.osivia.portal.api.internationalization.IInternationalizationService;
 import org.osivia.portal.api.locator.Locator;
+import org.osivia.portal.api.theming.TemplateAdapter;
 
 import fr.toutatice.portail.cms.nuxeo.api.domain.AbstractPluginPortlet;
 import fr.toutatice.portail.cms.nuxeo.api.domain.ListTemplate;
@@ -70,6 +72,8 @@ public class DemoPlugin extends AbstractPluginPortlet {
     protected void customizeCMSProperties(String customizationID, CustomizationContext context) {
         // List templates
         this.customizeListTemplates(context);
+        // Template adapters
+        this.customizeTemplateAdapters(context);
     }
 
 
@@ -88,6 +92,21 @@ public class DemoPlugin extends AbstractPluginPortlet {
         // Search results
         ListTemplate searchResults = new ListTemplate("search-results", bundle.getString("LIST_TEMPLATE_SEARCH_RESULTS"), SEARCH_RESULTS_SCHEMAS);
         templates.put(searchResults.getKey(), searchResults);
+    }
+
+
+    /**
+     * Customize template adapters.
+     *
+     * @param context customization context
+     */
+    private void customizeTemplateAdapters(CustomizationContext context) {
+        // Template adapters
+        List<TemplateAdapter> adapters = this.getTemplateAdapters(context);
+
+        // Demo adapter
+        TemplateAdapter demo = new DemoTemplateAdapter();
+        adapters.add(demo);
     }
 
 }
