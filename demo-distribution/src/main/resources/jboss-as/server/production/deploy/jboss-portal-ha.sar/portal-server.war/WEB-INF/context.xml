@@ -6,6 +6,7 @@
         casLogout="${cas.logout}"
         casValidate="${cas.validate}"
         casServerName="${cas.servername}"
+        brokenSecurityMode="${cas.brokenSecurityMode}"
         authType="FORM" />
 
 </Context>
