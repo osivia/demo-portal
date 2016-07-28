@@ -133,17 +133,19 @@ public class FeederCustomizer extends GenericPortlet implements ICustomizationMo
             NodeList casAttributesList = authentication.getElementsByTagName("cas:attributes");
             if (casAttributesList != null) {
                 Node casAttributes = casAttributesList.item(0);
-
-                for (int i = 0; i < casAttributes.getChildNodes().getLength(); i++) {
-                    Node casAttribute = casAttributes.getChildNodes().item(i);
-                    if (casAttribute.getNodeType() == Node.ELEMENT_NODE) {
-                        String attributeName = casAttribute.getNodeName();
-                        if (attributeName.startsWith(CAS_ATTRIBUTE_PREFIX)) {
-                            // Store attribute
-                            personAttributes.put(attributeName.substring(CAS_ATTRIBUTE_PREFIX.length()), casAttribute.getTextContent());
+                if(casAttributes != null) {
+                    for (int i = 0; i < casAttributes.getChildNodes().getLength(); i++) {
+                        Node casAttribute = casAttributes.getChildNodes().item(i);
+                        if (casAttribute.getNodeType() == Node.ELEMENT_NODE) {
+                            String attributeName = casAttribute.getNodeName();
+                            if (attributeName.startsWith(CAS_ATTRIBUTE_PREFIX)) {
+                                // Store attribute
+                                personAttributes.put(attributeName.substring(CAS_ATTRIBUTE_PREFIX.length()), casAttribute.getTextContent());
+                            }
                         }
                     }
                 }
+
             }
 
             // Create, Update LDAP
