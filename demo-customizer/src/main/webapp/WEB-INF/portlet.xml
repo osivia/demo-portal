@@ -58,5 +58,18 @@
             <title>Internationalization customizer</title>
         </portlet-info>
     </portlet>
+    
+     <portlet>
+        <portlet-name>demo-feeder-customizer</portlet-name>
+        <portlet-class>org.osivia.demo.customizer.feeder.FeederCustomizer</portlet-class>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+        </supports>
+          
+        <portlet-info>
+            <title>Feeder customizer</title>
+        </portlet-info>
+    </portlet>
 
 </portlet-app>
