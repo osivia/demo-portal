@@ -22,7 +22,7 @@
         <collaboration.version>4.4.0-SNAPSHOT</collaboration.version>
         
         <!-- Identity SSO -->
-        <identity-sso.version>3.0.7</identity-sso.version>
+        <identity-sso.version>3.0.8-SNAPSHOT</identity-sso.version>
         
         <!-- Java Melody -->
         <java-melody.version>1.2</java-melody.version>
