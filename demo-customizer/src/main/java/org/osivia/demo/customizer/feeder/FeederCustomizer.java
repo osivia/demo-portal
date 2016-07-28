@@ -32,7 +32,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 
-
 /**
  * The Class FeederCustomizer.
  */
@@ -121,36 +120,33 @@ public class FeederCustomizer extends GenericPortlet implements ICustomizationMo
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(new InputSource(new StringReader(response)));
 
-            NodeList casResponse = doc.getElementsByTagName("cas:serviceResponse");
-            Node authentication = casResponse.item(0);
+            Element authentication = (Element) doc.getElementsByTagName("cas:serviceResponse").item(0);
 
             String userId = "";
 
             Map<String, String> personAttributes = new HashMap<String, String>();
 
-
-            if (authentication.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) authentication;
-                userId = eElement.getElementsByTagName("cas:user").item(0).getTextContent();
+            // User is Mandatory
+            userId = authentication.getElementsByTagName("cas:user").item(0).getTextContent();
 
 
-                NodeList casAttributesList = eElement.getElementsByTagName("cas:attributes");
-                if (casAttributesList != null) {
-                    Node casAttributes = casAttributesList.item(0);
+            NodeList casAttributesList = authentication.getElementsByTagName("cas:attributes");
+            if (casAttributesList != null) {
+                Node casAttributes = casAttributesList.item(0);
 
-                    for (int i = 0; i < casAttributes.getChildNodes().getLength(); i++) {
-                        Node casAttribute = casAttributes.getChildNodes().item(i);
-                        if (casAttribute.getNodeType() == Node.ELEMENT_NODE) {
-                            String attributeName = casAttribute.getNodeName();
-                            if (attributeName.startsWith(CAS_ATTRIBUTE_PREFIX)) {
-                                personAttributes.put(attributeName.substring(CAS_ATTRIBUTE_PREFIX.length()), casAttribute.getTextContent());
-                            }
+                for (int i = 0; i < casAttributes.getChildNodes().getLength(); i++) {
+                    Node casAttribute = casAttributes.getChildNodes().item(i);
+                    if (casAttribute.getNodeType() == Node.ELEMENT_NODE) {
+                        String attributeName = casAttribute.getNodeName();
+                        if (attributeName.startsWith(CAS_ATTRIBUTE_PREFIX)) {
+                            // Store attribute
+                            personAttributes.put(attributeName.substring(CAS_ATTRIBUTE_PREFIX.length()), casAttribute.getTextContent());
                         }
                     }
                 }
             }
 
-
+            // Create, Update LDAP
             PersonService service = DirServiceFactory.getService(PersonService.class);
             if (service != null) {
                 Person p = service.getPerson(userId);
@@ -186,7 +182,7 @@ public class FeederCustomizer extends GenericPortlet implements ICustomizationMo
 
             }
         } catch (Exception e) {
-            logger.error(e);
+            throw new RuntimeException(e);
         }
     }
 }
