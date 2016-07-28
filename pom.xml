@@ -21,6 +21,10 @@
         <!-- Collaboration -->
         <collaboration.version>4.4.0-SNAPSHOT</collaboration.version>
         
+        <!-- Other services -->
+        <tasks.version>1.0.0-SNAPSHOT</tasks.version>
+        <procedure.version>1.0.0-SNAPSHOT</procedure.version>
+        
         <!-- Identity SSO -->
         <identity-sso.version>3.0.8-SNAPSHOT</identity-sso.version>
         
