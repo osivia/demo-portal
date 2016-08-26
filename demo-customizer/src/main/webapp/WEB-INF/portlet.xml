@@ -71,5 +71,20 @@
             <title>Feeder customizer</title>
         </portlet-info>
     </portlet>
+    
+   <portlet>
+        <portlet-name>demo-cgu-customizerPortlet</portlet-name>
+        <portlet-class>org.osivia.portal.demo.customizer.CGUCustomizerPortlet</portlet-class>
+
+          <expiration-cache>180</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+        </supports>
+          
+        <portlet-info>
+            <title>CGU customizer</title>
+        </portlet-info>
+    </portlet>
 
 </portlet-app>

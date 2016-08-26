@@ -102,6 +102,15 @@
             <version>${identity-sso.version}</version>
         </dependency>
         
+        
+        <!-- CGU -->
+        <dependency>
+            <groupId>org.osivia.services.cgu</groupId>
+            <artifactId>osivia-services-cgu-portail</artifactId>
+            <version>${osivia-services-cgu.version}</version>
+            <type>war</type>
+        </dependency>
+                
         <!-- Java Melody -->
         <dependency>
             <groupId>org.osivia.services</groupId>

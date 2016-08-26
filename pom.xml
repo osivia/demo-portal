@@ -27,6 +27,9 @@
         
         <!-- Identity SSO -->
         <identity-sso.version>3.0.8-SNAPSHOT</identity-sso.version>
+ 
+        <!-- CGU -->
+        <osivia-services-cgu.version>1.0-SNAPSHOT</osivia-services-cgu.version>
         
         <!-- Java Melody -->
         <java-melody.version>1.2</java-melody.version>
