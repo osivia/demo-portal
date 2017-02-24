@@ -4,7 +4,7 @@
 
     <groupId>org.osivia.demo</groupId>
     <artifactId>demo-parent</artifactId>
-    <version>4.4.0-SNAPSHOT</version>
+    <version>4.4-SNAPSHOT</version>
     <packaging>pom</packaging>
     
     <name>Demo - Parent</name>
@@ -13,24 +13,22 @@
     <properties>
         
         <!-- Toutatice -->
-        <toutatice.version>4.4.0-SNAPSHOT</toutatice.version>
+        <toutatice.version>4.4-SNAPSHOT</toutatice.version>
         
         <!-- Directory -->
-        <directory.version>4.4.0-SNAPSHOT</directory.version>
+        <directory.version>4.4-SNAPSHOT</directory.version>
         
         <!-- Collaboration -->
-        <collaboration.version>4.4.0-SNAPSHOT</collaboration.version>
+        <collaboration.version>4.4-SNAPSHOT</collaboration.version>
         
         <!-- Other services -->
-        <tasks.version>1.0.0-SNAPSHOT</tasks.version>
-        <procedure.version>1.0.0-SNAPSHOT</procedure.version>
+        <tasks.version>4.4</tasks.version>
+        <procedure.version>4.4</procedure.version>
+        <cgu.version>4.4</cgu.version>
         
         <!-- Identity SSO -->
-        <identity-sso.version>3.0.8-SNAPSHOT</identity-sso.version>
+        <identity-sso.version>3.0.9</identity-sso.version>
  
-        <!-- CGU -->
-        <osivia-services-cgu.version>1.0-SNAPSHOT</osivia-services-cgu.version>
-        
         <!-- Java Melody -->
         <java-melody.version>1.2</java-melody.version>
         

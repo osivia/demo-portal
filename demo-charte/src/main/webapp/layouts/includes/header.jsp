@@ -23,10 +23,13 @@
                 </div>
             </div>
         </div>
-    
-        <!-- Tabs -->
-        <div class="tabs-custom">
-            <p:region regionName="tabs" />
-        </div>
     </div>
 </header>
+
+
+<!-- Tabs -->
+<div class="tabs-container hidden-xs">
+    <div class="container-fluid">
+        <p:region regionName="tabs" />
+    </div>
+</div>

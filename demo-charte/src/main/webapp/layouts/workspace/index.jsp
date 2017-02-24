@@ -10,60 +10,63 @@
 </head>
 
 
-<body>
+<body class="fixed-layout">
     <jsp:include page="../includes/header.jsp" />
     
-    <div class="wrapper-outer">
-        <div class="wrapper-inner">
-            <div id="page-content" class="container-fluid">
-                <!-- Content navbar -->
-                <jsp:include page="../includes/content-navbar.jsp" />
-            
-                <!-- Notifications -->
-                <p:region regionName="notifications" />
-                
-                <div class="row">
-                    <!-- Drawer -->
-                    <div id="drawer" class="taskbar-container taskbar-affix">
+    <main>
+        <div class="container-fluid flexbox">
+            <!-- Content navbar -->
+            <jsp:include page="../includes/content-navbar.jsp" />
+        
+            <div class="row flexbox">
+                <!-- Drawer -->
+                <div id="drawer" class="col-auto flexbox">
+                    <div class="row">
                         <p:region regionName="drawer-toolbar" />
+                    </div>
                         
-                        <div class="col-auto">
-                            <div class="row">
-                                <div class="col-auto">
-                                    <p:region regionName="col-1" />
-                                </div>
-                                
-                                <div
-                                    <c:choose>
-                                        <c:when test="${requestScope['osivia.panels.navigation-panel.closed']}">class="hidden"</c:when>
-                                        <c:otherwise>class="col-auto"</c:otherwise>
-                                    </c:choose>
-                                >
-                                    <p:region regionName="navigation-panel" />
-                                </div>
-                            </div>
+                    <div class="scrollbox">
+                        <p:region regionName="col-1" />
+                    </div>
+                        
+                    <div
+                        <c:choose>
+                            <c:when test="${requestScope['osivia.panels.navigation-panel.closed']}">class="hidden"</c:when>
+                            <c:otherwise>class="col-auto flexbox hidden-sm"</c:otherwise>
+                        </c:choose>
+                    >
+                        <div class="scrollbox">
+                            <p:region regionName="navigation-panel" />
                         </div>
                     </div>
-                    
-                    <div>
-                        <div class="col-sm-12">
-                            <p:region regionName="col-2" />
+                </div>
+                
+                <div class="col-offset-auto col-auto flexbox">
+                    <div class="scrollbox">
+                        <!-- Workspace header -->
+                        <div class="workspace-header">
+                            <p:region regionName="workspace-header-1" />
+                            <p:region regionName="workspace-header-2" />
+                        </div>
+                        
+                        <p:region regionName="cols-top" />
+                        
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p:region regionName="col-2" />
+                            </div>
                             
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <p:region regionName="col-2a" />
-                                </div>
-                                
-                                <div class="col-sm-6">
-                                    <p:region regionName="col-2b" />
-                                </div>
+                            <div class="col-sm-6">
+                                <p:region regionName="col-3" />
                             </div>
                         </div>
+                        
+                        <p:region regionName="cols-bottom" />
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
     
     <jsp:include page="../includes/footer.jsp" />
 </body>

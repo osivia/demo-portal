@@ -23,13 +23,12 @@
                 <include>toutatice-portail.cms:toutatice-portail-cms-nuxeo-web:war:${toutatice.version}</include>
                 <!-- Directory -->
                 <include>org.osivia.services.directory:osivia-services-directory-ear:ear:${directory.version}</include>
-                <include>org.osivia.services.directory:osivia-services-directory-compat-ear:ear:${directory.version}</include>
                 <!-- Collaboration -->
                 <include>org.osivia.services:osivia-services-collaboration-ear:ear:${collaboration.version}</include>
                 <!-- Other services -->
                 <include>org.osivia.services:osivia-services-tasks:war:${tasks.version}</include>
                 <include>org.osivia.services:osivia-services-procedure:war:${procedure.version}</include>
-                <include>org.osivia.services.cgu:osivia-services-cgu-portail:war:${osivia-services-cgu.version}</include>                
+                <include>org.osivia.services.cgu:osivia-services-cgu-portail:war:${cgu.version}</include>                
             </includes>
         </dependencySet>
         
@@ -40,7 +39,6 @@
             <includes>
                 <!-- Directory -->
                 <include>org.osivia.services.directory.socle:osivia-services-directory-socle-interfaces:jar:${directory.version}</include>
-                <include>org.osivia.services.directory.socle:osivia-services-directory-compat-socle-interfaces:jar:${directory.version}</include>
                 <!-- Identity SSO -->
                 <include>org.osivia.portal.identity:osivia-portal-identity-sso-lib:jar:${identity-sso.version}</include>
                 <!-- Java Melody -->

@@ -12,6 +12,10 @@
         border-color: @table-border-color;
         
         &.table-header {
+            position: relative;
+            
+            padding-top: max(@table-cell-padding, @navbar-height - @line-height-computed - @table-cell-padding + 1);
+            
             border-width: 2px;
             
             font-weight: bold;
@@ -22,6 +26,58 @@
                 &:hover, &:focus {
                     color: darken(@text-color, 15%);
                 }
+            }
+            
+            .contextual-toolbar {
+                left: 0;
+                right: 0;
+                z-index: -1;
+                
+                opacity: 0;
+                
+                white-space: nowrap;
+                
+                &, ~ * {
+                    .transition-property(@transition-property: opacity);
+                    .transition-duration(@transition-duration: 200ms);
+                }
+                
+                &.in {
+                    z-index: @zindex-navbar - 3;
+                    
+                    opacity: 1;
+                }
+                
+                .navbar {
+                    margin-bottom: 0;
+                }
+                
+                
+                @media screen and (max-width: @screen-xs-max) {
+                    position: fixed;
+                    bottom: 0;
+                    
+                    .navbar {
+                        border-style: solid none none;
+                    }
+                }
+                
+                @media screen and (min-width: @screen-sm-min) {
+                    position: absolute;
+                    bottom: -1px;
+                    
+                    &.in {
+                        ~ * {
+                            opacity: 0;
+                        }
+                    }
+                }
+                
+                @media screen and (min-width: @screen-md-min) {
+                   .container-fluid {
+                       padding: 0;
+                   }
+               }
             }
         }
         
@@ -34,6 +90,7 @@
             opacity: 0.3;
         }
     }
+    
     
     .row {
         margin-left: -@table-cell-padding;
@@ -68,10 +125,8 @@
     }
     
     
-    @media screen and (min-width: @screen-sm-min) {
-        .table-body-wrapper {
-            max-height: 5 * (@input-height-base + 2 * @table-cell-padding);
-            overflow: auto;
-        }
+    ul {
+        margin-bottom: 0;
     }
+    
 }

@@ -4,6 +4,8 @@
 <footer class="hidden-xs"></footer>
 
 
+<!-- Notifications -->
+<p:region regionName="notifications" />
 <!-- Page settings -->
 <p:region regionName="pageSettings" />
 <!-- AJAX scripts -->
