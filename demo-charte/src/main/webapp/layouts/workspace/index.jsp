@@ -43,12 +43,6 @@
                 
                 <div class="col-offset-auto col-auto flexbox">
                     <div class="scrollbox">
-                        <!-- Workspace header -->
-                        <div class="workspace-header">
-                            <p:region regionName="workspace-header-1" />
-                            <p:region regionName="workspace-header-2" />
-                        </div>
-                        
                         <p:region regionName="cols-top" />
                         
                         <div class="row">

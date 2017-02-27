@@ -5,15 +5,17 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.portlet.GenericPortlet;
 import javax.portlet.PortletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jboss.portal.core.model.portal.Page;
 import org.jboss.portal.core.model.portal.Window;
+import org.jboss.portal.theme.impl.render.dynamic.DynaRenderOptions;
+import org.nuxeo.ecm.automation.client.model.Document;
 import org.osivia.portal.api.PortalException;
 import org.osivia.portal.api.context.PortalControllerContext;
 import org.osivia.portal.api.customization.CustomizationContext;
@@ -31,14 +33,18 @@ import org.osivia.portal.api.locator.Locator;
 import org.osivia.portal.api.urls.IPortalUrlFactory;
 import org.osivia.portal.core.constants.InternalConstants;
 
+import fr.toutatice.portail.cms.nuxeo.api.CMSPortlet;
+import fr.toutatice.portail.cms.nuxeo.api.INuxeoCommand;
+import fr.toutatice.portail.cms.nuxeo.api.NuxeoController;
+
 /**
  * Project customizer.
  *
  * @author Cédric Krommenhoek
- * @see GenericPortlet
+ * @see CMSPortlet
  * @see ICustomizationModule
  */
-public class ProjectCustomizer extends GenericPortlet implements ICustomizationModule {
+public class ProjectCustomizer extends CMSPortlet implements ICustomizationModule {
 
     /** Customizer name. */
     private static final String CUSTOMIZER_NAME = "demo.customizer.project";
@@ -47,6 +53,11 @@ public class ProjectCustomizer extends GenericPortlet implements ICustomizationM
 
     /** First connection indicator window property name. */
     private static final String FIRST_CONNECTION_INDICATOR_PROPERTY = "first-connection";
+
+    /** CGU level attribute. */
+    private static final String CGU_LEVEL_ATTRIBUTE = "osivia.services.cgu.level";
+    /** CGU path attribute. */
+    private static final String CGU_PATH_ATTRIBUTE = "osivia.services.cgu.path";
 
 
     /** Portal URL factory. */
@@ -126,14 +137,18 @@ public class ProjectCustomizer extends GenericPortlet implements ICustomizationM
         Bundle bundle = this.bundleFactory.getBundle(customizationContext.getLocale());
 
         if (configuration.isBeforeInvocation() && (principal != null)) {
-            firstConnectionRedirection(portalControllerContext, configuration, principal, bundle);
+            this.firstConnectionRedirection(portalControllerContext, configuration, principal, bundle);
+
+            if (StringUtils.isNotEmpty(configuration.getCMSPath())) {
+                this.cguRedirection(portalControllerContext, configuration, principal, bundle);
+            }
         }
     }
 
 
     /**
      * First connection redirection.
-     * 
+     *
      * @param portalControllerContext portal controller context
      * @param configuration project customization configuration
      * @param principal user principal
@@ -144,11 +159,16 @@ public class ProjectCustomizer extends GenericPortlet implements ICustomizationM
         // Person
         Person person = this.personService.getPerson(principal.getName());
 
-        if (StringUtils.isBlank(person.getDisplayName())) {
+        if ((person != null) && StringUtils.isBlank(person.getDisplayName())) {
             // Page
             Page page = configuration.getPage();
             // Window
-            Window window = page.getChild("virtual", Window.class);
+            Window window;
+            if (page == null) {
+                window = null;
+            } else {
+                window = page.getChild("virtual", Window.class);
+            }
 
             // Prevent loop on first connection portlet
             if ((window == null) || !BooleanUtils.toBoolean(window.getDeclaredProperty(FIRST_CONNECTION_INDICATOR_PROPERTY))) {
@@ -159,7 +179,7 @@ public class ProjectCustomizer extends GenericPortlet implements ICustomizationM
                 Map<String, String> properties = new HashMap<>();
                 properties.put(InternalConstants.PROP_WINDOW_TITLE, displayName);
                 properties.put("osivia.ajaxLink", "1");
-                properties.put("theme.dyna.partial_refresh_enabled", String.valueOf(true));
+                properties.put(DynaRenderOptions.PARTIAL_REFRESH_ENABLED, String.valueOf(true));
                 properties.put(FIRST_CONNECTION_INDICATOR_PROPERTY, String.valueOf(true));
                 properties.put("osivia.services.firstConnection.redirectionUrl", StringEscapeUtils.escapeHtml(configuration.buildRestorableURL()));
 
@@ -168,6 +188,87 @@ public class ProjectCustomizer extends GenericPortlet implements ICustomizationM
                 try {
                     redirectionUrl = this.portalUrlFactory.getStartPortletInNewPage(portalControllerContext, "first-connection", displayName,
                             "osivia-services-first-connection-instance", properties, null);
+                } catch (PortalException e) {
+                    throw new RuntimeException(e);
+                }
+
+                configuration.setRedirectionURL(redirectionUrl);
+            }
+        }
+    }
+
+
+    /**
+     * CGU redirection.
+     *
+     * @param portalControllerContext portal controller context
+     * @param configuration project customization configuration
+     * @param principal user principal
+     * @param bundle internationalization bundle
+     */
+    private void cguRedirection(PortalControllerContext portalControllerContext, IProjectCustomizationConfiguration configuration, Principal principal,
+            Bundle bundle) {
+        // Page
+        Page page = configuration.getPage();
+
+        if (page != null) {
+            // Window
+            Window window = page.getChild("virtual", Window.class);
+
+            // HTTP servlet request
+            HttpServletRequest servletRequest = configuration.getHttpServletRequest();
+            // HTTP session
+            HttpSession session = servletRequest.getSession();
+
+            // Nuxeo controller
+            NuxeoController nuxeoController = new NuxeoController(this.getPortletContext());
+            nuxeoController.setServletRequest(servletRequest);
+
+
+            // CGU path
+            String path = page.getProperty(CGU_PATH_ATTRIBUTE);
+            // Portal level
+            String portalLevel = page.getProperty(CGU_LEVEL_ATTRIBUTE);
+
+            // Is CGU defined ?
+            if ((portalLevel == null) || (path == null)) {
+                return;
+            }
+
+            // CGU already checked (in session) ?
+            String checkedLevel = String.valueOf(session.getAttribute(CGU_LEVEL_ATTRIBUTE));
+            if (StringUtils.equals(portalLevel, checkedLevel)) {
+                return;
+            }
+
+            // No CGU request on CGU !!!
+            if ((window != null) && StringUtils.isNotEmpty(window.getDeclaredProperty(CGU_PATH_ATTRIBUTE))) {
+                return;
+            }
+
+
+            // Get user profile
+            INuxeoCommand command = new GetProfileCommand(principal.getName());
+            Document userProfile = (Document) nuxeoController.executeNuxeoCommand(command);
+
+            // User level
+            String userLevel = userProfile.getProperties().getString("ttc_userprofile:terms_of_use_agreement");
+            session.setAttribute(CGU_LEVEL_ATTRIBUTE, userLevel);
+
+            if (!portalLevel.equals(userLevel)) {
+                session.setAttribute("osivia.services.cgu.pathToRedirect", configuration.buildRestorableURL());
+
+                // Window properties
+                Map<String, String> properties = new HashMap<String, String>();
+                properties.put(CGU_PATH_ATTRIBUTE, path);
+                properties.put(CGU_LEVEL_ATTRIBUTE, portalLevel);
+                properties.put("osivia.title", bundle.getString("CGU_TITLE"));
+                properties.put("osivia.hideTitle", "1");
+                // Redirection URL
+                String redirectionUrl;
+                try {
+                    redirectionUrl = this.portalUrlFactory.getStartPortletInNewPage(portalControllerContext, "cgu", bundle.getString("CGU_TITLE_MINI"),
+                            "osivia-services-cgu-portailPortletInstance", properties, null);
                 } catch (PortalException e) {
                     throw new RuntimeException(e);
                 }

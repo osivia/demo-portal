@@ -7,15 +7,10 @@
 @import "../bootstrap/variables.less";
 
 
-body {
-    background-image: url("../img/background.png");
-    background-repeat: no-repeat;
-    background-position: 125px 60px;
-}
-
-
 header {
-    margin-bottom: @line-height-computed;
+    padding-bottom: 2 * @line-height-computed;
+    
+    background-color: fade(@brand-primary, 1%);
     
     .banner {
         position: relative;
@@ -44,6 +39,8 @@ header {
 }
 
 
-#page-content {
-    margin-bottom: @line-height-computed;
+main {
+    background-image: url("../img/background.png");
+    background-repeat: no-repeat;
+    background-position: 125px 40px;
 }

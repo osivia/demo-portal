@@ -14,9 +14,9 @@
     position: relative;
     z-index: 1;
     
-    margin-top: -@line-height-computed;
+    margin-top: -(@line-height-computed + 2 * @padding-vertical + @border-width);
     margin-bottom: @line-height-computed;
-        
+    
     .tabs {
         ul {
             margin: 0;
@@ -90,14 +90,13 @@
                         border-width: @border-width;
                         border-top-color: transparent;
                         border-bottom-color: @border-color;
-                        
-//                        background-color: fade(#fff, 70%);
                        
                         .box-shadow(@shadow: 0 -2px 2px -2px fade(#000, 5%) inset);
                         
                         &.active, &.current {
                             border-style: solid;
                             border-color: @border-color @border-color transparent;
+                            .border-top-radius(@radius: @border-radius-base);
                             
                             background-color: @body-bg;
                             
