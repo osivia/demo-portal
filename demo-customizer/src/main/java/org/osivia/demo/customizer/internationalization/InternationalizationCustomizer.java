@@ -89,8 +89,8 @@ public class InternationalizationCustomizer extends GenericPortlet implements IC
      * {@inheritDoc}
      */
     @Override
-    public void customize(String customizationID, CustomizationContext context) {
-        Map<String, Object> attributes = context.getAttributes();
+    public void customize(CustomizationContext customizationContext) {
+        Map<String, Object> attributes = customizationContext.getAttributes();
         String key = (String) attributes.get(IInternationalizationService.CUSTOMIZER_ATTRIBUTE_KEY);
         Locale locale = (Locale) attributes.get(IInternationalizationService.CUSTOMIZER_ATTRIBUTE_LOCALE);
 

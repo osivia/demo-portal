@@ -88,8 +88,8 @@ public class RegionsCustomizer extends GenericPortlet implements ICustomizationM
      * {@inheritDoc}
      */
     @Override
-    public void customize(String customizationID, CustomizationContext context) {
-        Map<String, Object> attributes = context.getAttributes();
+    public void customize(CustomizationContext customizationContext) {
+        Map<String, Object> attributes = customizationContext.getAttributes();
         IRenderedRegions renderedRegion = (IRenderedRegions) attributes.get(IRenderedRegions.CUSTOMIZER_ATTRIBUTE_RENDERED_REGIONS);
 
         // Context path

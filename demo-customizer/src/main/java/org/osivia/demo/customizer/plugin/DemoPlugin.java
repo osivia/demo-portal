@@ -69,25 +69,25 @@ public class DemoPlugin extends AbstractPluginPortlet {
      * {@inheritDoc}
      */
     @Override
-    protected void customizeCMSProperties(String customizationID, CustomizationContext context) {
+    protected void customizeCMSProperties(CustomizationContext customizationContext) {
         // List templates
-        this.customizeListTemplates(context);
+        this.customizeListTemplates(customizationContext);
         // Template adapters
-        this.customizeTemplateAdapters(context);
+        this.customizeTemplateAdapters(customizationContext);
     }
 
 
     /**
      * Customize list templates.
      *
-     * @param context customization context
+     * @param customizationContext customization context
      */
-    private void customizeListTemplates(CustomizationContext context) {
+    private void customizeListTemplates(CustomizationContext customizationContext) {
         // Internationalization bundle
-        Bundle bundle = this.bundleFactory.getBundle(context.getLocale());
+        Bundle bundle = this.bundleFactory.getBundle(customizationContext.getLocale());
 
         // List templates
-        Map<String, ListTemplate> templates = this.getListTemplates(context);
+        Map<String, ListTemplate> templates = this.getListTemplates(customizationContext);
 
         // Search results
         ListTemplate searchResults = new ListTemplate("search-results", bundle.getString("LIST_TEMPLATE_SEARCH_RESULTS"), SEARCH_RESULTS_SCHEMAS);
@@ -98,11 +98,11 @@ public class DemoPlugin extends AbstractPluginPortlet {
     /**
      * Customize template adapters.
      *
-     * @param context customization context
+     * @param customizationContext customization context
      */
-    private void customizeTemplateAdapters(CustomizationContext context) {
+    private void customizeTemplateAdapters(CustomizationContext customizationContext) {
         // Template adapters
-        List<TemplateAdapter> adapters = this.getTemplateAdapters(context);
+        List<TemplateAdapter> adapters = this.getTemplateAdapters(customizationContext);
 
         // Demo adapter
         TemplateAdapter demo = new DemoTemplateAdapter();

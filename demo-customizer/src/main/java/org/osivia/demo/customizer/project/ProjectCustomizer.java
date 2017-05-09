@@ -121,7 +121,7 @@ public class ProjectCustomizer extends CMSPortlet implements ICustomizationModul
      * {@inheritDoc}
      */
     @Override
-    public void customize(String customizationId, CustomizationContext customizationContext) {
+    public void customize(CustomizationContext customizationContext) {
         // Portal controller context
         PortalControllerContext portalControllerContext = customizationContext.getPortalControllerContext();
         // Customization attributes

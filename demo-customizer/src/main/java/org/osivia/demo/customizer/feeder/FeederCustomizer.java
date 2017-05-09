@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package org.osivia.demo.customizer.feeder;
 
@@ -66,7 +66,7 @@ public class FeederCustomizer extends GenericPortlet implements ICustomizationMo
 
     /**
      * Generate customization module metadatas.
-     * 
+     *
      * @return metadatas
      */
     private CustomizationModuleMetadatas generateMetadatas() {
@@ -104,13 +104,10 @@ public class FeederCustomizer extends GenericPortlet implements ICustomizationMo
      * {@inheritDoc}
      */
     @Override
-    public void customize(String customizationID, CustomizationContext context) {
+    public void customize(CustomizationContext customizationContext) {
         // Parsing reponse cas
-
-
         try {
-
-            final Map<String, Object> attributes = context.getAttributes();
+            Map<String, Object> attributes = customizationContext.getAttributes();
 
             HttpServletRequest request = (HttpServletRequest) attributes.get(IFeederService.CUSTOMIZER_ATTRIBUTE_REQUEST);
 
@@ -133,7 +130,7 @@ public class FeederCustomizer extends GenericPortlet implements ICustomizationMo
             NodeList casAttributesList = authentication.getElementsByTagName("cas:attributes");
             if (casAttributesList != null) {
                 Node casAttributes = casAttributesList.item(0);
-                if(casAttributes != null) {
+                if (casAttributes != null) {
                     for (int i = 0; i < casAttributes.getChildNodes().getLength(); i++) {
                         Node casAttribute = casAttributes.getChildNodes().item(i);
                         if (casAttribute.getNodeType() == Node.ELEMENT_NODE) {
@@ -145,7 +142,6 @@ public class FeederCustomizer extends GenericPortlet implements ICustomizationMo
                         }
                     }
                 }
-
             }
 
             // Create, Update LDAP
@@ -166,16 +162,21 @@ public class FeederCustomizer extends GenericPortlet implements ICustomizationMo
                     service.create(p);
                 } else {
                     if (personAttributes.size() > 0) {
-                        if (personAttributes.get("sn") != null)
+                        if (personAttributes.get("sn") != null) {
                             p.setSn(personAttributes.get("sn"));
-                        if (personAttributes.get("cn") != null)
+                        }
+                        if (personAttributes.get("cn") != null) {
                             p.setCn(personAttributes.get("cn"));
-                        if (personAttributes.get("displayName") != null)
+                        }
+                        if (personAttributes.get("displayName") != null) {
                             p.setDisplayName(personAttributes.get("displayName"));
-                        if (personAttributes.get("mail") != null)
+                        }
+                        if (personAttributes.get("mail") != null) {
                             p.setMail(personAttributes.get("mail"));
-                        if (personAttributes.get("givenName") != null)
+                        }
+                        if (personAttributes.get("givenName") != null) {
                             p.setGivenName(personAttributes.get("givenName"));
+                        }
                     }
 
                     service.update(p);

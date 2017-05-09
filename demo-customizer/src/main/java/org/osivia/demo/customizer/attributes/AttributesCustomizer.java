@@ -90,8 +90,8 @@ public class AttributesCustomizer extends GenericPortlet implements ICustomizati
      * {@inheritDoc}
      */
     @Override
-    public void customize(String customizationID, CustomizationContext context) {
-        Map<String, Object> attributes = context.getAttributes();
+    public void customize(CustomizationContext customizationContext) {
+        Map<String, Object> attributes = customizationContext.getAttributes();
         String name = (String) attributes.get(IAttributesBundle.CUSTOMIZER_ATTRIBUTE_NAME);
 
         for (IAttributesBundle bundle : this.bundles) {
