@@ -28,17 +28,6 @@
                     <div class="scrollbox">
                         <p:region regionName="col-1" />
                     </div>
-                        
-                    <div
-                        <c:choose>
-                            <c:when test="${requestScope['osivia.panels.navigation-panel.closed']}">class="hidden"</c:when>
-                            <c:otherwise>class="col-auto flexbox hidden-sm"</c:otherwise>
-                        </c:choose>
-                    >
-                        <div class="scrollbox">
-                            <p:region regionName="navigation-panel" />
-                        </div>
-                    </div>
                 </div>
                 
                 <div class="col-offset-auto col-auto flexbox">
