@@ -36,11 +36,15 @@
                         
                         <div class="row">
                             <div class="col-sm-6">
-                                <p:region regionName="col-2" />
+                                <div class="scrollbox">
+                                    <p:region regionName="col-2" />
+                                </div>
                             </div>
                             
                             <div class="col-sm-6">
-                                <p:region regionName="col-3" />
+                                <div class="scrollbox">
+                                    <p:region regionName="col-3" />
+                                </div>
                             </div>
                         </div>
                         
