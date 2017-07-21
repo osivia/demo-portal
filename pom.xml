@@ -39,6 +39,9 @@
         <module>demo-charte</module>
         <module>demo-charte-web</module>
         <module>demo-customizer</module>
+        
+        <module>demo-generator</module>
+        
         <module>demo-distribution</module>
     </modules>
     
