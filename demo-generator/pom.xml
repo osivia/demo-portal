@@ -19,6 +19,7 @@
     
     
         <!-- jFairy -->
+
         <dependency>
             <groupId>io.codearte.jfairy</groupId>
             <artifactId>jfairy</artifactId>
@@ -29,6 +30,14 @@
             		<artifactId>slf4j-api</artifactId>
             	</exclusion>
             	
+            	<exclusion>
+            		<groupId>com.google.guava</groupId>
+	   				<artifactId>guava</artifactId>
+            	</exclusion>
+            	<exclusion>
+            	    <groupId>org.yaml</groupId>
+    				<artifactId>snakeyaml</artifactId>
+            	</exclusion>
             </exclusions>
             
         </dependency>
@@ -36,9 +45,17 @@
         <dependency>
 	   		<groupId>com.google.guava</groupId>
 	   		<artifactId>guava</artifactId>
-	   		<version>15.0</version>
+	   		<version>20.0</version>
         </dependency>
+
         
+        <dependency>
+    		<groupId>org.yaml</groupId>
+    		<artifactId>snakeyaml</artifactId>
+    		<version>1.18</version>
+		</dependency>
+        
+
         <!-- Commons CSV -->
         <dependency>
             <groupId>org.apache.commons</groupId>
