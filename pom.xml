@@ -41,6 +41,7 @@
         <module>demo-customizer</module>
         
         <module>demo-generator</module>
+        <module>demo-simple-document-creator</module>
         
         <module>demo-distribution</module>
     </modules>
