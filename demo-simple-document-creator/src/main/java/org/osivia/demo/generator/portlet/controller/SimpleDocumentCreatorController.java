@@ -98,7 +98,7 @@ public class SimpleDocumentCreatorController extends CMSPortlet {
      * @param result binding result
      * @throws PortletException
      */
-    @ActionMapping("save")
+    @ActionMapping(name = "save", params = "save")
     public void save(ActionRequest request, ActionResponse response, @Validated @ModelAttribute("form") CreationForm form, BindingResult result)
             throws PortletException {
         // Portal controller context
@@ -107,6 +107,23 @@ public class SimpleDocumentCreatorController extends CMSPortlet {
         if (!result.hasErrors()) {
             this.service.create(portalControllerContext, form);
         }
+    }
+
+
+    /**
+     * Randomize action mapping.
+     * 
+     * @param request action request
+     * @param response action response
+     * @param form creation form model attribute
+     * @throws PortletException
+     */
+    @ActionMapping(name = "save", params = "randomize")
+    public void randomize(ActionRequest request, ActionResponse response, @ModelAttribute("form") CreationForm form) throws PortletException {
+        // Portal controller context
+        PortalControllerContext portalControllerContext = new PortalControllerContext(portletContext, request, response);
+
+        this.service.randomize(portalControllerContext, form);
     }
 
 

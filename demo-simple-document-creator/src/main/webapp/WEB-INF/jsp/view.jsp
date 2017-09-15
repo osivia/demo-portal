@@ -69,7 +69,7 @@
         <div class="form-group">
             <form:label path="description" cssClass="col-sm-3 control-label"><op:translate key="SIMPLE_DOCUMENT_CREATION_DESCRIPTION"/></form:label>
             <div class="col-sm-9">
-                <form:input path="description" cssClass="form-control"/>
+                <form:textarea path="description" cssClass="form-control"/>
             </div>
         </div>
     
@@ -77,9 +77,15 @@
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-9">
                 <!-- Save -->
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" name="save" class="btn btn-primary">
                     <i class="glyphicons glyphicons-floppy-disk"></i>
                     <span><op:translate key="SAVE"/></span>
+                </button>
+                
+                <!-- Randomize -->
+                <button type="submit" name="randomize" class="btn btn-default">
+                    <i class="glyphicons glyphicons-playing-dices"></i>
+                    <span><op:translate key="SIMPLE_DOCUMENT_CREATION_RANDOMIZE"/></span>
                 </button>
             </div>
         </div>

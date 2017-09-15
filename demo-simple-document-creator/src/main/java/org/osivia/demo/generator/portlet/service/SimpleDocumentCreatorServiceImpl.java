@@ -1,6 +1,7 @@
 package org.osivia.demo.generator.portlet.service;
 
 import java.beans.PropertyDescriptor;
+import java.util.Locale;
 
 import javax.portlet.PortletException;
 
@@ -15,6 +16,9 @@ import org.osivia.portal.api.notifications.NotificationsType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+
+import io.codearte.jfairy.Fairy;
+import io.codearte.jfairy.producer.text.TextProducer;
 
 /**
  * Portlet service implementation.
@@ -74,6 +78,29 @@ public class SimpleDocumentCreatorServiceImpl implements SimpleDocumentCreatorSe
         } catch (ReflectiveOperationException e) {
             throw new PortletException(e);
         }
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void randomize(PortalControllerContext portalControllerContext, CreationForm form) throws PortletException {
+        // Locale
+        Locale locale = portalControllerContext.getRequest().getLocale();
+        // Fairy
+        Fairy fairy = Fairy.create(locale);
+        // Fairy text producer
+        TextProducer textProducer = fairy.textProducer();
+
+        // Title
+        String title = textProducer.sentence();
+        // Description
+        String description = textProducer.paragraph();
+
+        // Update model
+        form.setTitle(title);
+        form.setDescription(description);
     }
 
 

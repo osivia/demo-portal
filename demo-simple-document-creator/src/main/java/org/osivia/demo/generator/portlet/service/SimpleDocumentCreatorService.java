@@ -23,6 +23,16 @@ public interface SimpleDocumentCreatorService {
 
 
     /**
+     * Randomize.
+     * 
+     * @param portalControllerContext portal controller context
+     * @param form creation form
+     * @throws PortletException
+     */
+    void randomize(PortalControllerContext portalControllerContext, CreationForm form) throws PortletException;
+
+
+    /**
      * Get creation form.
      * 
      * @param portalControllerContext portal controller context.
