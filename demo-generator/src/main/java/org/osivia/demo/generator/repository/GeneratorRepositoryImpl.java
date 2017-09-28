@@ -1,7 +1,5 @@
 package org.osivia.demo.generator.repository;
 
-import io.codearte.jfairy.Fairy;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,6 +41,7 @@ import fr.toutatice.portail.cms.nuxeo.api.NuxeoController;
 import fr.toutatice.portail.cms.nuxeo.api.NuxeoException;
 import fr.toutatice.portail.cms.nuxeo.api.cms.NuxeoDocumentContext;
 import fr.toutatice.portail.cms.nuxeo.api.services.NuxeoCommandContext;
+import io.codearte.jfairy.Fairy;
 
 /**
  * Generator repository implementation.
@@ -284,7 +283,7 @@ public class GeneratorRepositoryImpl implements GeneratorRepository {
         		NuxeoDocumentContext documentContext = nuxeoController.getDocumentContext("/default-domain/workspaces/espace-tmc-" + Integer.toString(i));
         	
 	        	if(documentContext.getDocument() != null) {
-		        	WorkspaceEditionForm form = new WorkspaceEditionForm(documentContext.getDocument());
+                    WorkspaceEditionForm form = new WorkspaceEditionForm(documentContext.getDocument(), false);
 		
 		    		workspaceEditionService.delete(portalControllerContext, form );
 	        	}
