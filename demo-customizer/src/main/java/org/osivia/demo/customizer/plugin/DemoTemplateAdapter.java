@@ -22,7 +22,7 @@ public class DemoTemplateAdapter implements TemplateAdapter {
      * {@inheritDoc}
      */
     @Override
-    public String adapt(String spaceTemplate, String targetTemplate) {
+    public String adapt(String spacePath, String path, String spaceTemplate, String targetTemplate) {
         // Adapted template
         String template = null;
 
