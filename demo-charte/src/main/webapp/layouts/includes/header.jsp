@@ -1,35 +1,20 @@
 <%@ taglib uri="portal-layout" prefix="p" %>
+<%@ taglib uri="http://www.osivia.org/jsp/taglib/osivia-portal" prefix="op" %>
 
 
 <!-- Toolbar -->
 <p:region regionName="toolbar" />
 
-
 <header class="hidden-xs">
-    <div class="container-fluid">
-        <!-- Banner -->
-        <div class="banner">
-            <div class="clearfix">
-                <div class="pull-left">
-                    <h1>
-                        <a href="/">
-                            <img src="/demo-charte/img/logo.png" alt="OSIVIA">
-                        </a>
-                    </h1>
-                </div>
-                
-                <div class="pull-right">
-                    <p:region regionName="search" />
-                </div>
-            </div>
+    <div class="${home ? 'container' : 'container-fluid'}">
+        <!-- Title -->
+        <div class="${home ? 'jumbotron' : 'sr-only'}">
+            <h1 class="text-center"><op:translate key="PORTAL_TITLE" /></h1>
+        </div>
+    
+        <!-- Tabs -->
+        <div class="tabs tabs-default">
+            <p:region regionName="tabs" />
         </div>
     </div>
 </header>
-
-
-<!-- Tabs -->
-<div class="tabs-container hidden-xs">
-    <div class="container-fluid">
-        <p:region regionName="tabs" />
-    </div>
-</div>

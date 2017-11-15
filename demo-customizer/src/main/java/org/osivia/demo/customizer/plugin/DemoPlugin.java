@@ -60,6 +60,15 @@ public class DemoPlugin extends AbstractPluginPortlet {
      * {@inheritDoc}
      */
     @Override
+    public int getOrder() {
+        return Integer.MAX_VALUE;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     protected String getPluginName() {
         return PLUGIN_NAME;
     }
@@ -92,6 +101,21 @@ public class DemoPlugin extends AbstractPluginPortlet {
         // Search results
         ListTemplate searchResults = new ListTemplate("search-results", bundle.getString("LIST_TEMPLATE_SEARCH_RESULTS"), SEARCH_RESULTS_SCHEMAS);
         templates.put(searchResults.getKey(), searchResults);
+
+        // Workspace member requests
+        ListTemplate workspaceMemberRequests = templates.get("workspace-member-requests");
+
+        if (workspaceMemberRequests != null) {
+            // Workspace member requests tiles
+            ListTemplate workspaceMemberRequestsTiles = new ListTemplate("workspace-member-requests-tiles",
+                    bundle.getString("LIST_TEMPLATE_WORKSPACE_MEMBER_REQUESTS_TILES"), workspaceMemberRequests.getSchemas());
+            workspaceMemberRequestsTiles.setModule(workspaceMemberRequests.getModule());
+            templates.put(workspaceMemberRequestsTiles.getKey(), workspaceMemberRequestsTiles);
+        }
+
+        // Workspace tiles
+        ListTemplate workspaceTiles = new ListTemplate("workspace-tiles", bundle.getString("LIST_TEMPLATE_WORKSPACE_TILES"), "dublincore, common, toutatice");
+        templates.put(workspaceTiles.getKey(), workspaceTiles);
     }
 
 

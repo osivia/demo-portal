@@ -26,6 +26,8 @@ public class RegionsCustomizer extends GenericPortlet implements ICustomizationM
     /** Customization modules repository attribute name. */
     private static final String ATTRIBUTE_CUSTOMIZATION_MODULES_REPOSITORY = "CustomizationModulesRepository";
 
+    /** Charte context path. */
+    private static final String CHARTE_CONTEXT_PATH = "/demo-charte";
     /** Charte Web context path. */
     private static final String CHARTE_WEB_CONTEXT_PATH = "/demo-charte-web";
 
@@ -92,6 +94,9 @@ public class RegionsCustomizer extends GenericPortlet implements ICustomizationM
 
         // Context path
         String contextPath = (String) attributes.get(IRenderedRegions.CUSTOMIZER_ATTRIBUTE_THEME_CONTEXT_PATH);
+
+        // Toolbar
+        renderedRegion.customizeRenderedRegion("toolbar", "/regions/toolbar.jsp", CHARTE_CONTEXT_PATH);
 
         if (CHARTE_WEB_CONTEXT_PATH.equals(contextPath)) {
             // Remove drawer toolbar
