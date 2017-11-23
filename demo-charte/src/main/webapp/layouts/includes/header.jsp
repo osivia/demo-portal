@@ -6,9 +6,9 @@
 <p:region regionName="toolbar" />
 
 <header class="hidden-xs">
-    <div class="${home ? 'container' : 'container-fluid'}">
+    <div class="${editorial ? 'container' : 'container-fluid'}">
         <!-- Title -->
-        <div class="${home ? 'jumbotron' : 'sr-only'}">
+        <div class="${editorial ? 'jumbotron' : 'sr-only'}">
             <h1 class="text-center"><op:translate key="PORTAL_TITLE" /></h1>
         </div>
     

@@ -1,0 +1,34 @@
+//
+// Charte Demo - Content navbar component
+// -----------------------------------------------------
+
+
+.simple-content-navbar {
+    display: table;
+    width: 100%;
+    
+    > * {
+        display: table-cell;
+        vertical-align: top;
+        
+        &.simple-menubar {
+            width: 1%;
+        }
+    }
+    
+    
+    .breadcrumb {
+        .active {
+            font-weight: bold;
+        }
+        
+        .dropdown {
+            display: inline-block;
+        }
+    }
+    
+    
+    body.home & {
+        display: none;
+    }
+}

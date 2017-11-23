@@ -13,7 +13,7 @@
 </head>
 
 
-<body class="home editorial">
+<body class="editorial">
     <jsp:include page="../includes/header.jsp" />
     
     <main>
@@ -28,12 +28,12 @@
                 <div id="drawer">
                     <p:region regionName="drawer-toolbar" />
                     
-                    <div class="col-md-4 col-lg-3">
+                    <div class="col-sm-4 col-lg-3">
                         <p:region regionName="col-1" />
                     </div>
                 </div>
                 
-                <div class="col-md-8 col-lg-9">
+                <div class="col-sm-8 col-lg-9">
                     <p:region regionName="col-2" />
                 </div>
             </div>

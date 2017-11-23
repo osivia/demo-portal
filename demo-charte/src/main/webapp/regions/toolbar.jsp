@@ -57,7 +57,7 @@
 
                 <!-- Brand -->
                 <a href="${requestScope['osivia.home.url']}" class="navbar-brand hidden-xs">
-                    <img alt="${requestScope['osivia.header.application.name']}" src="${contextPath}/img/logo-toolbar.png">
+                    <img alt="${requestScope['osivia.header.application.name']}" src="${contextPath}/img/favicon.png">
                 </a>
             </div>
 

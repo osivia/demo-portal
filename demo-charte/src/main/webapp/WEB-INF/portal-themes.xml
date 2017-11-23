@@ -3,7 +3,8 @@
     <theme>
         <name>demo-charte</name>
         
-        <link rel="icon" href="/img/osivia.ico" />
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="/img/favicon.png" />
         
         <!-- CSS -->
         <link rel="stylesheet" href="/css/demo.min.css" title="Demo" />

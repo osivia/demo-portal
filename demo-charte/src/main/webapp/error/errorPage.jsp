@@ -3,6 +3,8 @@
 <%@ taglib uri="http://www.osivia.org/jsp/taglib/osivia-portal" prefix="op" %>
 
 
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 <c:set var="brand"><op:translate key="BRAND" /></c:set>
 
 
@@ -16,19 +18,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <!-- Socle -->
-    <link rel='stylesheet' href='/osivia-portal-custom-web-assets/css/osivia.min.css'>
+    <link rel="stylesheet" href="/osivia-portal-custom-web-assets/css/osivia.min.css">
     
     <!-- Glyphicons -->
-    <link rel='stylesheet' href='/osivia-portal-custom-web-assets/css/glyphicons.min.css'>
+    <link rel="stylesheet" href="/osivia-portal-custom-web-assets/css/glyphicons.min.css">
     
     <!-- Style demo -->
     <meta http-equiv="default-style" content="Demo">
-    <link rel="stylesheet" href="/demo-charte/css/demo.min.css" title="Demo" />
-    <link rel="icon" href="/demo-charte/img/osivia.ico" />
+    <link rel="stylesheet" href="${contextPath}/css/demo.min.css" title="Demo" />
+    <link rel="icon" href="${contextPath}/img/osivia.ico" />
 </head>
 
 
-<body>
+<body class="editorial">
     <!-- Toolbar -->
     <div class="toolbar">
         <div class="navbar navbar-default navbar-fixed-top">
@@ -49,7 +51,9 @@
                     </div>
                 
                     <!-- Brand -->
-                    <a href="/" class="navbar-brand hidden-xs">${brand}</a>
+                    <a href="/" class="navbar-brand hidden-xs">
+                        <img alt="${brand}" src="${contextPath}/img/favicon.png">
+                    </a>
                 </div>
             </div>
         </div>
@@ -58,60 +62,50 @@
 
     <!-- Header -->
     <header class="hidden-xs">
-        <div class="container-fluid">
-            <div class="banner">
-                <div class="clearfix">
-                    <div class="pull-left">
-                        <h1>
-                            <a href="/">
-                                <img src="/demo-charte/img/logo.png" alt="${brand}">
-                            </a>
-                        </h1>
+        <div class="container">
+            <!-- Title -->
+            <div class="jumbotron">
+                <h1 class="text-center"><op:translate key="PORTAL_TITLE" /></h1>
+            </div>
+        
+            <!-- Tabs -->
+            <div class="tabs tabs-default">
+                <nav class="tabs" role="navigation">
+                    <!-- Title -->
+                    <h2 class="sr-only"><op:translate key="TABS_TITLE" /></h2>
+    
+                    <div class="primary-tabs">
+                        <div class="pull-left">
+                            <ul class="home">
+                                <li role="presentation">
+                                    <c:set var="title"><op:translate key="HOME" /></c:set>
+                                    <a href="/" title="${title}" data-toggle="tooltip" data-placement="bottom">
+                                        <i class="halflings halflings-home"></i>
+                                        <span class="sr-only">${title}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    
+                        <div class="fixed-tabs-container">
+                            <ul>
+                                <li class="active">
+                                    <a href="#">
+                                        <span><op:translate key="ERROR" /></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                </nav>
             </div>
         </div>
     </header>
 
 
-    <!-- Tabs -->
-    <div class="tabs-container hidden-xs">
-        <div class="container-fluid">
-            <nav class="tabs" role="navigation">
-                <!-- Title -->
-                <h2 class="sr-only"><op:translate key="TABS_TITLE" /></h2>
-
-                <div class="primary-tabs">
-                    <div class="pull-left">
-                        <ul class="home">
-                            <li role="presentation">
-                                <c:set var="title"><op:translate key="HOME" /></c:set>
-                                <a href="/" title="${title}" data-toggle="tooltip" data-placement="bottom">
-                                    <i class="halflings halflings-home"></i>
-                                    <span class="sr-only">${title}</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                
-                    <div class="fixed-tabs-container">
-                        <ul>
-                            <li class="active">
-                                <a href="#">
-                                    <span><op:translate key="ERROR" /></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </div>
-
-
     <!-- Page content -->
     <main>
-        <div class="container-fluid">
+        <div class="container">
             <div class="content-navbar">
                 <!-- Breadcrumb -->
                 <div class="content-navbar-breadcrumb">

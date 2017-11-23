@@ -46,5 +46,17 @@
             <region name="cols-bottom" />
         </regions>
     </layout>
+    
+    <layout>
+        <name>demo-site</name>
+        <uri>/layouts/site/index.jsp</uri>
+        <uri state="maximized">/layouts/site/maximized.jsp</uri>
+        <regions>
+            <region name="cols-top" />
+            <region name="col-1" />
+            <region name="col-2" />
+            <region name="cols-bottom" />
+        </regions>
+    </layout>
 
 </layouts>
