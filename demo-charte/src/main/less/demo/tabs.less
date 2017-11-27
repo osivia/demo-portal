@@ -65,6 +65,35 @@
                 }
             }
         }
+        
+        
+        .fixed-tabs-container {
+            > ul {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                
+                > li {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: nowrap;
+                    
+                    flex-shrink: 2;
+                    overflow: hidden;
+                    
+                    &.active {
+                        flex-shrink: 1;
+                    }
+                    
+                    > a {
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                    }
+                }
+            }
+        }
     }
     
     .secondary-tabs {

@@ -97,6 +97,8 @@ public class RegionsCustomizer extends GenericPortlet implements ICustomizationM
 
         // Toolbar
         renderedRegion.customizeRenderedRegion("toolbar", "/regions/toolbar.jsp", CHARTE_CONTEXT_PATH);
+        // Tabs
+        renderedRegion.customizeRenderedRegion("tabs", "/regions/tabs.jsp", CHARTE_CONTEXT_PATH);
 
         if (CHARTE_WEB_CONTEXT_PATH.equals(contextPath)) {
             // Remove drawer toolbar
