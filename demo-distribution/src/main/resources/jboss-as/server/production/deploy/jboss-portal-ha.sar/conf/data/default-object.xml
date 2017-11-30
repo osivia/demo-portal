@@ -740,6 +740,10 @@ return nuxeoRequest.toString();</value>
                 
                 <properties>
                     <property>
+                        <name>order</name>
+                        <value>3</value>
+                    </property>
+                    <property>
                         <name>layout.id</name>
                         <value>demo-1-col</value>
                     </property>
@@ -842,7 +846,7 @@ return nuxeoRequest.toString();</value>
                     <height>0</height>
                 </window>
             </page>
-
+            
             <page>
                 <page-name>templates</page-name>
                 <properties />
@@ -1795,6 +1799,49 @@ return nuxeoRequest.toString();</value>
                             </property>
                             <property>
                                 <name>osivia.hideDecorators</name>
+                                <value>1</value>
+                            </property>
+                        </properties>
+                        <height>0</height>
+                    </window>
+                </page>
+                
+                <page>
+                    <page-name>procedureDashboard</page-name>
+                    <display-name xml:lang="fr">Tableaux de bord des procédures</display-name>
+                    
+                    <properties>
+                        <property>
+                            <name>osivia.procedure.dashboard.region</name>
+                            <value>col-2</value>
+                        </property>
+                    </properties>
+                    
+                    <security-constraint />
+                    
+                    <window>
+                        <window-name>osivia-services-procedure-portletInstance_1511536460337</window-name>
+                        <instance-ref>osivia-services-procedure-portletInstance</instance-ref>
+                        <region>col-1</region>
+                        <properties>
+                            <property>
+                                <name>theme.order</name>
+                                <value>0</value>
+                            </property>
+                            <property>
+                                <name>osivia.maximized.cms.url</name>
+                                <value>false</value>
+                            </property>
+                            <property>
+                                <name>portal.windowContentType</name>
+                                <value>portlet</value>
+                            </property>
+                            <property>
+                                <name>osivia.hideDecorators</name>
+                                <value>1</value>
+                            </property>
+                            <property>
+                                <name>osivia.hideTitle</name>
                                 <value>1</value>
                             </property>
                         </properties>
