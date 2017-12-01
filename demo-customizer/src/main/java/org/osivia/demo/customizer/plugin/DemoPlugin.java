@@ -5,12 +5,13 @@ import java.util.Map;
 
 import javax.portlet.PortletException;
 
-import org.osivia.portal.api.cms.DocumentType;
+import org.osivia.demo.customizer.plugin.menubar.DemoMenubarModule;
 import org.osivia.portal.api.customization.CustomizationContext;
 import org.osivia.portal.api.internationalization.Bundle;
 import org.osivia.portal.api.internationalization.IBundleFactory;
 import org.osivia.portal.api.internationalization.IInternationalizationService;
 import org.osivia.portal.api.locator.Locator;
+import org.osivia.portal.api.menubar.MenubarModule;
 import org.osivia.portal.api.theming.TemplateAdapter;
 
 import fr.toutatice.portail.cms.nuxeo.api.domain.AbstractPluginPortlet;
@@ -80,25 +81,12 @@ public class DemoPlugin extends AbstractPluginPortlet {
      */
     @Override
     protected void customizeCMSProperties(CustomizationContext customizationContext) {
-        // Document types
-        this.customizeDocumentTypes(customizationContext);
         // List templates
         this.customizeListTemplates(customizationContext);
         // Template adapters
         this.customizeTemplateAdapters(customizationContext);
-    }
-
-
-    /**
-     * Customize document types.
-     * 
-     * @param customizationContext customization context
-     */
-    private void customizeDocumentTypes(CustomizationContext customizationContext) {
-        // Document types
-        Map<String, DocumentType> types = this.getDocTypes(customizationContext);
-
-
+        // Menubar modules
+        this.customizeMenubarModules(customizationContext);
     }
 
 
@@ -147,6 +135,21 @@ public class DemoPlugin extends AbstractPluginPortlet {
         // Demo adapter
         TemplateAdapter demo = new DemoTemplateAdapter();
         adapters.add(demo);
+    }
+
+
+    /**
+     * Customize menubar modules.
+     * 
+     * @param customizationContext customization context
+     */
+    private void customizeMenubarModules(CustomizationContext customizationContext) {
+        // Menubar modules
+        List<MenubarModule> modules = this.getMenubarModules(customizationContext);
+
+        // Customized menubar module
+        MenubarModule module = new DemoMenubarModule();
+        modules.add(module);
     }
 
 }

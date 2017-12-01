@@ -1,5 +1,6 @@
 package org.osivia.demo.customizer.plugin;
 
+import org.apache.commons.lang.StringUtils;
 import org.osivia.portal.api.theming.TemplateAdapter;
 
 /**
@@ -26,10 +27,11 @@ public class DemoTemplateAdapter implements TemplateAdapter {
         // Adapted template
         String template = null;
 
-        if ("/default/templates/workspace-taskbar-large".equals(spaceTemplate)) {
-            // Statistics
-            if ("/default/templates/statistics".equals(targetTemplate)) {
-                template = "/default/templates/statistics-taskbar-large";
+
+        // User workspace
+        if (StringUtils.startsWith(spacePath, "/default-domain/UserWorkspaces/")) {
+            if (StringUtils.equals(targetTemplate, "/default/templates/workspace")) {
+                template = "/default/templates/user-workspace";
             }
         }
 
