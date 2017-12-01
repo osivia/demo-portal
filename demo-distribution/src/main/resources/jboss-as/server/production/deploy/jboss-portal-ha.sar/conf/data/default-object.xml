@@ -669,10 +669,6 @@ return nuxeoRequest.toString();</value>
                             <value>portlet</value>
                         </property>
                         <property>
-                            <name>osivia.hideDecorators</name>
-                            <value>1</value>
-                        </property>
-                        <property>
                             <name>theme.order</name>
                             <value>0</value>
                         </property>
@@ -735,13 +731,65 @@ return nuxeoRequest.toString();</value>
             </page>
             
             <page>
+                <page-name>group-management</page-name>
+                <display-name xml:lang="fr">Gestion des groupes</display-name>
+                
+                <properties>
+                    <property>
+                        <name>order</name>
+                        <value>3</value>
+                    </property>
+                </properties>
+                
+                <security-constraint>
+                    <policy-permission>
+                        <action-name>view</action-name>
+                        <role-name>Administrators</role-name>
+                    </policy-permission>
+                </security-constraint>
+                
+                <window>
+                    <window-name>directory-group-management-instance_1512119109945</window-name>
+                    <instance-ref>directory-group-management-instance</instance-ref>
+                    <region>col-1</region>
+                    <properties>
+                        <property>
+                            <name>osivia.title</name>
+                            <value>Groupes</value>
+                        </property>
+                        <property>
+                            <name>portal.windowContentType</name>
+                            <value>portlet</value>
+                        </property>
+                        <property>
+                            <name>theme.dyna.partial_refresh_enabled</name>
+                            <value>true</value>
+                        </property>
+                        <property>
+                            <name>theme.order</name>
+                            <value>0</value>
+                        </property>
+                        <property>
+                            <name>osivia.ajaxLink</name>
+                            <value>1</value>
+                        </property>
+                        <property>
+                            <name>osivia.hideTitle</name>
+                            <value>1</value>
+                        </property>
+                    </properties>
+                    <height>0</height>
+                </window>
+            </page>
+            
+            <page>
                 <page-name>procedures-management</page-name>
                 <display-name xml:lang="fr">Gestion des procédures</display-name>
                 
                 <properties>
                     <property>
                         <name>order</name>
-                        <value>3</value>
+                        <value>4</value>
                     </property>
                     <property>
                         <name>layout.id</name>

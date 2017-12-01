@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.portlet.PortletException;
 
+import org.osivia.portal.api.cms.DocumentType;
 import org.osivia.portal.api.customization.CustomizationContext;
 import org.osivia.portal.api.internationalization.Bundle;
 import org.osivia.portal.api.internationalization.IBundleFactory;
@@ -79,10 +80,25 @@ public class DemoPlugin extends AbstractPluginPortlet {
      */
     @Override
     protected void customizeCMSProperties(CustomizationContext customizationContext) {
+        // Document types
+        this.customizeDocumentTypes(customizationContext);
         // List templates
         this.customizeListTemplates(customizationContext);
         // Template adapters
         this.customizeTemplateAdapters(customizationContext);
+    }
+
+
+    /**
+     * Customize document types.
+     * 
+     * @param customizationContext customization context
+     */
+    private void customizeDocumentTypes(CustomizationContext customizationContext) {
+        // Document types
+        Map<String, DocumentType> types = this.getDocTypes(customizationContext);
+
+
     }
 
 

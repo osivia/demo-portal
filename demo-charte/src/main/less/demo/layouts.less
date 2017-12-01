@@ -3,18 +3,14 @@
 // -----------------------------------------------------
 
 
-// Variables
-@import "../bootstrap/variables.less";
-
-
 header {
     color: #fff;
-    background-color: @brand-primary;
+    background-color: @brand-secondary;
     
     body.editorial & {
         border-bottom-style: solid;
         border-width: 1px;
-        border-color: darken(@brand-primary, 3%);
+        border-color: darken(@brand-secondary, 3%);
     }
     
     .jumbotron {
@@ -46,7 +42,7 @@ footer {
     position: relative;
     
     color: #fff;
-    background-color: @brand-primary;
+    background-color: @brand-secondary;
     
     .box-shadow(@shadow: 0 -1px 1px fade(#000, 5%));
 }

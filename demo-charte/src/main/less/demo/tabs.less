@@ -3,7 +3,7 @@
 // -----------------------------------------------------
 
 
-@border-color: darken(@brand-primary, 3%);
+@border-color: darken(@brand-secondary, 3%);
 
 
 .tabs-default {
@@ -16,7 +16,7 @@
         margin: 0 floor(@grid-gutter-width / -2);
         padding: 0 floor(@grid-gutter-width / 2);
         
-        .box-shadow(@shadow: 0 -2px 2px -2px fade(#000, 5%) inset);
+        .box-shadow(@shadow: 0 -2px 2px -2px fade(@black, 5%) inset);
         
         ul {
             li {
@@ -28,10 +28,10 @@
                 
                 &:not(.active) {
                     > a {
-                        color: #f8f8f8;
+                        color: @gray-100;
                         
                         &:hover, &:focus {
-                            color: #fff;
+                            color: @white;
                         }
                     }
                 }   
@@ -50,10 +50,10 @@
                         
                         li:not(.active) {
                             > a {
-                                color: #555;
+                                color: @gray-700;
                                 
                                 &:hover, &:focus {
-                                    color: #222;
+                                    color: @gray-900;
                                 }
                             }
                         }
