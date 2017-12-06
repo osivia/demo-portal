@@ -25,9 +25,7 @@
                         <p:region regionName="drawer-toolbar" />
                     </div>
                         
-                    <div class="scrollbox">
-                        <p:region regionName="col-1" />
-                    </div>
+                    <p:region regionName="col-1" />
                 </div>
                 
                 <div class="col-offset-auto col-auto flexbox">

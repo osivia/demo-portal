@@ -31,15 +31,11 @@
                                 <p:region regionName="drawer-toolbar" />
 
                                 <div class="col-auto flexbox">                            
-                                    <div class="scrollbox">
-                                        <p:region regionName="col-1" />
-                                    </div>
+                                    <p:region regionName="col-1" />
                                 </div>
         
                                 <div ${navigationPanelClosed ? 'class="hidden"' : 'class="col-offset-auto col-auto flexbox"'}>
-                                    <div class="scrollbox">
-                                        <p:region regionName="navigation-panel" />
-                                    </div>
+                                    <p:region regionName="navigation-panel" />
                                 </div>
                             </div>
                         </div>
