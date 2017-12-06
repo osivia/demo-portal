@@ -9,7 +9,7 @@
 </head>
 
 
-<body>
+<body class="fixed-layout">
     <jsp:include page="../includes/header.jsp" />
     
     <main>
