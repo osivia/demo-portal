@@ -782,9 +782,54 @@ return nuxeoRequest.toString();</value>
                 </window>
                 
                 <window>
+                    <window-name>toutatice-portail-cms-nuxeo-viewFragmentPortletInstance_1509441121499</window-name>
+                    <instance-ref>toutatice-portail-cms-nuxeo-viewFragmentPortletInstance</instance-ref>
+                    <region>col-1</region>
+                    <properties>
+                        <property>
+                            <name>osivia.title</name>
+                            <value>Création d'un groupe</value>
+                        </property>
+                        <property>
+                            <name>theme.order</name>
+                            <value>1</value>
+                        </property>
+                        <property>
+                            <name>osivia.fragmentTypeId</name>
+                            <value>doc_link</value>
+                        </property>
+                        <property>
+                            <name>osivia.linkName</name>
+                            <value>dc:title</value>
+                        </property>
+                        <property>
+                            <name>osivia.isNuxeoLink</name>
+                            <value>on</value>
+                        </property>
+                        <property>
+                            <name>osivia.bootstrapPanelStyle</name>
+                            <value>true</value>
+                        </property>
+                        <property>
+                            <name>portal.windowContentType</name>
+                            <value>portlet</value>
+                        </property>
+                        <property>
+                            <name>osivia.hideTitle</name>
+                            <value>1</value>
+                        </property>
+                        <property>
+                            <name>osivia.docPathForLink</name>
+                            <value>procedure_group-creation</value>
+                        </property>
+                    </properties>
+                    <height>0</height>
+                </window>
+                
+                <window>
                     <window-name>directory-group-card-instance_1512659607393</window-name>
                     <instance-ref>directory-group-card-instance</instance-ref>
-                    <region>col-1</region>
+                    <region>cols-bottom</region>
                     <properties>
                         <property>
                             <name>portal.windowContentType</name>
