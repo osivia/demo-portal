@@ -9,6 +9,7 @@
 
 <c:set var="stateItems" value="${requestScope['osivia.toolbar.menubar.stateItems']}" />
 <c:set var="userProfileUrl" value="${requestScope['osivia.toolbar.myprofile']}" />
+<c:set var="userWorkspaceUrl" value="${requestScope['osivia.userWorkspace.url']}" />
 <c:set var="userSettingsUrl" value="${requestScope['osivia.toolbar.userSettings.url']}" />
 
 
@@ -140,7 +141,17 @@
                                         <li role="presentation">
                                             <a href="${userProfileUrl}" role="menuitem">
                                                 <i class="glyphicons glyphicons-nameplate"></i>
-                                                <span><op:translate key="MY_PROFILE" /></span>
+                                                <span><op:translate key="USER_PROFILE" /></span>
+                                            </a>
+                                        </li>
+                                    </c:if>
+                                    
+                                    <!-- User workspace -->
+                                    <c:if test="${not empty userWorkspaceUrl}">
+                                        <li role="presentation">
+                                            <a href="${userWorkspaceUrl}" role="menuitem">
+                                                <i class="glyphicons glyphicons-wallet"></i>
+                                                <span><op:translate key="USER_WORKSPACE"/></span>
                                             </a>
                                         </li>
                                     </c:if>
