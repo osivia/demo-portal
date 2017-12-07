@@ -13,22 +13,26 @@
     <jsp:include page="../includes/header.jsp" />
     
     <main>
-        <div class="container-fluid">
+        <div class="container-fluid flexbox">
             <!-- Content navbar -->
             <jsp:include page="../includes/content-navbar.jsp" />
             
-            <div class="row">
+            <div class="row flexbox">
                 <!-- Drawer -->
-                <div id="drawer">
-                    <p:region regionName="drawer-toolbar" />
+                <div id="drawer" class="col-sm-6 col-md-5 col-lg-4 flexbox">
+                    <div class="row">
+                        <p:region regionName="drawer-toolbar" />
+                    </div>
                     
-                    <div class="col-sm-6 col-md-5 col-lg-4">
+                    <div class="scrollbox">
                         <p:region regionName="col-1" />
                     </div>
                 </div>
                 
-                <div class="col-sm-6 col-md-7 col-lg-8">
-                    <p:region regionName="maximized" />
+                <div class="col-sm-6 col-md-7 col-lg-8 flexbox">
+                    <div class="scrollbox">
+                        <p:region regionName="maximized" />
+                    </div>
                 </div>
             </div>
         </div>

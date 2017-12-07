@@ -13,18 +13,20 @@
     <jsp:include page="../includes/header.jsp" />
     
     <main>
-        <div class="container-fluid">
+        <div class="container-fluid flexbox">
             <!-- Content navbar -->
             <jsp:include page="../includes/content-navbar.jsp" />
         
-            <div class="row">
-                <!-- Drawer -->
-                <div id="drawer">
+            <!-- Drawer -->
+            <div id="drawer">
+                <div class="row">
                     <p:region regionName="drawer-toolbar" />
                 </div>
             </div>
 
-            <p:region regionName="col-1" />
+            <div class="scrollbox">
+                <p:region regionName="col-1" />
+            </div>
         </div>
     </main>
     
