@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
+<c:set var="home" value="true" scope="request" />
 <c:set var="editorial" value="true" scope="request" />
 
 
