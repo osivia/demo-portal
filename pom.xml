@@ -32,13 +32,40 @@
         <!-- Java Melody -->
         <java-melody.version>1.2</java-melody.version>
         
+        <!-- Spring framework LDAP -->
+        <springframework-ldap.version>2.1.0.RELEASE</springframework-ldap.version>
+        
     </properties>
+    
+    
+    <dependencyManagement>
+        <dependencies>
+        
+            <!-- Directory -->
+            <dependency>
+                <groupId>org.osivia.services.directory.socle</groupId>
+                <artifactId>osivia-services-directory-socle-interfaces</artifactId>
+                <version>${directory.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            
+            <!-- Spring framework LDAP -->
+            <dependency>
+                <groupId>org.springframework.ldap</groupId>
+                <artifactId>spring-ldap-core</artifactId>
+                <version>${springframework-ldap.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            
+        </dependencies>
+    </dependencyManagement>
     
     
     <modules>
         <module>demo-charte</module>
         <module>demo-charte-web</module>
         <module>demo-customizer</module>
+        <module>demo-directory</module>
         
         <module>demo-generator</module>
         <module>demo-simple-document-creator</module>
@@ -97,6 +124,20 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>2.6</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+                
+                <!-- EAR -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-ear-plugin</artifactId>
+                    <version>2.10.1</version>
                     <configuration>
                         <archive>
                             <manifest>

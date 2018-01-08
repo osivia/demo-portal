@@ -19,12 +19,11 @@
                 <include>${project.groupId}:demo-charte:war:${project.version}</include>
                 <include>${project.groupId}:demo-charte-web:war:${project.version}</include>
                 <include>${project.groupId}:demo-customizer:war:${project.version}</include>
+                <include>${project.groupId}.directory:demo-directory-ear:ear:${project.version}</include>
                 <include>${project.groupId}:demo-generator:war:${project.version}</include>
                 <include>${project.groupId}:demo-simple-document-creator:war:${project.version}</include>
                 <!-- Toutatice CMS -->
                 <include>toutatice-portail.cms:toutatice-portail-cms-nuxeo-web:war:${toutatice.version}</include>
-                <!-- Directory -->
-                <include>org.osivia.services.directory:osivia-services-directory-ear:ear:${directory.version}</include>
                 <!-- Collaboration -->
                 <include>org.osivia.services:osivia-services-collaboration-ear:ear:${collaboration.version}</include>
                 <!-- Other services -->
@@ -40,6 +39,7 @@
             <scope>runtime</scope>
             <includes>
                 <!-- Directory -->
+                <include>${project.groupId}.directory:demo-directory-interfaces:jar:${project.version}</include>
                 <include>org.osivia.services.directory.socle:osivia-services-directory-socle-interfaces:jar:${directory.version}</include>
                 <!-- Identity SSO -->
                 <include>org.osivia.portal.identity:osivia-portal-identity-sso-lib:jar:${identity-sso.version}</include>

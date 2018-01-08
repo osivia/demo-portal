@@ -41,6 +41,17 @@
             <type>war</type>
         </dependency>
         <dependency>
+            <groupId>${project.groupId}.directory</groupId>
+            <artifactId>demo-directory-interfaces</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}.directory</groupId>
+            <artifactId>demo-directory-ear</artifactId>
+            <version>${project.version}</version>
+            <type>ear</type>
+        </dependency>
+        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>demo-generator</artifactId>
             <version>${project.version}</version>
@@ -63,15 +74,10 @@
         
         <!-- Directory -->
         <dependency>
-            <groupId>org.osivia.services.directory</groupId>
-            <artifactId>osivia-services-directory-ear</artifactId>
-            <version>${directory.version}</version>
-            <type>ear</type>
-        </dependency>
-        <dependency>
             <groupId>org.osivia.services.directory.socle</groupId>
             <artifactId>osivia-services-directory-socle-interfaces</artifactId>
             <version>${directory.version}</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- Collaboration -->        
