@@ -23,7 +23,7 @@
         
         <!-- Other services -->
         <tasks.version>4.6-SNAPSHOT</tasks.version>
-        <procedure.version>4.6-SNAPSHOT</procedure.version>
+        <procedure.version>4.7-SNAPSHOT</procedure.version>
         <cgu.version>4.6-SNAPSHOT</cgu.version>
         
         <!-- Identity SSO -->
