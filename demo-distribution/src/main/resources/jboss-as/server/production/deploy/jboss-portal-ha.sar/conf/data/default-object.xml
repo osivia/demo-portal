@@ -2290,7 +2290,7 @@ return nuxeoRequest.toString();</value>
                 </page>
                 
                 <page>
-                    <page-name>procedure-dashboard</page-name>
+                    <page-name>procedureDashboard</page-name>
                     <display-name xml:lang="fr">Tableaux de bord des procédures</display-name>
                     
                     <properties>
