@@ -71,6 +71,8 @@
         <module>demo-simple-document-creator</module>
         
         <module>demo-distribution</module>
+
+        <module>demo-transaction</module>
     </modules>
     
     
