@@ -21,7 +21,7 @@
             
             <div class="row flexbox">
                 <!-- Drawer -->
-                <div id="drawer" class="col-sm-6 col-md-5 col-lg-4 flexbox">
+                <div id="drawer" class="col-sm-5 col-md-4 col-lg-3 flexbox">
                     <div class="row">
                         <p:region regionName="drawer-toolbar" />
                     </div>
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 
-                <div class="col-sm-6 col-md-7 col-lg-8 flexbox">
+                <div class="col-sm-7 col-md-8 col-lg-9 flexbox">
                     <div class="scrollbox">
                         <p:region regionName="col-2" />
                     </div>
