@@ -38,7 +38,7 @@ public class DemoMenubarModule implements MenubarModule {
         if (spaceDocumentContext == null) {
             basePath = null;
         } else {
-            basePath = spaceDocumentContext.getPath();
+            basePath = spaceDocumentContext.getCmsPath();
         }
         
         
@@ -71,7 +71,7 @@ public class DemoMenubarModule implements MenubarModule {
         if (documentContext == null) {
             path = null;
         } else {
-            path = documentContext.getPath();
+            path = documentContext.getCmsPath();
         }
 
         if (StringUtils.startsWith(path, "/default-domain/UserWorkspaces/")) {
