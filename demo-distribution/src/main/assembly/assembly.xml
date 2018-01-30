@@ -11,7 +11,7 @@
 
     <dependencySets>
         <dependencySet>
-            <outputDirectory>/${artifactId}-${dest-env}-${project.version}/custom/deploy</outputDirectory>
+            <outputDirectory>${artifactId}-${dest-env}-${project.version}/custom/deploy</outputDirectory>
             <unpack>false</unpack>
             <scope>runtime</scope>
             <includes>
@@ -34,7 +34,7 @@
         </dependencySet>
         
         <dependencySet>
-            <outputDirectory>/${artifactId}-${dest-env}-${project.version}/jboss-as/server/production/lib</outputDirectory>
+            <outputDirectory>${artifactId}-${dest-env}-${project.version}/jboss-as/server/production/lib</outputDirectory>
             <unpack>false</unpack>
             <scope>runtime</scope>
             <includes>
@@ -53,7 +53,7 @@
     <fileSets>
         <!-- Socle -->
         <fileSet>
-            <outputDirectory>/${artifactId}-${dest-env}-${project.version}</outputDirectory>
+            <outputDirectory>${artifactId}-${dest-env}-${project.version}</outputDirectory>
             <directory>target/toutatice-distribution</directory>
             <includes>
                 <include>jboss-as/**</include>
@@ -74,7 +74,7 @@
         </fileSet>
 
         <fileSet>
-            <outputDirectory>/${artifactId}-${dest-env}-${project.version}</outputDirectory>
+            <outputDirectory>${artifactId}-${dest-env}-${project.version}</outputDirectory>
             <directory>src/main/resources</directory>
             <excludes>
                 <exclude>custom/params/environnement_portail.properties.*</exclude>
@@ -88,23 +88,23 @@
     <files>
         <file>
             <source>src/main/resources/custom/params/environnement_portail.properties</source>
-            <outputDirectory>/${artifactId}-${dest-env}-${project.version}/custom/params</outputDirectory>
+            <outputDirectory>${artifactId}-${dest-env}-${project.version}/custom/params</outputDirectory>
             <destName>environnement_portail.properties</destName>
         </file>
         <file>
             <source>src/main/resources/custom/params/ldap-portlets.properties</source>
-            <outputDirectory>/${project.artifactId}-${dest-env}-${project.version}/custom/params</outputDirectory>
+            <outputDirectory>${project.artifactId}-${dest-env}-${project.version}/custom/params</outputDirectory>
             <destName>ldap-portlets.properties</destName>
         </file>
         <file>
             <source>src/main/resources/jboss-as/server/production/deploy/jboss-portal-ha.sar/conf/identity/ldap_identity-config.xml</source>
-            <outputDirectory>/${project.artifactId}-${dest-env}-${project.version}/jboss-as/server/production/deploy/jboss-portal-ha.sar/conf/identity</outputDirectory>
+            <outputDirectory>${project.artifactId}-${dest-env}-${project.version}/jboss-as/server/production/deploy/jboss-portal-ha.sar/conf/identity</outputDirectory>
             <destName>ldap_identity-config.xml</destName>
         </file>
         
         <file>
             <source>target/toutatice-distribution/jboss-as/server/production/conf/jboss-log4j.xml.${src-env}</source>
-            <outputDirectory>/${artifactId}-${dest-env}-${project.version}/jboss-as/server/production/conf</outputDirectory>
+            <outputDirectory>${artifactId}-${dest-env}-${project.version}/jboss-as/server/production/conf</outputDirectory>
             <destName>jboss-log4j.xml</destName>
         </file>
     </files>
