@@ -36,6 +36,12 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>demo-charte-extranet</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>demo-customizer</artifactId>
             <version>${project.version}</version>
             <type>war</type>

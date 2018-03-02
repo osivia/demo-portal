@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<themes>
+    <theme>
+        <name>demo-charte-extranet</name>
+        
+        <!-- CSS -->
+        <link rel="stylesheet" href="/css/demo-extranet.min.css" title="Demo" />
+        
+        <!-- JavaScript -->
+        <!-- <script type="text/javascript" src="/js/demo.js"></script> -->
+    </theme>
+</themes>

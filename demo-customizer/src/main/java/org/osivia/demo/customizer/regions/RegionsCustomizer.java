@@ -30,6 +30,8 @@ public class RegionsCustomizer extends GenericPortlet implements ICustomizationM
     private static final String CHARTE_CONTEXT_PATH = "/demo-charte";
     /** Charte Web context path. */
     private static final String CHARTE_WEB_CONTEXT_PATH = "/demo-charte-web";
+    /** Charte extranet context path. */
+    private static final String CHARTE_EXTRANET_CONTEXT_PATH = "/demo-charte-extranet";
 
 
     /** Customization module metadatas. */
@@ -95,12 +97,19 @@ public class RegionsCustomizer extends GenericPortlet implements ICustomizationM
         // Context path
         String contextPath = (String) attributes.get(IRenderedRegions.CUSTOMIZER_ATTRIBUTE_THEME_CONTEXT_PATH);
 
-        // Toolbar
-        renderedRegion.customizeRenderedRegion("toolbar", "/regions/toolbar.jsp", CHARTE_CONTEXT_PATH);
-        // Tabs
-        renderedRegion.customizeRenderedRegion("tabs", "/regions/tabs.jsp", CHARTE_CONTEXT_PATH);
-
         if (CHARTE_WEB_CONTEXT_PATH.equals(contextPath)) {
+            // Toolbar
+            renderedRegion.customizeRenderedRegion("toolbar", "/regions/toolbar.jsp", CHARTE_CONTEXT_PATH);
+            // Tabs
+            renderedRegion.customizeRenderedRegion("tabs", "/regions/tabs.jsp", CHARTE_CONTEXT_PATH);
+        } else {
+            // Toolbar
+            renderedRegion.customizeRenderedRegion("toolbar", "/regions/toolbar.jsp");
+            // Tabs
+            renderedRegion.customizeRenderedRegion("tabs", "/regions/tabs.jsp");
+        }
+
+        if (CHARTE_WEB_CONTEXT_PATH.equals(contextPath) || CHARTE_EXTRANET_CONTEXT_PATH.equals(contextPath)) {
             // Remove drawer toolbar
             renderedRegion.removeRenderedRegion("drawer-toolbar");
         }

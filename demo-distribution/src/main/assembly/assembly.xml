@@ -18,6 +18,7 @@
                 <!-- Demo -->
                 <include>${project.groupId}:demo-charte:war:${project.version}</include>
                 <include>${project.groupId}:demo-charte-web:war:${project.version}</include>
+                <include>${project.groupId}:demo-charte-extranet:war:${project.version}</include>
                 <include>${project.groupId}:demo-customizer:war:${project.version}</include>
                 <include>${project.groupId}.directory:demo-directory-ear:ear:${project.version}</include>
                 <include>${project.groupId}:demo-generator:war:${project.version}</include>

@@ -1,0 +1,27 @@
+.panel {
+    &.panel-default {
+        padding: @line-height-computed;
+        
+        .panel-heading {
+            padding: 5px 0 15px;
+            
+            color: #252a2f;
+            border-bottom-style: solid;
+            border-width: 1px;
+            border-color: @panel-inner-border;
+            
+            .panel-title {
+                font-size: @font-size-h4;
+            }
+        }
+        
+        .panel-body {
+            padding: @line-height-computed 0 0;
+        }
+        
+        .panel-footer {
+            margin-top: 15px;
+            padding: 15px 0 0;
+        }
+    }
+}

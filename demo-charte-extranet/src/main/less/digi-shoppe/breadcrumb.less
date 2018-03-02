@@ -1,0 +1,125 @@
+.breadcrumb-wrap {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    
+    background-color: #fff;
+    border-bottom: 1px solid #d5d5d5;
+    
+    .box-shadow(@shadow: 0 2px #e0e0e0);
+    
+    > .container {
+        display: flex;
+        flex-direction: row;
+        
+        > * {
+            display: flex;
+            
+            &:first-child {
+                flex-grow: 1;
+                flex-shrink: 1;
+    //            overflow: hidden;
+            }
+            
+            &:last-child {
+                flex-shrink: 0;
+                justify-content: flex-end;
+            }
+        }
+    }
+    
+    @media screen and (max-width: @screen-xs-max) {
+        > .container {
+            flex-direction: column;
+        }
+    }
+    
+    
+    // Breadcrumb
+    .breadcrumb {
+        display: flex;
+        flex-direction: row;
+        
+        padding: 10px 18px;
+        margin-bottom: 0;
+        
+        background-color: unset;
+        border-style: none;
+        border-radius: 0;
+        
+        > li {
+            display: flex;
+//            overflow: hidden;
+            flex-shrink: 1;
+            
+            min-width: 20px;
+            
+            + li {
+                min-width: 40px;   
+            }
+
+            &.active {
+                flex-shrink: 0;
+            }
+            
+            > a, > .dropdown > a {
+                color: @breadcrumb-color;
+                text-transform: uppercase;
+            }
+
+            > a, > .span, > .dropdown > a {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                
+                
+            }
+        } 
+        
+        @media screen and (max-width: @screen-xs-max) {
+            padding-left: 0;
+            padding-right: 0;
+            
+            &.hidden-xs {
+                display: flex !important;
+            }
+        }
+    }
+    
+    
+    // Menubar
+    .menubar {
+        &, > li > ul {
+            display: flex;
+            flex-direction: row;
+            
+            margin-bottom: 0;
+            padding-left: 0;
+            
+            list-style: none;
+            
+            > li {
+                
+            }
+        }
+        
+        > li > ul > li {
+            > a {
+                display: block;
+            
+                padding: 10px;
+                
+                color: @text-color;
+                
+                &, &:hover, &:focus {
+                    text-decoration: none;
+                }
+            }
+        }
+        
+        @media screen and (max-width: @screen-xs-max) {
+            .caret {
+                display: none;
+            }
+        }
+    }
+}

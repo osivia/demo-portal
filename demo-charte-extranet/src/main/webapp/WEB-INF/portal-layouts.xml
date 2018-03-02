@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+
+    <layout>
+        <name>demo-extranet-2-cols</name>
+        <uri>/layouts/2-cols/index.jsp</uri>
+        <uri state="maximized">/layouts/2-cols/maximized.jsp</uri>
+        <regions>
+            <region name="top-before" />
+            <region name="top" />
+            <region name="top-after" />
+            
+            <region name="col-1-before" />
+            <region name="col-1" />
+            <region name="col-1-after" />
+            
+            <region name="col-2-before" />
+            <region name="col-2" />
+            <region name="col-2-after" />
+            
+            <region name="bottom-before" />
+            <region name="bottom" />
+            <region name="bottom-after" />
+            
+            <region name="footer-links" />
+        </regions>
+    </layout>
+
+</layouts>
