@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.portlet.PortletException;
 
+import org.osivia.demo.customizer.plugin.fragment.RecordPropertyFragmentModule;
 import org.osivia.demo.customizer.plugin.menubar.DemoMenubarModule;
 import org.osivia.portal.api.customization.CustomizationContext;
 import org.osivia.portal.api.internationalization.Bundle;
@@ -15,6 +16,7 @@ import org.osivia.portal.api.menubar.MenubarModule;
 import org.osivia.portal.api.theming.TemplateAdapter;
 
 import fr.toutatice.portail.cms.nuxeo.api.domain.AbstractPluginPortlet;
+import fr.toutatice.portail.cms.nuxeo.api.domain.FragmentType;
 import fr.toutatice.portail.cms.nuxeo.api.domain.ListTemplate;
 
 /**
@@ -87,6 +89,26 @@ public class DemoPlugin extends AbstractPluginPortlet {
         this.customizeTemplateAdapters(customizationContext);
         // Menubar modules
         this.customizeMenubarModules(customizationContext);
+        // Fragments
+        this.customizeFragments(customizationContext);
+
+    }
+
+
+    /**
+     * Customize fragments
+     *
+     * @param customizationContext
+     */
+    private void customizeFragments(CustomizationContext customizationContext) {
+        List<FragmentType> fragmentTypes = getFragmentTypes(customizationContext);
+
+        Bundle bundle = this.bundleFactory.getBundle(customizationContext.getLocale());
+
+        RecordPropertyFragmentModule RecordPropertyModule = new RecordPropertyFragmentModule(getPortletContext());
+        FragmentType recordPropertyFragment = new FragmentType(RecordPropertyFragmentModule.ID, bundle.getString("FRAGMENT_RECORD_PROPERTY"),
+                RecordPropertyModule);
+        fragmentTypes.add(recordPropertyFragment);
     }
 
 
@@ -140,7 +162,7 @@ public class DemoPlugin extends AbstractPluginPortlet {
 
     /**
      * Customize menubar modules.
-     * 
+     *
      * @param customizationContext customization context
      */
     private void customizeMenubarModules(CustomizationContext customizationContext) {
