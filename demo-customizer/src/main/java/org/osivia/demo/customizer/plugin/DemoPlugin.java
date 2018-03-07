@@ -6,7 +6,7 @@ import java.util.SortedMap;
 
 import javax.portlet.PortletException;
 
-import org.osivia.demo.customizer.plugin.fragment.RecordPropertyFragmentModule;
+import org.osivia.demo.customizer.plugin.fragment.ProduitRecordFragmentModule;
 import org.osivia.demo.customizer.plugin.menubar.DemoMenubarModule;
 import org.osivia.portal.api.customization.CustomizationContext;
 import org.osivia.portal.api.internationalization.Bundle;
@@ -132,16 +132,16 @@ public class DemoPlugin extends AbstractPluginPortlet {
 
     /**
      * Customize menu templates.
-     * 
+     *
      * @param customizationContext customization context
      */
     private void customizeMenuTemplates(CustomizationContext customizationContext) {
         // Internationalization bundle
         Bundle bundle = this.bundleFactory.getBundle(customizationContext.getLocale());
-        
+
         // Menu templates
         SortedMap<String, String> templates = this.getMenuTemplates(customizationContext);
-        
+
         // Extranet
         templates.put("extranet", bundle.getString("MENU_TEMPLATE_EXTRANET"));
     }
@@ -175,8 +175,8 @@ public class DemoPlugin extends AbstractPluginPortlet {
         MenubarModule module = new DemoMenubarModule();
         modules.add(module);
     }
-    
-    
+
+
     /**
      * Customize fragments
      *
@@ -187,8 +187,8 @@ public class DemoPlugin extends AbstractPluginPortlet {
 
         Bundle bundle = this.bundleFactory.getBundle(customizationContext.getLocale());
 
-        RecordPropertyFragmentModule RecordPropertyModule = new RecordPropertyFragmentModule(getPortletContext());
-        FragmentType recordPropertyFragment = new FragmentType(RecordPropertyFragmentModule.ID, bundle.getString("FRAGMENT_RECORD_PROPERTY"),
+        ProduitRecordFragmentModule RecordPropertyModule = new ProduitRecordFragmentModule(getPortletContext());
+        FragmentType recordPropertyFragment = new FragmentType(ProduitRecordFragmentModule.ID, bundle.getString("FRAGMENT_PRODUCT_RECORD"),
                 RecordPropertyModule);
         fragmentTypes.add(recordPropertyFragment);
     }
