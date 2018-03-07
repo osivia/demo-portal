@@ -6,6 +6,7 @@ import java.util.SortedMap;
 
 import javax.portlet.PortletException;
 
+import org.osivia.demo.customizer.plugin.fragment.LaunchSupportPortletModule;
 import org.osivia.demo.customizer.plugin.fragment.ProduitRecordFragmentModule;
 import org.osivia.demo.customizer.plugin.menubar.DemoMenubarModule;
 import org.osivia.portal.api.customization.CustomizationContext;
@@ -33,6 +34,8 @@ public class DemoPlugin extends AbstractPluginPortlet {
 
     /** Search results list schemas. */
     private static final String SEARCH_RESULTS_SCHEMAS = "dublincore, toutatice";
+
+    private static final String LAUNCH_PROCEDURE_LIST_SCHEMAS = "dublincore, common, toutatice, procedureInstance";
 
 
     /** Internationalization bundle factory. */
@@ -191,6 +194,12 @@ public class DemoPlugin extends AbstractPluginPortlet {
         FragmentType recordPropertyFragment = new FragmentType(ProduitRecordFragmentModule.ID, bundle.getString("FRAGMENT_PRODUCT_RECORD"),
                 RecordPropertyModule);
         fragmentTypes.add(recordPropertyFragment);
-    }
 
+
+        // Launch procedure
+        LaunchSupportPortletModule launchSupportPortletModule = new LaunchSupportPortletModule(getPortletContext());
+        FragmentType launchSupportFragment = new FragmentType(LaunchSupportPortletModule.ID, bundle.getString("FRAGMENT_LAUNCH_SUPPORT"),
+                launchSupportPortletModule);
+        fragmentTypes.add(launchSupportFragment);
+    }
 }

@@ -19,6 +19,9 @@ import fr.toutatice.portail.cms.nuxeo.api.NuxeoController;
 import fr.toutatice.portail.cms.nuxeo.api.cms.NuxeoDocumentContext;
 import fr.toutatice.portail.cms.nuxeo.api.fragment.FragmentModule;
 
+/**
+ * @author Dorian Licois
+ */
 public class ProduitRecordFragmentModule extends FragmentModule {
 
     /** Record property fragment identifier. */
