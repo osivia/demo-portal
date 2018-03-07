@@ -2,6 +2,7 @@ package org.osivia.demo.customizer.plugin;
 
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
 
 import javax.portlet.PortletException;
 
@@ -85,30 +86,14 @@ public class DemoPlugin extends AbstractPluginPortlet {
     protected void customizeCMSProperties(CustomizationContext customizationContext) {
         // List templates
         this.customizeListTemplates(customizationContext);
+        // Menu templates
+        this.customizeMenuTemplates(customizationContext);
         // Template adapters
         this.customizeTemplateAdapters(customizationContext);
         // Menubar modules
         this.customizeMenubarModules(customizationContext);
         // Fragments
         this.customizeFragments(customizationContext);
-
-    }
-
-
-    /**
-     * Customize fragments
-     *
-     * @param customizationContext
-     */
-    private void customizeFragments(CustomizationContext customizationContext) {
-        List<FragmentType> fragmentTypes = getFragmentTypes(customizationContext);
-
-        Bundle bundle = this.bundleFactory.getBundle(customizationContext.getLocale());
-
-        RecordPropertyFragmentModule RecordPropertyModule = new RecordPropertyFragmentModule(getPortletContext());
-        FragmentType recordPropertyFragment = new FragmentType(RecordPropertyFragmentModule.ID, bundle.getString("FRAGMENT_RECORD_PROPERTY"),
-                RecordPropertyModule);
-        fragmentTypes.add(recordPropertyFragment);
     }
 
 
@@ -146,6 +131,23 @@ public class DemoPlugin extends AbstractPluginPortlet {
 
 
     /**
+     * Customize menu templates.
+     * 
+     * @param customizationContext customization context
+     */
+    private void customizeMenuTemplates(CustomizationContext customizationContext) {
+        // Internationalization bundle
+        Bundle bundle = this.bundleFactory.getBundle(customizationContext.getLocale());
+        
+        // Menu templates
+        SortedMap<String, String> templates = this.getMenuTemplates(customizationContext);
+        
+        // Extranet
+        templates.put("extranet", bundle.getString("MENU_TEMPLATE_EXTRANET"));
+    }
+
+
+    /**
      * Customize template adapters.
      *
      * @param customizationContext customization context
@@ -172,6 +174,23 @@ public class DemoPlugin extends AbstractPluginPortlet {
         // Customized menubar module
         MenubarModule module = new DemoMenubarModule();
         modules.add(module);
+    }
+    
+    
+    /**
+     * Customize fragments
+     *
+     * @param customizationContext
+     */
+    private void customizeFragments(CustomizationContext customizationContext) {
+        List<FragmentType> fragmentTypes = getFragmentTypes(customizationContext);
+
+        Bundle bundle = this.bundleFactory.getBundle(customizationContext.getLocale());
+
+        RecordPropertyFragmentModule RecordPropertyModule = new RecordPropertyFragmentModule(getPortletContext());
+        FragmentType recordPropertyFragment = new FragmentType(RecordPropertyFragmentModule.ID, bundle.getString("FRAGMENT_RECORD_PROPERTY"),
+                RecordPropertyModule);
+        fragmentTypes.add(recordPropertyFragment);
     }
 
 }

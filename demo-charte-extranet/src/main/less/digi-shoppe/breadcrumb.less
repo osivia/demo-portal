@@ -61,17 +61,27 @@
                 flex-shrink: 0;
             }
             
-            > a, > .dropdown > a {
+            > span, > a, > .dropdown > a {
                 color: @breadcrumb-color;
                 text-transform: uppercase;
+            }
+            
+            &.active {
+                > span, > a, > .dropdown > a {
+                    color: @link-color;
+                }
+                
+                > a, > .dropdown > a {
+                    &:hover, &:focus {
+                        color: @link-hover-color;
+                    }
+                }
             }
 
             > a, > .span, > .dropdown > a {
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
-                
-                
             }
         } 
         

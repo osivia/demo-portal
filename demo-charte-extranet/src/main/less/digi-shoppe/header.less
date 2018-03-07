@@ -11,6 +11,16 @@ header {
         background-position: center;
         background-attachment: fixed;
     }
+
+    .bandeau {
+        min-height: 200px;
+        
+        background-color: #2a2a2a;
+    }
+    
+    .portlet-container {
+        margin-bottom: 0;
+    }
 }
 
 
@@ -26,10 +36,6 @@ header {
         margin-top: 30px;
     }
     
-    &, a {
-        color: #fff;
-    }
-    
     .btn-link, .navbar-nav > li > a {
         padding-top: 5px;
         padding-bottom: 5px;
@@ -41,7 +47,6 @@ header {
     .open .btn-link, .navbar-nav > li.open > a {
         color: #65c7ff;            
     }
-    
     
     .header-links {
         margin-top: 5px;
@@ -62,14 +67,18 @@ header {
                 
                 .border-top-radius(@radius: @border-radius-base);
             }
+            
+            > .navbar-form {
+                margin: 0;
+            }
         }
     }
     
     @media screen and (max-width: @screen-xs-max) {
         top: 25px;
         
-        .logo {
-            margin: 0 auto @line-height-computed;
+        .logo img {
+            margin: 0 auto;
         }
     }
     
@@ -109,11 +118,22 @@ header {
         > .container {
             background-color: #3498db;
             border-radius: 5px;
+            
+            > .navbar-collapse {
+                > .navbar-container {
+                    display: flex;
+                    flex-direction: row;
+                    
+                    > :first-child {
+                        flex-grow: 1;
+                    }
+                }
+            }
         }
     }
     
     @media screen and (max-width: @screen-xs-max) {
-        top: 180px;
+        top: 120px;
         
         > .container {
             margin-left: 10px;
@@ -162,10 +182,38 @@ header {
     
     
     // Tabs
+    .menu-horizontal {
+        > ul {
+            > li {
+                a {
+                    text-transform: uppercase;
+                }
+                
+                > a:hover, > a:focus, &.open a {
+                    background-color: #1a7eb8;
+                }
+                
+                &, &.open {
+                    a {
+                        &, &:hover, &:focus {
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     .navbar-nav {
         > li {
             a {
                 text-transform: uppercase;
+            }
+            
+            > a {
+                i {
+                    margin-top: -1px;
+                }
             }
             
             > a:hover, > a:focus, &.open a {

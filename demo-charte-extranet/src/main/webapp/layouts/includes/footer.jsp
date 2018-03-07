@@ -5,7 +5,7 @@
     <!-- Links -->
     <div class="footer-links">
         <div class="container">
-            <p:region regionName="footer-links" />
+            <p:region regionName="footer-links" cms="true" />
         </div>
     </div>
     

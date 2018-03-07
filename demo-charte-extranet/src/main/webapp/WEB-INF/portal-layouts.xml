@@ -2,10 +2,42 @@
 <layouts>
 
     <layout>
+        <name>demo-extranet-home</name>
+        <uri>/layouts/home/index.jsp</uri>
+        <uri state="maximized">/layouts/home/maximized.jsp</uri>
+        <regions>
+            <region name="bandeau" />
+            <region name="logo" />
+            <region name="navigation-menu" />
+        
+            <region name="top-before" />
+            <region name="top" />
+            <region name="top-after" />
+            
+            <region name="col-1-before" />
+            <region name="col-1" />
+            <region name="col-1-after" />
+            
+            <region name="col-2-before" />
+            <region name="col-2" />
+            <region name="col-2-after" />
+            
+            <region name="bottom-before" />
+            <region name="bottom" />
+            <region name="bottom-after" />
+            
+            <region name="footer-links" />
+        </regions>
+    </layout>
+
+    <layout>
         <name>demo-extranet-2-cols</name>
         <uri>/layouts/2-cols/index.jsp</uri>
         <uri state="maximized">/layouts/2-cols/maximized.jsp</uri>
         <regions>
+            <region name="logo" />
+            <region name="navigation-menu" />
+        
             <region name="top-before" />
             <region name="top" />
             <region name="top-after" />

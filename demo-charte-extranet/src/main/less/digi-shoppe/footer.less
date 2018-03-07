@@ -1,4 +1,9 @@
 footer {
+    .portlet-container {
+        margin-bottom: 0;
+    }
+    
+    
     // Links
     .footer-links {
         padding: 35px 0 40px;
@@ -24,10 +29,50 @@ footer {
             }
         }
         
+        .menu-footer {
+            > ul {
+                margin: 0 floor(@grid-gutter-width / -2);
+                
+                .clearfix;
+                
+                > li {
+                    display: block;
+                    position: relative;
+                    float: left;
+                    min-height: 1px;
+                    
+                    padding: 0 floor(@grid-gutter-width / 2);
+                }
+            }
+            
+            .lead {
+                margin: 10px 0;
+                
+                font-size: @font-size-h5;
+                font-weight: @headings-font-weight;
+                text-transform: uppercase;
+            }
+        }
+        
         @media screen and (max-width: @screen-xs-max) {
-            text-align: center;
+            .menu-footer {
+                text-align: center;
+                
+                > ul {
+                    > li {
+                        float: none;
+                        
+                        margin-bottom: @line-height-computed;
+                        
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+            }
         }
     }
+    
     
     // Copyright
     .copyright {
