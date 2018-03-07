@@ -8,6 +8,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.activation.MimeType;
+import javax.activation.MimeTypeParseException;
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletException;
@@ -21,8 +23,10 @@ import org.nuxeo.ecm.automation.client.model.Document;
 import org.nuxeo.ecm.automation.client.model.PropertyList;
 import org.nuxeo.ecm.automation.client.model.PropertyMap;
 import org.osivia.portal.api.Constants;
+import org.osivia.portal.api.cms.FileDocumentType;
 import org.osivia.portal.api.context.PortalControllerContext;
 import org.osivia.portal.api.html.DOM4JUtils;
+import org.osivia.portal.api.html.HTMLConstants;
 import org.osivia.portal.api.internationalization.Bundle;
 import org.osivia.portal.api.windows.PortalWindow;
 import org.osivia.portal.api.windows.WindowFactory;
@@ -30,6 +34,7 @@ import org.osivia.portal.api.windows.WindowFactory;
 import fr.toutatice.portail.cms.nuxeo.api.NuxeoController;
 import fr.toutatice.portail.cms.nuxeo.api.cms.NuxeoDocumentContext;
 import fr.toutatice.portail.cms.nuxeo.api.fragment.FragmentModule;
+import fr.toutatice.portail.cms.nuxeo.api.services.INuxeoCustomizer;
 
 public class RecordPropertyFragmentModule extends FragmentModule {
 
@@ -171,14 +176,66 @@ public class RecordPropertyFragmentModule extends FragmentModule {
 
     private String formatFile(PropertyMap propertyMap, NuxeoController nuxeoController) {
 
-        String content = null;
+        // file properties
+        Document currentDoc = nuxeoController.getCurrentDoc();
+        PropertyMap properties = currentDoc.getProperties();
+        PropertyList files = properties.getList("files:files");
+        int fileIndex = getFileIndex(propertyMap.getString("digest"), files);
+        PropertyMap fileMap = files.getMap(fileIndex);
+        String fileName = fileMap.getString("filename");
+        PropertyMap fileFileMap = fileMap.getMap("file");
 
-        getFileLink(propertyMap, nuxeoController);
+        // file icon
+        String mimeType = fileFileMap.getString("mime-type");
+        MimeType mimeTypeO;
+        try {
+            mimeTypeO = new MimeType(mimeType);
+        } catch (MimeTypeParseException e) {
+            mimeTypeO = new MimeType();
+        }
+        String icon = getIcon(mimeTypeO, nuxeoController);
 
-        // TODO display nicely in HTML
-        content = getFileLink(propertyMap, nuxeoController);
+        // file link
+        String fileLink = nuxeoController.createAttachedFileLink("files:files", String.valueOf(getFileIndex(fileFileMap.getString("digest"), files)));
 
-        return content;
+        // HTML
+        Element divElement = DOM4JUtils.generateDivElement(null);
+        Element iElement = DOM4JUtils.generateElement(HTMLConstants.I, icon, StringUtils.EMPTY);
+        Element aElement = DOM4JUtils.generateLinkElement(fileLink, "_blank", null, "no-ajax-link", null);
+        Element spanElement = DOM4JUtils.generateElement(HTMLConstants.SPAN, null, fileName);
+        aElement.add(spanElement);
+        divElement.add(iElement);
+        divElement.add(aElement);
+
+        return DOM4JUtils.write(divElement);
+    }
+
+    public String getIcon(MimeType mimeType, NuxeoController nuxeoController) {
+        INuxeoCustomizer cmsCustomizer = nuxeoController.getNuxeoCMSService().getCMSCustomizer();
+
+        // Icon
+        String icon;
+
+        if (mimeType == null) {
+            icon = null;
+        } else {
+            // File document types
+            List<FileDocumentType> types = cmsCustomizer.getFileDocumentTypes();
+
+            icon = null;
+            for (FileDocumentType type : types) {
+                if (StringUtils.equals(mimeType.getPrimaryType(), type.getMimePrimaryType())) {
+                    if (type.getMimeSubTypes().isEmpty()) {
+                        icon = type.getIcon();
+                    } else if (type.getMimeSubTypes().contains(mimeType.getSubType())) {
+                        icon = type.getIcon();
+                        break;
+                    }
+                }
+            }
+        }
+
+        return icon;
     }
 
     private String getFileLink(PropertyMap propertyMap, NuxeoController nuxeoController) {
@@ -213,17 +270,20 @@ public class RecordPropertyFragmentModule extends FragmentModule {
 
     private String formatPicture(PropertyMap propertyMap, NuxeoController nuxeoController) {
 
+        // imageLink
         String imageLink = getFileLink(propertyMap, nuxeoController);
+
+        // image file name
         String filename = propertyMap.getString("fileName");
 
+        // HTML
         Element aElement = DOM4JUtils.generateLinkElement(imageLink, null, null, "thumbnail no-margin-bottom no-ajax-link", null);
         DOM4JUtils.addDataAttribute(aElement, "fancybox", "gallery");
         DOM4JUtils.addDataAttribute(aElement, "caption", filename);
         DOM4JUtils.addDataAttribute(aElement, "type", "image");
-
-        Element imgElement = DOM4JUtils.generateElement("img", null, null);
-        imgElement.addAttribute("src", imageLink);
-        imgElement.addAttribute("alt", filename);
+        Element imgElement = DOM4JUtils.generateElement(HTMLConstants.IMG, null, null);
+        imgElement.addAttribute(HTMLConstants.SRC, imageLink);
+        imgElement.addAttribute(HTMLConstants.ALT, filename);
 
         aElement.add(imgElement);
 
