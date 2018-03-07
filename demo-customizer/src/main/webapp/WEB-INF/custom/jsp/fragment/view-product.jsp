@@ -12,6 +12,6 @@
 		</a>
 	</div>
 	<div class="col-sm-12">
-		<c:out value="${description}"/>
+		${description}
 	</div>
 </div>
