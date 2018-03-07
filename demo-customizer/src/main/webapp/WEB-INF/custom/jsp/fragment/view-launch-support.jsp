@@ -11,8 +11,3 @@
   	</a>
 </div>
 
-<c:if test="${empty documents}">
-    <p class="text-center">
-        <span class="text-muted"><op:translate key="LIST_NO_ITEMS" /></span>
-    </p>
-</c:if>
