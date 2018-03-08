@@ -164,7 +164,8 @@ public class ViewSchedulerController {
     @ResourceMapping("searchContributor")
     public void searchContributor(ResourceRequest request, ResourceResponse response,
             @RequestParam(value = "filter", required = false) String filter) throws PortletException, IOException {
-        // Search results
+    	
+    	// Search results
     	JSONArray results = this.service.searchContributors(filter);
 
         // Content type
@@ -187,7 +188,9 @@ public class ViewSchedulerController {
     @ModelAttribute("schedulerForm")
     public SchedulerForm getForm(PortletRequest request, PortletResponse response) throws PortletException {
 
-    	return this.service.getForm();
+    	PortalControllerContext portalControllerContext = new PortalControllerContext(this.portletContext, request, response);
+
+    	return this.service.getForm(portalControllerContext);
     }
     
 }

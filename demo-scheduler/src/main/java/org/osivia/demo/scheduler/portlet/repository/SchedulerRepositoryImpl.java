@@ -10,8 +10,15 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.nuxeo.ecm.automation.client.model.Document;
 import org.nuxeo.ecm.automation.client.model.Documents;
+import org.nuxeo.ecm.automation.client.model.PropertyList;
+import org.nuxeo.ecm.automation.client.model.PropertyMap;
 import org.osivia.demo.scheduler.portlet.model.Event;
+import org.osivia.demo.scheduler.portlet.model.Reservation;
+import org.osivia.demo.scheduler.portlet.model.SchedulerForm;
+import org.osivia.demo.scheduler.portlet.model.Technician;
+import org.osivia.demo.scheduler.portlet.repository.command.CustomerCommand;
 import org.osivia.demo.scheduler.portlet.repository.command.EventListCommand;
+import org.osivia.demo.scheduler.portlet.repository.command.ProcedureInstanceListCommand;
 import org.osivia.portal.api.context.PortalControllerContext;
 import org.osivia.portal.api.directory.v2.model.Person;
 import org.osivia.portal.api.directory.v2.service.PersonService;
@@ -31,6 +38,26 @@ import fr.toutatice.portail.cms.nuxeo.api.NuxeoQueryFilterContext;
 public class SchedulerRepositoryImpl implements SchedulerRepository{
 
 	public static final String CALENDAR_PATH_SUFFIX = "/calendrier";
+	
+	private static final String PROCEDURE_INSTANCE_MAP = "pi:data";
+	
+	private static final String RESERVATION_DATE = "date";
+	
+	private static final String RESERVATION_TIME_SLOT = "plage";
+	
+	private static final String RESERVATION_OBJECT = "objet";
+	
+	private static final String RESERVATION_ACCEPTED = "accepted";
+	
+	private static final String DATA_MAP = "rcd:data";
+	
+	private static final String CUSTOMER_USERS_DATA = "customerusers";
+	
+	private static final String CUSTOMER_USER_PROPERTY = "user";
+	
+	private static final String TECHNICIANS_DATA = "technicianusers";
+	
+	private static final String TECHNICIAN_PROPERTY = "technician";
 	
 	@Autowired
 	private PersonService personService;
@@ -70,7 +97,34 @@ public class SchedulerRepositoryImpl implements SchedulerRepository{
      * {@inheritDoc}
      */
     @Override
-    public List<Person> searchContributor(String filter)
+    public List<Reservation> getReservations(PortalControllerContext portalControllerContext, String startDate, String endDate, String intervenant, List<String> customerUsers)
+    {
+    	// Nuxeo controller
+        NuxeoController nuxeoController = new NuxeoController(portalControllerContext.getRequest(), portalControllerContext.getResponse(),
+                portalControllerContext.getPortletCtx());
+
+        // Nuxeo command
+        INuxeoCommand nuxeoCommand = new ProcedureInstanceListCommand(NuxeoQueryFilterContext.CONTEXT_LIVE_N_PUBLISHED, startDate, endDate, intervenant, customerUsers);
+        Documents documents = (Documents) nuxeoController.executeNuxeoCommand(nuxeoCommand);
+        List<Reservation> reservations = new ArrayList<>();
+        for (Document document : documents) {
+        	Reservation reservation = new Reservation();
+        	reservation.setCreator(document.getString("dc:creator"));
+        	PropertyMap map = document.getProperties().getMap(PROCEDURE_INSTANCE_MAP);
+        	reservation.setDay(map.getDate(RESERVATION_DATE));
+        	reservation.setTimeSlot(map.getString(RESERVATION_TIME_SLOT));
+        	reservation.setObject(map.getString(RESERVATION_OBJECT));
+        	reservation.setAccepted("true".equals(map.getString(RESERVATION_ACCEPTED)));
+        	reservations.add(reservation);
+        }
+        return reservations;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Person> searchPerson(String filter)
     {
     	// Criteria
         Person criteria = this.personService.getEmptyPerson();
@@ -95,6 +149,54 @@ public class SchedulerRepositoryImpl implements SchedulerRepository{
         criteria.setDisplayName(tokenizedFilterSubStr);
         
         return this.personService.findByCriteria(criteria);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setCustomerInformation(PortalControllerContext portalControllerContext, SchedulerForm form, String user)
+    {
+    	// Nuxeo controller
+        NuxeoController nuxeoController = new NuxeoController(portalControllerContext.getRequest(), portalControllerContext.getResponse(),
+                portalControllerContext.getPortletCtx());
+
+        // Nuxeo command
+        INuxeoCommand nuxeoCommand = new CustomerCommand(NuxeoQueryFilterContext.CONTEXT_LIVE_N_PUBLISHED, user);
+        
+        Documents documents = (Documents) nuxeoController.executeNuxeoCommand(nuxeoCommand);
+        
+        List<String> customerUsers = new ArrayList<>();
+        List<Technician> technicians = new ArrayList<>();
+        if (documents.size()>0) {
+        	Document document = documents.get(0);
+        	PropertyMap map = document.getProperties().getMap(DATA_MAP);
+        	
+        	//Customer users data
+        	PropertyList list = map.getList(CUSTOMER_USERS_DATA);
+        	List listUsers = list.getList();
+        	for (Object object : listUsers)
+        	{
+        		if (object != null)
+        		{
+        			customerUsers.add(((PropertyMap) object).getString(CUSTOMER_USER_PROPERTY));
+        		}
+        	}
+        	
+        	//Customer technicians data
+        	list = map.getList(TECHNICIANS_DATA);
+        	listUsers = list.getList();
+        	for (Object object : listUsers)
+        	{
+        		if (object != null)
+        		{
+        			Person person = personService.getPerson(((PropertyMap) object).getString(TECHNICIAN_PROPERTY));
+        			if (person != null) technicians.add(new Technician(person));
+        		}
+        	}
+        	form.setCustomerUsers(customerUsers);
+            form.setTechnicians(technicians);
+        }        
     }
     
     /**

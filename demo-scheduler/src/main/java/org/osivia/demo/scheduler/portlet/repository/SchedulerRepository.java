@@ -5,6 +5,8 @@ import java.util.List;
 import javax.portlet.PortletException;
 
 import org.osivia.demo.scheduler.portlet.model.Event;
+import org.osivia.demo.scheduler.portlet.model.Reservation;
+import org.osivia.demo.scheduler.portlet.model.SchedulerForm;
 import org.osivia.portal.api.context.PortalControllerContext;
 import org.osivia.portal.api.directory.v2.model.Person;
 
@@ -54,9 +56,28 @@ public interface SchedulerRepository {
     List<Event> getEvents(PortalControllerContext portalControllerContext, String startDate, String endDate, String workspacePath) throws PortletException;
     
     /**
+     * List all reservations between start date and end date with that intervenant
+     * @param portalControllerContext
+     * @param startDate
+     * @param endDate
+     * @param intervenant
+     * @param customerUsers
+     * @return
+     */
+    List<Reservation> getReservations(PortalControllerContext portalControllerContext, String startDate, String endDate, String intervenant, List<String> customerUsers);
+    
+    /**
      * List all persons
      * @param portalControllerContext
      * @return
      */
-    List<Person> searchContributor(String filter);
+    List<Person> searchPerson(String filter);
+    
+    /**
+     * List all users id of a client
+     * @param portalControllerContext
+     * @param schedulerForm
+     * @param user
+     */
+    void setCustomerInformation(PortalControllerContext portalControllerContext, SchedulerForm schedulerForm, String user);
 }

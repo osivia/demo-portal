@@ -17,9 +17,11 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.jboss.portal.theme.impl.render.dynamic.DynaRenderOptions;
 import org.nuxeo.ecm.automation.client.model.Document;
-import org.osivia.demo.scheduler.portlet.model.Contributor;
 import org.osivia.demo.scheduler.portlet.model.Event;
+import org.osivia.demo.scheduler.portlet.model.Reservation;
+import org.osivia.demo.scheduler.portlet.model.SchedulerEvent;
 import org.osivia.demo.scheduler.portlet.model.SchedulerForm;
+import org.osivia.demo.scheduler.portlet.model.Technician;
 import org.osivia.demo.scheduler.portlet.repository.SchedulerRepository;
 import org.osivia.portal.api.Constants;
 import org.osivia.portal.api.PortalException;
@@ -62,24 +64,32 @@ public class SchedulerServiceImpl implements SchedulerService {
 	
 	private static final long TWELVE_HOURS = (12*60*60*1000);
 	
+	private static final long ONE_DAY = (24*60*60*1000);
+	
 	/**
      * {@inheritDoc}
      */
     @Override
-	public SchedulerForm getForm()
+	public SchedulerForm getForm(PortalControllerContext portalControllerContext)
 	{
 		SchedulerForm form = this.applicationContext.getBean(SchedulerForm.class);
-		form.setContributorsList(this.loadContributors());
+		
+		//Current user
+		String currentUser = portalControllerContext.getHttpServletRequest().getUserPrincipal().getName();
+    	
+		//Set technicians and customerUsers in form
+    	this.repository.setCustomerInformation(portalControllerContext, form, currentUser);
+
 		return form;
 	}
 	
-    public List<Contributor> loadContributors()
+    public List<Technician> loadContributors()
     {
-    	List<Person> listPerson = this.repository.searchContributor("");
-    	List<Contributor> listContributor = new ArrayList<Contributor>();
+    	List<Person> listPerson = this.repository.searchPerson("");
+    	List<Technician> listContributor = new ArrayList<Technician>();
     	for (Person person : listPerson)
     	{
-    		Contributor contributor = new Contributor(person);
+    		Technician contributor = new Technician(person);
     		listContributor.add(contributor);
     	}
     	return listContributor;
@@ -94,7 +104,7 @@ public class SchedulerServiceImpl implements SchedulerService {
         // JSON objects
         List<JSONObject> objects = new ArrayList<>();
     	
-		List<Person> list = repository.searchContributor(filter);
+		List<Person> list = repository.searchPerson(filter);
 		for (Person person : list)
 		{
 			// Search result
@@ -166,25 +176,27 @@ public class SchedulerServiceImpl implements SchedulerService {
         //Reset time slot availability 
         resetAvailability(form);
         
+        Calendar mondayMorning = getCalendar(form.getMonday(), 0);
+		final long milliMondayMorning = mondayMorning.getTimeInMillis();		
+
+        Calendar calFridayNight = getCalendar(form.getFriday(), 0);
+        calFridayNight.add(Calendar.DAY_OF_MONTH, 1);
+        long milliFridayNight = calFridayNight.getTimeInMillis();
+        
+        //Start date
+		String startDate = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(mondayMorning.getTime());
+		//End date
+        String endDate = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(calFridayNight.getTime());
+        
+        Map<String, SchedulerEvent> mapDay = new HashMap<>();
+        
+        //Events from the user workspaces
         try {
 			List<Document> listWorkspaces = cmsCustomizer.getUserWorkspaces(cmsContext, form.getSelectedContributor());
-
-			Calendar mondayMorning = getCalendar(form.getMonday(), 0);
-			long milliMondayMorning = mondayMorning.getTimeInMillis();		
-
-	        Calendar calFridayNight = getCalendar(form.getFriday(), 0);
-	        calFridayNight.add(Calendar.DAY_OF_MONTH, 1);
-	        long milliFridayNight = calFridayNight.getTimeInMillis();
-	        
-	        //Start date
-			String startDate = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(mondayMorning.getTime());
-			//End date
-	        String endDate = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(calFridayNight.getTime());
 
 	        int start = 0;
 	        long milliStart;
 	        long milliEnd;
-	        Map<String, String> mapDay = new HashMap<>();
 			for (Document workspace: listWorkspaces)
 			{
 				List<Event> events = this.repository.getEvents(portalControllerContext, startDate, endDate, workspace.getPath());
@@ -202,13 +214,41 @@ public class SchedulerServiceImpl implements SchedulerService {
 					timeSlot(start, milliMondayMorning, milliEnd, mapDay);
 				}
 			}
-			//Set busy time slot
-			setBusyTimeSlot(form, mapDay);
 			
 		} catch (CMSException e) {
 			throw new PortletException(e);
 		}
-		
+        String currentUser = portalControllerContext.getHttpServletRequest().getUserPrincipal().getName();
+        
+        
+        
+        //Start date
+      	startDate = DateFormatUtils.ISO_DATE_FORMAT.format(mondayMorning.getTime());
+      	//End date
+        endDate = DateFormatUtils.ISO_DATE_FORMAT.format(calFridayNight.getTime());
+        
+        //Reservations
+        List<Reservation> reservations = this.repository.getReservations(portalControllerContext, startDate, endDate, form.getSelectedContributor(), form.getCustomerUsers());
+        for (Reservation reservation: reservations)
+		{
+        	float nbMillis = Math.abs((float) (reservation.getDay().getTime() - milliMondayMorning));
+        	int nbDays = new BigDecimal((float) (nbMillis/ONE_DAY)).setScale(0, BigDecimal.ROUND_HALF_UP).intValue();
+        	int nbHalfDays = nbDays*2 + ("PM".equals(reservation.getTimeSlot())? 1 : 0);
+        	SchedulerEvent schedulerEvent = new SchedulerEvent(true);
+    		schedulerEvent.setObject(reservation.getObject());
+    		schedulerEvent.setAccepted(reservation.isAccepted());
+        	if (StringUtils.isNotEmpty(reservation.getCreator()) && reservation.getCreator().equals(currentUser))
+        	{
+        		mapDay.put(Integer.toString(nbHalfDays), schedulerEvent);
+        	} else
+        	{
+        		schedulerEvent.setReservation(false);
+        		mapDay.put(Integer.toString(nbHalfDays), schedulerEvent);
+        	}
+		}
+        
+        //Set busy time slot
+		setBusyTimeSlot(form, mapDay);
 	}
 	
 	/**
@@ -218,14 +258,15 @@ public class SchedulerServiceImpl implements SchedulerService {
 	 * @param milliEnd number of milliseconds of the end of the event
 	 * @param mapDay
 	 */
-	private void timeSlot(int start, long milliMondayMorning, long milliEnd, Map<String, String> mapDay)
+	private void timeSlot(int start, long milliMondayMorning, long milliEnd, Map<String, SchedulerEvent> mapDay)
 	{
 		float nb = (float) (milliEnd - milliMondayMorning)/TWELVE_HOURS;
 		BigDecimal halfDay = new BigDecimal(nb).setScale(0, RoundingMode.UP);
 		int nbHalfDay = halfDay.intValue() - start;
+		SchedulerEvent schedulerEvent = new SchedulerEvent(false);
 		for (int i=0; i <nbHalfDay; i++)
 		{
-			mapDay.put(Integer.toString(i+start), "");
+			mapDay.put(Integer.toString(i+start), schedulerEvent);
 		}
 	}
 	
@@ -251,18 +292,20 @@ public class SchedulerServiceImpl implements SchedulerService {
 	 * @param form scheduler form
 	 * @param mapDay map of busy time slots
 	 */
-	private void setBusyTimeSlot(SchedulerForm form, Map<String, String> mapDay)
+	private void setBusyTimeSlot(SchedulerForm form, Map<String, SchedulerEvent> mapDay)
 	{
-		if (mapDay.get("0")!= null) form.setBusyMondayMorning(true);
-		if (mapDay.get("1")!= null) form.setBusyMondayAfternoon(true);
-		if (mapDay.get("2")!= null) form.setBusyTuesdayMorning(true);
-		if (mapDay.get("3")!= null) form.setBusyTuesdayAfternoon(true);
-		if (mapDay.get("4")!= null) form.setBusyWednesdayMorning(true);
-		if (mapDay.get("5")!= null) form.setBusyWednesdayAfternoon(true);
-		if (mapDay.get("6")!= null) form.setBusyThursdayMorning(true);
-		if (mapDay.get("7")!= null) form.setBusyThursdayAfternoon(true);
-		if (mapDay.get("8")!= null) form.setBusyFridayMorning(true);
-		if (mapDay.get("9")!= null) form.setBusyFridayAfternoon(true);
+		//First set morning
+		if (mapDay.get("0")!= null) form.getTimeSlots()[0] = mapDay.get("0");
+		if (mapDay.get("2")!= null) form.getTimeSlots()[1] = mapDay.get("2");
+		if (mapDay.get("4")!= null) form.getTimeSlots()[2] = mapDay.get("4");
+		if (mapDay.get("6")!= null) form.getTimeSlots()[3] = mapDay.get("6");
+		if (mapDay.get("8")!= null) form.getTimeSlots()[4] = mapDay.get("8");
+		//Then set afternoon
+		if (mapDay.get("1")!= null) form.getTimeSlots()[5] = mapDay.get("1");
+		if (mapDay.get("3")!= null) form.getTimeSlots()[6] = mapDay.get("3");
+		if (mapDay.get("5")!= null) form.getTimeSlots()[7] = mapDay.get("5");
+		if (mapDay.get("7")!= null) form.getTimeSlots()[8] = mapDay.get("7");
+		if (mapDay.get("9")!= null) form.getTimeSlots()[9] = mapDay.get("9");
 	}
 	
 	/**
@@ -271,16 +314,7 @@ public class SchedulerServiceImpl implements SchedulerService {
 	 */
 	private void resetAvailability(SchedulerForm form)
 	{
-		form.setBusyMondayMorning(false);
-		form.setBusyMondayAfternoon(false);
-		form.setBusyTuesdayMorning(false);
-		form.setBusyTuesdayAfternoon(false);
-		form.setBusyWednesdayMorning(false);
-		form.setBusyWednesdayAfternoon(false);
-		form.setBusyThursdayMorning(false);
-		form.setBusyThursdayAfternoon(false);
-		form.setBusyFridayMorning(false);
-		form.setBusyFridayAfternoon(false);
+		form.setTimeSlots(new SchedulerEvent[10]);
 	}
 
 	@Override

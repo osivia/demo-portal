@@ -27,7 +27,7 @@
 		<form:select  cssClass="form-control select2 select2-default" path="selectedContributor" class="form-control"
 		data-placeholder="${placeholder}" data-no-results="${noResults}">
 			<form:option value=""></form:option>
-			<c:forEach var="contributor" items="${schedulerForm.contributorsList}">
+			<c:forEach var="contributor" items="${schedulerForm.technicians}">
 				<form:option value="${contributor.id}" data-avatar="${contributor.avatarUrl}">${contributor.text}</form:option>
 			</c:forEach>
 		</form:select>
@@ -39,7 +39,7 @@
 	<c:if test="${not empty schedulerForm.selectedContributor}">
 		<div class="form-group required">
 			<div class="table-responsive">
-				<table class="table table-bordered text-center">
+				<table class="table text-center">
 					<thead>
 						<tr>
 							<th class="text-center">
@@ -98,172 +98,92 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>
+							<th class="vertical-center">
 								<div class="media">
-								<div class="media-body time-slot-padding">
+								<div class="media-body text-center">
 								<op:translate key="DEMO_SCHEDULER_MORNING" />
 								</div>
 								</div>
-							</td>
+							</th>
+							<c:forEach items="${schedulerForm.timeSlots}" begin = "0" end = "4" var="timeSlot">
 							<td class="vertical-center">
 								<c:choose>
-									<c:when test="${schedulerForm.busyMondayMorning}">
-										<i class="glyphicons glyphicons-minus time-slot-padding"></i>
-									</c:when>
-									<c:otherwise>
+									<c:when test="${empty timeSlot}">
 										<fmt:formatDate var="day" value="${schedulerForm.monday}" type="date" pattern="dd/MM/yyyy" />
 										<portlet:actionURL name="startContribution" var="url">
 											<portlet:param name="halfDay" value="AM"/>
 											<portlet:param name="day" value="${day}"/>
 										</portlet:actionURL>
-										<a href="${url}"><op:translate key="CHOOSE_TIME_SLOT" /></a>
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td class="vertical-center">
-								<c:choose>
-									<c:when test="${schedulerForm.busyTuesdayMorning}">
-										<i class="glyphicons glyphicons-minus time-slot-padding"></i>
+										<div class="alert alert-info reservation">
+											<a href="${url}" class="alert-link"><op:translate key="CHOOSE_TIME_SLOT" /></a>
+										</div>
 									</c:when>
 									<c:otherwise>
-										<fmt:formatDate var="day" value="${schedulerForm.tuesday}" type="date" pattern="dd/MM/yyyy" />
-										<portlet:actionURL name="startContribution" var="url">
-											<portlet:param name="halfDay" value="AM"/>
-											<portlet:param name="day" value="${day}"/>
-										</portlet:actionURL>
-										<a href="${url}"><op:translate key="CHOOSE_TIME_SLOT" /></a>
+										<c:choose>
+											<c:when test="${timeSlot.reservation && timeSlot.accepted}">
+												<div class="alert alert-success reservation">
+													<op:translate key="RESERVATION_ACCEPTED" />
+													<div><a class="alert-link" href="#" data-toggle="tooltip" title="${timeSlot.object}"><op:translate key="RESERVATION_OBJECT" /></a></div>
+												</div>
+											</c:when>
+											<c:when test="${timeSlot.reservation && !timeSlot.accepted}">
+												<div class="alert alert-warning reservation">
+													<op:translate key="WAITING_RESERVATION" />
+													<div><a class="alert-link" href="#" data-toggle="tooltip" title="${timeSlot.object}"><op:translate key="RESERVATION_OBJECT" /></a></div>
+												</div>
+											</c:when>
+											<c:otherwise>
+												<i class="glyphicons glyphicons-minus time-slot-padding"></i>
+											</c:otherwise>
+										</c:choose>
 									</c:otherwise>
 								</c:choose>
 							</td>
-							<td class="vertical-center">
-								<c:choose>
-									<c:when test="${schedulerForm.busyWednesdayMorning}">
-										<i class="glyphicons glyphicons-minus time-slot-padding"></i>
-									</c:when>
-									<c:otherwise>
-										<fmt:formatDate var="day" value="${schedulerForm.wednesday}" type="date" pattern="dd/MM/yyyy" />
-										<portlet:actionURL name="startContribution" var="url">
-											<portlet:param name="halfDay" value="AM"/>
-											<portlet:param name="day" value="${day}"/>
-										</portlet:actionURL>
-										<a href="${url}"><op:translate key="CHOOSE_TIME_SLOT" /></a>
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td class="vertical-center">
-								<c:choose>
-									<c:when test="${schedulerForm.busyThursdayMorning}">
-										<i class="glyphicons glyphicons-minus time-slot-padding"></i>
-									</c:when>
-									<c:otherwise>
-										<fmt:formatDate var="day" value="${schedulerForm.thursday}" type="date" pattern="dd/MM/yyyy" />
-										<portlet:actionURL name="startContribution" var="url">
-											<portlet:param name="halfDay" value="AM"/>
-											<portlet:param name="day" value="${day}"/>
-										</portlet:actionURL>
-										<a href="${url}"><op:translate key="CHOOSE_TIME_SLOT" /></a>
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td class="vertical-center">
-								<c:choose>
-									<c:when test="${schedulerForm.busyFridayMorning}">
-										<i class="glyphicons glyphicons-minus time-slot-padding"></i>
-									</c:when>
-									<c:otherwise>
-										<fmt:formatDate var="day" value="${schedulerForm.friday}" type="date" pattern="dd/MM/yyyy" />
-										<portlet:actionURL name="startContribution" var="url">
-											<portlet:param name="halfDay" value="AM"/>
-											<portlet:param name="day" value="${day}"/>
-										</portlet:actionURL>
-										<a href="${url}"><op:translate key="CHOOSE_TIME_SLOT" /></a>
-									</c:otherwise>
-								</c:choose>
-							</td>
+							</c:forEach>
 						</tr>
 						<tr>
-							<td>
+							<th class="vertical-center">
 								<div class="media">
-								<div class="media-body time-slot-padding">
+								<div class="media-body text-center">
 								<op:translate key="DEMO_SCHEDULER_AFTERNOON" />
 								</div>
 								</div>
-							</td>
+							</th>
+							<c:forEach items="${schedulerForm.timeSlots}" begin = "5" end = "9" var="timeSlot">
 							<td class="vertical-center">
 								<c:choose>
-									<c:when test="${schedulerForm.busyMondayAfternoon}">
-										<i class="glyphicons glyphicons-minus time-slot-padding"></i>
-									</c:when>
-									<c:otherwise>
+									<c:when test="${empty timeSlot}">
 										<fmt:formatDate var="day" value="${schedulerForm.monday}" type="date" pattern="dd/MM/yyyy" />
 										<portlet:actionURL name="startContribution" var="url">
-											<portlet:param name="halfDay" value="PM"/>
+											<portlet:param name="halfDay" value="AM"/>
 											<portlet:param name="day" value="${day}"/>
 										</portlet:actionURL>
-										<a href="${url}"><op:translate key="CHOOSE_TIME_SLOT" /></a>
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td class="vertical-center">
-								<c:choose>
-									<c:when test="${schedulerForm.busyTuesdayAfternoon}">
-										<i class="glyphicons glyphicons-minus time-slot-padding"></i>
+										<div class="alert alert-info reservation">
+											<a class="alert-link" href="${url}"><op:translate key="CHOOSE_TIME_SLOT" /></a>
+										</div>
 									</c:when>
 									<c:otherwise>
-										<fmt:formatDate var="day" value="${schedulerForm.tuesday}" type="date" pattern="dd/MM/yyyy" />
-										<portlet:actionURL name="startContribution" var="url">
-											<portlet:param name="halfDay" value="PM"/>
-											<portlet:param name="day" value="${day}"/>
-										</portlet:actionURL>
-										<a href="${url}"><op:translate key="CHOOSE_TIME_SLOT" /></a>
+										<c:choose>
+											<c:when test="${timeSlot.reservation && timeSlot.accepted}">
+												<div class="alert alert-success reservation">
+													<op:translate key="RESERVATION_ACCEPTED" />
+													<div><a class=alert-link" href="#" data-toggle="tooltip" title="${timeSlot.object}"><op:translate key="RESERVATION_OBJECT" /></a></div>
+												</div>
+											</c:when>
+											<c:when test="${timeSlot.reservation && !timeSlot.accepted}">
+												<div class="alert alert-warning reservation">
+													<op:translate key="WAITING_RESERVATION" />
+													<div><a class=alert-link" href="#" data-toggle="tooltip" title="${timeSlot.object}"><op:translate key="RESERVATION_OBJECT" /></a></div>
+												</div>
+											</c:when>
+											<c:otherwise>
+												<i class="glyphicons glyphicons-minus time-slot-padding"></i>
+											</c:otherwise>
+										</c:choose>
 									</c:otherwise>
 								</c:choose>
 							</td>
-							<td class="vertical-center">
-								<c:choose>
-									<c:when test="${schedulerForm.busyWednesdayAfternoon}">
-										<i class="glyphicons glyphicons-minus time-slot-padding"></i>
-									</c:when>
-									<c:otherwise>
-										<fmt:formatDate var="day" value="${schedulerForm.wednesday}" type="date" pattern="dd/MM/yyyy" />
-										<portlet:actionURL name="startContribution" var="url">
-											<portlet:param name="halfDay" value="PM"/>
-											<portlet:param name="day" value="${day}"/>
-										</portlet:actionURL>
-										<a href="${url}"><op:translate key="CHOOSE_TIME_SLOT" /></a>
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td class="vertical-center">
-								<c:choose>
-									<c:when test="${schedulerForm.busyThursdayAfternoon}">
-										<i class="glyphicons glyphicons-minus time-slot-padding"></i>
-									</c:when>
-									<c:otherwise>
-										<fmt:formatDate var="day" value="${schedulerForm.thursday}" type="date" pattern="dd/MM/yyyy" />
-										<portlet:actionURL name="startContribution" var="url">
-											<portlet:param name="halfDay" value="PM"/>
-											<portlet:param name="day" value="${day}"/>
-										</portlet:actionURL>
-										<a href="${url}"><op:translate key="CHOOSE_TIME_SLOT" /></a>
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td class="vertical-center">
-								<c:choose>
-									<c:when test="${schedulerForm.busyFridayAfternoon}">
-										<i class="glyphicons glyphicons-minus time-slot-padding"></i>
-									</c:when>
-									<c:otherwise>
-										<fmt:formatDate var="day" value="${schedulerForm.friday}" type="date" pattern="dd/MM/yyyy" />
-										<portlet:actionURL name="startContribution" var="url">
-											<portlet:param name="halfDay" value="PM"/>
-											<portlet:param name="day" value="${day}"/>
-										</portlet:actionURL>
-										<a href="${url}"><op:translate key="CHOOSE_TIME_SLOT" /></a>
-									</c:otherwise>
-								</c:choose>
-							</td>
+							</c:forEach>
 						</tr>
 					</tbody>
 				</table>
