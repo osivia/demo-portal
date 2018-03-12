@@ -6,7 +6,7 @@
 <%@ page isELIgnored="false" %>
 
 <div class="text-center no-ajax-link">
-  	<a class="btn btn-default no-ajax-link" href="${launchProcedureUrl}">
+  	<a class="btn btn-default no-ajax-link" href="${launchSupportUrl}">
   		<op:translate key="FRAGMENT_LAUNCH_SUPPORT"/>
   	</a>
 </div>

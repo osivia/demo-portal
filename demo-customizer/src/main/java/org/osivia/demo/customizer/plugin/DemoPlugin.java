@@ -8,6 +8,7 @@ import javax.portlet.PortletException;
 
 import org.osivia.demo.customizer.plugin.fragment.LaunchSupportPortletModule;
 import org.osivia.demo.customizer.plugin.fragment.ProduitRecordFragmentModule;
+import org.osivia.demo.customizer.plugin.list.AccessoriesListTemplateModule;
 import org.osivia.demo.customizer.plugin.menubar.DemoMenubarModule;
 import org.osivia.portal.api.customization.CustomizationContext;
 import org.osivia.portal.api.internationalization.Bundle;
@@ -130,6 +131,12 @@ public class DemoPlugin extends AbstractPluginPortlet {
         // Workspace tiles
         ListTemplate workspaceTiles = new ListTemplate("workspace-tiles", bundle.getString("LIST_TEMPLATE_WORKSPACE_TILES"), "dublincore, common, toutatice");
         templates.put(workspaceTiles.getKey(), workspaceTiles);
+
+
+        // accessory list
+        ListTemplate accessoryList = new ListTemplate("accessories", bundle.getString("LIST_TEMPLATE_ACCESSORIES"), "dublincore, common, toutatice, record");
+        accessoryList.setModule(new AccessoriesListTemplateModule(getPortletContext()));
+        templates.put(accessoryList.getKey(), accessoryList);
     }
 
 

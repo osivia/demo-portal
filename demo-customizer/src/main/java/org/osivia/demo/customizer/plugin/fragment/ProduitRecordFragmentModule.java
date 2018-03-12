@@ -8,8 +8,8 @@ import javax.portlet.RenderResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.nuxeo.ecm.automation.client.model.Document;
-import org.nuxeo.ecm.automation.client.model.PropertyList;
 import org.nuxeo.ecm.automation.client.model.PropertyMap;
+import org.osivia.demo.customizer.plugin.DemoUtils;
 import org.osivia.portal.api.Constants;
 import org.osivia.portal.api.context.PortalControllerContext;
 import org.osivia.portal.api.windows.PortalWindow;
@@ -29,14 +29,6 @@ public class ProduitRecordFragmentModule extends FragmentModule {
 
     /** Nuxeo path window property name. */
     public static final String NUXEO_PATH_WINDOW_PROPERTY = Constants.WINDOW_PROP_URI;
-
-    private static final String PRODUCT_PROPERTY_DATA = "rcd:data";
-
-    private static final String PRODUCT_PROPERTY_TITLE = "_title";
-
-    private static final String PRODUCT_PROPERTY_DESCRIPTION = "description";
-
-    private static final String PRODUCT_PROPERTY_VISUEL = "visuel";
 
     /** JSP name. */
     private static final String JSP_NAME = "product";
@@ -72,18 +64,18 @@ public class ProduitRecordFragmentModule extends FragmentModule {
             nuxeoController.setCurrentDoc(document);
 
             PropertyMap properties = document.getProperties();
-            PropertyMap dataMap = properties.getMap(PRODUCT_PROPERTY_DATA);
+            PropertyMap dataMap = properties.getMap(DemoUtils.RECORD_PROPERTY_DATA);
             if (dataMap != null) {
                 // title
-                request.setAttribute("title", dataMap.getString(PRODUCT_PROPERTY_TITLE));
+                request.setAttribute("title", dataMap.getString(DemoUtils.RECORD_PROPERTY_TITLE));
 
                 // visuel
-                PropertyMap visuelMap = dataMap.getMap(PRODUCT_PROPERTY_VISUEL);
-                request.setAttribute("visuelUrl", getFileUrl(visuelMap, nuxeoController));
+                PropertyMap visuelMap = dataMap.getMap(DemoUtils.PRODUCT_PROPERTY_VISUEL);
+                request.setAttribute("visuelUrl", DemoUtils.getFileUrl(visuelMap, nuxeoController));
                 request.setAttribute("visuelFilename", visuelMap.getString("fileName"));
 
                 // description
-                request.setAttribute("description", dataMap.getString(PRODUCT_PROPERTY_DESCRIPTION));
+                request.setAttribute("description", dataMap.getString(DemoUtils.PRODUCT_PROPERTY_DESCRIPTION));
             }
         }
     }
@@ -119,36 +111,6 @@ public class ProduitRecordFragmentModule extends FragmentModule {
             // Nuxeo path
             window.setProperty(NUXEO_PATH_WINDOW_PROPERTY, StringUtils.trimToNull(request.getParameter("nuxeoPath")));
         }
-    }
-
-    private String getFileUrl(PropertyMap propertyMap, NuxeoController nuxeoController) {
-        String fileDigest = propertyMap.getString("digest");
-
-        Document currentDoc = nuxeoController.getCurrentDoc();
-        PropertyMap properties = currentDoc.getProperties();
-        PropertyList files = properties.getList("files:files");
-
-        return nuxeoController.createAttachedFileLink("files:files", String.valueOf(getFileIndex(fileDigest, files)));
-    }
-
-    private int getFileIndex(String fileDigest, PropertyList files) {
-        int fileIndex = 0;
-        if ((files != null) && (files.size() > 1)) {
-            for (int i = 0; i < files.size(); i++) {
-                PropertyMap filesMap = files.getMap(i);
-                if(filesMap!=null) {
-                    PropertyMap fileMap = filesMap.getMap("file");
-                    if(fileMap!=null) {
-                        String digest = fileMap.getString("digest");
-                        if (StringUtils.equals(fileDigest, digest)) {
-                            fileIndex = i;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        return fileIndex;
     }
 
     @Override

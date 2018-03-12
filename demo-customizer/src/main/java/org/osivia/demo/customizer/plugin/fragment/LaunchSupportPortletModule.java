@@ -1,8 +1,6 @@
 package org.osivia.demo.customizer.plugin.fragment;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletContext;
@@ -12,11 +10,10 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.jboss.portal.theme.impl.render.dynamic.DynaRenderOptions;
 import org.nuxeo.ecm.automation.client.model.Document;
 import org.nuxeo.ecm.automation.client.model.PropertyMap;
+import org.osivia.demo.customizer.plugin.DemoUtils;
 import org.osivia.portal.api.Constants;
-import org.osivia.portal.api.PortalException;
 import org.osivia.portal.api.context.PortalControllerContext;
 import org.osivia.portal.api.windows.PortalWindow;
 import org.osivia.portal.api.windows.WindowFactory;
@@ -33,10 +30,6 @@ import net.sf.json.JSONObject;
 public class LaunchSupportPortletModule extends FragmentModule {
 
     public static final String ID = "launch_support";
-
-    private static final String PROCEDURE_MAP_PROPERTY = "osivia.services.procedure.variables";
-
-    private static final String PROCEDURE_PORTLET_INSTANCE = "osivia-services-procedure-portletInstance";
 
     /** Nuxeo path window property name. */
     private static final String NUXEO_PATH_WINDOW_PROPERTY = Constants.WINDOW_PROP_URI;
@@ -74,28 +67,27 @@ public class LaunchSupportPortletModule extends FragmentModule {
             PropertyMap properties = document.getProperties();
             String producteWebId = properties.getString("ttc:webid");
 
-            // Procedure Map
-            Map<String, String> windowProperties = new HashMap<>();
-            JSONObject variables = new JSONObject();
-            variables.put("productWebid", producteWebId);
-            variables.put("produit", document.getTitle());
-            windowProperties.put(PROCEDURE_MAP_PROPERTY, variables.toString());
+            // launchSupportUrl
+            String launchSupportUrl = getLaunchSupportUrl(procedureWebid, nuxeoController, document, producteWebId);
 
-            // launchProcedureUrl
-            windowProperties.put("osivia.services.procedure.webid", procedureWebid);
-            windowProperties.put("osivia.doctype", "ProcedureModel");
-            windowProperties.put("osivia.hideDecorators", "1");
-            windowProperties.put(DynaRenderOptions.PARTIAL_REFRESH_ENABLED, Constants.PORTLET_VALUE_ACTIVATE);
-            windowProperties.put("osivia.ajaxLink", "1");
-            String launchProcedureUrl = null;
-            try {
-                launchProcedureUrl = nuxeoController.getPortalUrlFactory().getStartPortletUrl(nuxeoController.getPortalCtx(), PROCEDURE_PORTLET_INSTANCE,
-                        windowProperties);
-            } catch (PortalException e) {
-            }
-
-            request.setAttribute("launchProcedureUrl", launchProcedureUrl);
+            request.setAttribute("launchSupportUrl", launchSupportUrl);
         }
+    }
+
+    /**
+     * Creates the URL to launch the support procedure
+     *
+     * @param procedureWebid
+     * @param nuxeoController
+     * @param document
+     * @param producteWebId
+     * @return
+     */
+    private String getLaunchSupportUrl(String procedureWebid, NuxeoController nuxeoController, Document document, String producteWebId) {
+        JSONObject variables = new JSONObject();
+        variables.put("productWebid", producteWebId);
+        variables.put("produit", document.getTitle());
+        return DemoUtils.getLaunchProcedureUrl(nuxeoController, variables, procedureWebid);
     }
 
     /**
