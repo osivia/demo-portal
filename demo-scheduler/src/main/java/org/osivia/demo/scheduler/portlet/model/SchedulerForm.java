@@ -104,4 +104,10 @@ public class SchedulerForm {
 	public void setTimeSlots(SchedulerEvent[] timeSlots) {
 		this.timeSlots = timeSlots;
 	}
+	
+	public boolean isShowPreviousButton() {
+		Calendar currentCal = Calendar.getInstance();
+		boolean showPreviousButton = currentCal.get(Calendar.WEEK_OF_YEAR) < calendar.get(Calendar.WEEK_OF_YEAR);
+		return showPreviousButton;
+	}
 }

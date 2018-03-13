@@ -14,8 +14,12 @@ public class Reservation {
 	
 	private boolean accepted;
 	
-	//TODO Julien: a supprimer une fois que j'aurai alimenté le champ idClient
-	private String creator;
+    /** id of the creator */
+    private String creatorId;
+    /** Display name of the creator */
+    private String creatorName;
+    /** Date of the reservation's creation */
+    private Date dateCreationReservation;
 
 	public Reservation() {
 		super();
@@ -51,12 +55,12 @@ public class Reservation {
 		this.idClient = idClient;
 	}
 
-	public String getCreator() {
-		return creator;
+	public String getCreatorId() {
+		return creatorId;
 	}
 
-	public void setCreator(String creator) {
-		this.creator = creator;
+	public void setCreatorId(String creator) {
+		this.creatorId = creator;
 	}
 
 	public String getObject() {
@@ -73,6 +77,22 @@ public class Reservation {
 
 	public void setAccepted(boolean accepted) {
 		this.accepted = accepted;
+	}
+
+	public Date getDateCreationReservation() {
+		return dateCreationReservation;
+	}
+
+	public void setDateCreationReservation(Date dateCreationReservation) {
+		this.dateCreationReservation = dateCreationReservation;
+	}
+
+	public String getCreatorName() {
+		return creatorName;
+	}
+
+	public void setCreatorName(String creatorName) {
+		this.creatorName = creatorName;
 	}
 	
 }

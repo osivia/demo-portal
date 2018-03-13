@@ -218,10 +218,9 @@ public class SchedulerServiceImpl implements SchedulerService {
 		} catch (CMSException e) {
 			throw new PortletException(e);
 		}
-        String currentUser = portalControllerContext.getHttpServletRequest().getUserPrincipal().getName();
         
-        
-        
+        //Pour corriger le bug des dates qui sont enregistrées via les procédures avec une heure en moins
+        mondayMorning.setTimeInMillis(mondayMorning.getTimeInMillis()-(60*60*1000));
         //Start date
       	startDate = DateFormatUtils.ISO_DATE_FORMAT.format(mondayMorning.getTime());
       	//End date
@@ -237,7 +236,9 @@ public class SchedulerServiceImpl implements SchedulerService {
         	SchedulerEvent schedulerEvent = new SchedulerEvent(true);
     		schedulerEvent.setObject(reservation.getObject());
     		schedulerEvent.setAccepted(reservation.isAccepted());
-        	if (StringUtils.isNotEmpty(reservation.getCreator()) && reservation.getCreator().equals(currentUser))
+    		schedulerEvent.setCreator(reservation.getCreatorName());
+    		schedulerEvent.setDateCreationReservation(reservation.getDateCreationReservation());
+        	if ((form.getCustomerUsers() != null) && form.getCustomerUsers().contains(reservation.getCreatorId()))
         	{
         		mapDay.put(Integer.toString(nbHalfDays), schedulerEvent);
         	} else

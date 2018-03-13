@@ -59,6 +59,10 @@ public class SchedulerRepositoryImpl implements SchedulerRepository{
 	
 	private static final String TECHNICIAN_PROPERTY = "technician";
 	
+	private static final String CREATOR_PROPERTY = "dc:creator";
+	
+	private static final String CREATION_DATE_PROPERTY = "dc:created";
+	
 	@Autowired
 	private PersonService personService;
 	
@@ -109,12 +113,20 @@ public class SchedulerRepositoryImpl implements SchedulerRepository{
         List<Reservation> reservations = new ArrayList<>();
         for (Document document : documents) {
         	Reservation reservation = new Reservation();
-        	reservation.setCreator(document.getString("dc:creator"));
         	PropertyMap map = document.getProperties().getMap(PROCEDURE_INSTANCE_MAP);
         	reservation.setDay(map.getDate(RESERVATION_DATE));
         	reservation.setTimeSlot(map.getString(RESERVATION_TIME_SLOT));
         	reservation.setObject(map.getString(RESERVATION_OBJECT));
         	reservation.setAccepted("true".equals(map.getString(RESERVATION_ACCEPTED)));
+        	String creator = document.getString(CREATOR_PROPERTY);
+        	reservation.setCreatorId(creator);
+        	if (null != creator)
+        	{
+        		Person person = personService.getPerson(creator);
+        		creator = person.getDisplayName();
+        	}
+        	reservation.setCreatorName(creator);
+        	reservation.setDateCreationReservation(document.getDate(CREATION_DATE_PROPERTY));
         	reservations.add(reservation);
         }
         return reservations;
@@ -212,7 +224,7 @@ public class SchedulerRepositoryImpl implements SchedulerRepository{
         Date startDate = document.getDate(START_DATE_PROPERTY);
         Date endDate = document.getDate(END_DATE_PROPERTY);
         boolean allDay = BooleanUtils.isTrue(document.getProperties().getBoolean(ALL_DAY_PROPERTY));
-
+        
         return new Event(id, title, startDate, endDate, allDay);
     }
 	

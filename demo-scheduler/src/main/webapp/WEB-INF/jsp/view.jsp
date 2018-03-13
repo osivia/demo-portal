@@ -47,9 +47,11 @@
 							<th class="text-center">
 								<div class="media">
 									<div class="media-left media-middle">
-										<portlet:actionURL name="previousWeek" var="previousWeekUrl">
-										</portlet:actionURL>
-										<h3><a href="${previousWeekUrl}" ><i class="glyphicons glyphicons-chevron-left"></i></a></h3>
+										<c:if test="${schedulerForm.showPreviousButton}">
+											<portlet:actionURL name="previousWeek" var="previousWeekUrl">
+											</portlet:actionURL>
+											<h3><a href="${previousWeekUrl}" ><i class="glyphicons glyphicons-chevron-left"></i></a></h3>
+										</c:if>
 									</div>
 									<div class="media-body media-middle">
 										<div><fmt:formatDate value="${schedulerForm.monday}" type="date" pattern="EEEE" /></div>
@@ -105,11 +107,11 @@
 								</div>
 								</div>
 							</th>
-							<c:forEach items="${schedulerForm.timeSlots}" begin = "0" end = "4" var="timeSlot">
+							<c:forEach items="${schedulerForm.timeSlots}" begin = "0" end = "4" var="timeSlot" varStatus="myIndex">
 							<td class="vertical-center">
 								<c:choose>
 									<c:when test="${empty timeSlot}">
-										<fmt:formatDate var="day" value="${schedulerForm.monday}" type="date" pattern="dd/MM/yyyy" />
+										<fmt:formatDate var="day" value="${((myIndex.index eq 0)? schedulerForm.monday : ((myIndex.index eq 1)? schedulerForm.tuesday : ((myIndex.index eq 2)? schedulerForm.wednesday : ((myIndex.index eq 3)? schedulerForm.thursday : schedulerForm.friday))))}" type="date" pattern="dd/MM/yyyy" />
 										<portlet:actionURL name="startContribution" var="url">
 											<portlet:param name="halfDay" value="AM"/>
 											<portlet:param name="day" value="${day}"/>
@@ -123,13 +125,21 @@
 											<c:when test="${timeSlot.reservation && timeSlot.accepted}">
 												<div class="alert alert-success reservation">
 													<op:translate key="RESERVATION_ACCEPTED" />
-													<div><a class="alert-link" href="#" data-toggle="tooltip" title="${timeSlot.object}"><op:translate key="RESERVATION_OBJECT" /></a></div>
+													<div><a class="alert-link" href="#" data-toggle="popover" 
+													title="<op:translate key="REQUEST_FOR_INTERVENTION" />
+													<fmt:formatDate value="${timeSlot.dateCreationReservation}" type="date" pattern="dd MMMM yyyy HH:mm" />
+													<op:translate key="REQUEST_FOR_INTERVENTION_BY" args="${timeSlot.creator}" />"
+													data-content="${timeSlot.object}"><op:translate key="RESERVATION_OBJECT" /></a></div>
 												</div>
 											</c:when>
 											<c:when test="${timeSlot.reservation && !timeSlot.accepted}">
 												<div class="alert alert-warning reservation">
 													<op:translate key="WAITING_RESERVATION" />
-													<div><a class="alert-link" href="#" data-toggle="tooltip" title="${timeSlot.object}"><op:translate key="RESERVATION_OBJECT" /></a></div>
+													<div><a class="alert-link" href="#" data-toggle="popover" 
+													title="<op:translate key="REQUEST_FOR_INTERVENTION" />
+													<fmt:formatDate value="${timeSlot.dateCreationReservation}" type="date" pattern="dd MMMM yyyy HH:mm" />
+													<op:translate key="REQUEST_FOR_INTERVENTION_BY" args="${timeSlot.creator}" />"
+													data-content="${timeSlot.object}"><op:translate key="RESERVATION_OBJECT" /></a></div>
 												</div>
 											</c:when>
 											<c:otherwise>
@@ -149,13 +159,13 @@
 								</div>
 								</div>
 							</th>
-							<c:forEach items="${schedulerForm.timeSlots}" begin = "5" end = "9" var="timeSlot">
+							<c:forEach items="${schedulerForm.timeSlots}" begin = "5" end = "9" var="timeSlot" varStatus="myIndex">
 							<td class="vertical-center">
 								<c:choose>
 									<c:when test="${empty timeSlot}">
-										<fmt:formatDate var="day" value="${schedulerForm.monday}" type="date" pattern="dd/MM/yyyy" />
+										<fmt:formatDate var="day" value="${((myIndex.index eq 5)? schedulerForm.monday : ((myIndex.index eq 6)? schedulerForm.tuesday : ((myIndex.index eq 7)? schedulerForm.wednesday : ((myIndex.index eq 8)? schedulerForm.thursday : schedulerForm.friday))))}" type="date" pattern="dd/MM/yyyy" />
 										<portlet:actionURL name="startContribution" var="url">
-											<portlet:param name="halfDay" value="AM"/>
+											<portlet:param name="halfDay" value="PM"/>
 											<portlet:param name="day" value="${day}"/>
 										</portlet:actionURL>
 										<div class="alert alert-info reservation">
@@ -167,13 +177,21 @@
 											<c:when test="${timeSlot.reservation && timeSlot.accepted}">
 												<div class="alert alert-success reservation">
 													<op:translate key="RESERVATION_ACCEPTED" />
-													<div><a class=alert-link" href="#" data-toggle="tooltip" title="${timeSlot.object}"><op:translate key="RESERVATION_OBJECT" /></a></div>
+													<div><a class="alert-link" href="#" data-toggle="popover"
+													title="<op:translate key="REQUEST_FOR_INTERVENTION" />
+													<fmt:formatDate value="${timeSlot.dateCreationReservation}" type="date" pattern="dd MMMM yyyy HH:mm" />
+													<op:translate key="REQUEST_FOR_INTERVENTION_BY" args="${timeSlot.creator}" />"
+													data-content="${timeSlot.object}"><op:translate key="RESERVATION_OBJECT" /></a></div>
 												</div>
 											</c:when>
 											<c:when test="${timeSlot.reservation && !timeSlot.accepted}">
 												<div class="alert alert-warning reservation">
 													<op:translate key="WAITING_RESERVATION" />
-													<div><a class=alert-link" href="#" data-toggle="tooltip" title="${timeSlot.object}"><op:translate key="RESERVATION_OBJECT" /></a></div>
+													<div><a class="alert-link" href="#" data-toggle="popover"
+													title="<op:translate key="REQUEST_FOR_INTERVENTION" />
+													<fmt:formatDate value="${timeSlot.dateCreationReservation}" type="date" pattern="dd MMMM yyyy HH:mm" />
+													<op:translate key="REQUEST_FOR_INTERVENTION_BY" args="${timeSlot.creator}" />"
+													data-content="${timeSlot.object}"><op:translate key="RESERVATION_OBJECT" /></a></div>
 												</div>
 											</c:when>
 											<c:otherwise>
