@@ -5,6 +5,7 @@
 <%@ page isELIgnored="false" %>
 
 
+<h2 class="head-title"><op:translate key="LIST_TEMPLATE_ACCESSORIES" /></h2>
 
 <div class="row">
     <c:forEach var="document" items="${documents}">

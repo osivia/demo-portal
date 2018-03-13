@@ -38,6 +38,8 @@ public class DemoPlugin extends AbstractPluginPortlet {
 
     private static final String LAUNCH_PROCEDURE_LIST_SCHEMAS = "dublincore, common, toutatice, procedureInstance";
 
+    private static final String RECORD_LIST_SCHEMAS = "dublincore, common, toutatice, record";
+
 
     /** Internationalization bundle factory. */
     private IBundleFactory bundleFactory;
@@ -134,9 +136,18 @@ public class DemoPlugin extends AbstractPluginPortlet {
 
 
         // accessory list
-        ListTemplate accessoryList = new ListTemplate("accessories", bundle.getString("LIST_TEMPLATE_ACCESSORIES"), "dublincore, common, toutatice, record");
+        ListTemplate accessoryList = new ListTemplate("accessories", bundle.getString("LIST_TEMPLATE_ACCESSORIES"), RECORD_LIST_SCHEMAS);
         accessoryList.setModule(new AccessoriesListTemplateModule(getPortletContext()));
         templates.put(accessoryList.getKey(), accessoryList);
+
+        // News list
+        ListTemplate newsList = new ListTemplate("news", bundle.getString("LIST_TEMPLATE_NEWS"), RECORD_LIST_SCHEMAS);
+        templates.put(newsList.getKey(), newsList);
+
+        // Documents list
+        ListTemplate documentsList = new ListTemplate("documents-records", bundle.getString("LIST_TEMPLATE_DOCUMENTS"), RECORD_LIST_SCHEMAS);
+        templates.put(documentsList.getKey(), documentsList);
+
     }
 
 
