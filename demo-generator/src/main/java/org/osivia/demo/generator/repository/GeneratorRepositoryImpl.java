@@ -283,7 +283,7 @@ public class GeneratorRepositoryImpl implements GeneratorRepository {
         		NuxeoDocumentContext documentContext = nuxeoController.getDocumentContext("/default-domain/workspaces/espace-tmc-" + Integer.toString(i));
         	
 	        	if(documentContext.getDocument() != null) {
-                    WorkspaceEditionForm form = new WorkspaceEditionForm(documentContext.getDocument(), false);
+                    WorkspaceEditionForm form = new WorkspaceEditionForm(documentContext.getDocument(), false, true);
 		
 		    		workspaceEditionService.delete(portalControllerContext, form );
 	        	}

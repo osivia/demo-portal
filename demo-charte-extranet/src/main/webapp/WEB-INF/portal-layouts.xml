@@ -10,21 +10,17 @@
             <region name="logo" />
             <region name="navigation-menu" />
         
-            <region name="top-before" />
             <region name="top" />
-            <region name="top-after" />
+            <region name="top-cms" />
             
-            <region name="col-1-before" />
             <region name="col-1" />
-            <region name="col-1-after" />
+            <region name="col-1-cms" />
             
-            <region name="col-2-before" />
             <region name="col-2" />
-            <region name="col-2-after" />
+            <region name="col-2-cms" />
             
-            <region name="bottom-before" />
             <region name="bottom" />
-            <region name="bottom-after" />
+            <region name="bottom-cms" />
             
             <region name="footer-links" />
         </regions>
@@ -38,21 +34,17 @@
             <region name="logo" />
             <region name="navigation-menu" />
         
-            <region name="top-before" />
             <region name="top" />
-            <region name="top-after" />
+            <region name="top-cms" />
             
-            <region name="col-1-before" />
             <region name="col-1" />
-            <region name="col-1-after" />
+            <region name="col-1-cms" />
             
-            <region name="col-2-before" />
             <region name="col-2" />
-            <region name="col-2-after" />
+            <region name="col-2-cms" />
             
-            <region name="bottom-before" />
             <region name="bottom" />
-            <region name="bottom-after" />
+            <region name="bottom-cms" />
             
             <region name="footer-links" />
         </regions>

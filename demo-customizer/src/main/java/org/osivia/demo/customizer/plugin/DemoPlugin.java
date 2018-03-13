@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 
+import javax.portlet.PortletContext;
 import javax.portlet.PortletException;
 
 import org.osivia.demo.customizer.plugin.fragment.LaunchSupportPortletModule;
@@ -20,6 +21,7 @@ import org.osivia.portal.api.theming.TemplateAdapter;
 
 import fr.toutatice.portail.cms.nuxeo.api.domain.AbstractPluginPortlet;
 import fr.toutatice.portail.cms.nuxeo.api.domain.FragmentType;
+import fr.toutatice.portail.cms.nuxeo.api.domain.INavigationAdapterModule;
 import fr.toutatice.portail.cms.nuxeo.api.domain.ListTemplate;
 
 /**
@@ -100,6 +102,8 @@ public class DemoPlugin extends AbstractPluginPortlet {
         this.customizeMenubarModules(customizationContext);
         // Fragments
         this.customizeFragments(customizationContext);
+        // Navigation adapters
+        this.customizeNavigationAdapters(customizationContext);
     }
 
 
@@ -114,10 +118,6 @@ public class DemoPlugin extends AbstractPluginPortlet {
 
         // List templates
         Map<String, ListTemplate> templates = this.getListTemplates(customizationContext);
-
-        // Search results
-        ListTemplate searchResults = new ListTemplate("search-results", bundle.getString("LIST_TEMPLATE_SEARCH_RESULTS"), SEARCH_RESULTS_SCHEMAS);
-        templates.put(searchResults.getKey(), searchResults);
 
         // Workspace member requests
         ListTemplate workspaceMemberRequests = templates.get("workspace-member-requests");
@@ -220,4 +220,23 @@ public class DemoPlugin extends AbstractPluginPortlet {
                 launchSupportPortletModule);
         fragmentTypes.add(launchSupportFragment);
     }
+
+
+    /**
+     * Customize navigation adapters.
+     * 
+     * @param customizationContext customization context
+     */
+    private void customizeNavigationAdapters(CustomizationContext customizationContext) {
+        // Portlet context
+        PortletContext portletContext = this.getPortletContext();
+
+        // Navigation adapters
+        List<INavigationAdapterModule> navigationAdapters = this.getNavigationAdapters(customizationContext);
+
+        // Extranet navigation adapter
+        INavigationAdapterModule extranet = new ExtranetNavigationAdapterModule(portletContext);
+        navigationAdapters.add(extranet);
+    }
+
 }
