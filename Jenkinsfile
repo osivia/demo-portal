@@ -1,5 +1,9 @@
 parallel portalbranch: {
 	node {
+		env.JAVA_HOME="${tool 'jdk7'}"
+		env.PATH="${env.JAVA_HOME}/bin:${env.PATH}"
+		def mvnHome
+		mvnHome = tool 'maven3'	
 		stage("osivia-portal") {
 		    checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[credentialsId: '', depthOption: 'infinity', ignoreExternalsOption: true, local: 'osivia-portal', remote: 'http://www.osivia.org/repos/osivia-portal/trunk']], workspaceUpdater: [$class: 'UpdateUpdater']])
 		    
