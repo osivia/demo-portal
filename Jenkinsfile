@@ -1,5 +1,5 @@
 parallel portalbranch: {
-	node('atlantia') {
+	node {
 		stage("osivia-portal") {
 		    checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[credentialsId: '', depthOption: 'infinity', ignoreExternalsOption: true, local: 'osivia-portal', remote: 'http://www.osivia.org/repos/osivia-portal/trunk']], workspaceUpdater: [$class: 'UpdateUpdater']])
 		    
@@ -42,7 +42,7 @@ parallel portalbranch: {
 		}
 	}
 }, nuxeobranch : {
-	node('atlantia') {
+	node {
 		stage("opentoutatice") {
 		    checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[credentialsId: '', depthOption: 'infinity', ignoreExternalsOption: true, local: 'opentoutatice', remote: 'http://projet.toutatice.fr/repos/toutatice-ecm/opentoutatice/trunk']], workspaceUpdater: [$class: 'UpdateUpdater']])
 		    
