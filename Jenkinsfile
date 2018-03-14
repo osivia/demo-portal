@@ -7,7 +7,7 @@ parallel portalbranch: {
 		stage("osivia-portal") {
 		    checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[credentialsId: '', depthOption: 'infinity', ignoreExternalsOption: true, local: 'osivia-portal', remote: 'http://www.osivia.org/repos/osivia-portal/trunk']], workspaceUpdater: [$class: 'UpdateUpdater']])
 		    
-		    sh "mvn clean deploy -U -Punpack,pack,ci -f osivia-portal"
+		    sh "'${mvnHome}/bin/mvn' clean deploy -U -Punpack,pack,ci -f osivia-portal"
 		}
 		stage("toutatice-cms") {
 		    checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[credentialsId: '', depthOption: 'infinity', ignoreExternalsOption: true, local: 'toutatice-cms', remote: 'http://projet.toutatice.fr/repos/toutatice-portail/cms/trunk']], workspaceUpdater: [$class: 'UpdateUpdater']])
