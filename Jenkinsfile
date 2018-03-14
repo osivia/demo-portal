@@ -56,6 +56,12 @@ parallel portalbranch: {
 		    
 		    sh "'${mvnHome}/bin/mvn' clean deploy -U -Dmaven.test.skip=true -f opentoutatice"
 		}
+		
+		stage("elasticsearch") {
+		    checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[credentialsId: '', depthOption: 'infinity', ignoreExternalsOption: true, local: 'elasticsearch', remote: 'http://projet.toutatice.fr/repos/toutatice-ecm/opentoutatice-addons/opentoutatice-elasticsearch/trunk']], workspaceUpdater: [$class: 'UpdateUpdater']])
+		    
+		    sh "'${mvnHome}/bin/mvn' clean deploy -U -f elasticsearch"
+		}		
 		stage("es-customizer") {
 		    checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[credentialsId: '', depthOption: 'infinity', ignoreExternalsOption: true, local: 'es-customizer', remote: 'http://projet.toutatice.fr/repos/toutatice-ecm/opentoutatice-addons/opentoutatice-elasticsearch-customizer/trunk']], workspaceUpdater: [$class: 'UpdateUpdater']])
 		    
@@ -66,11 +72,7 @@ parallel portalbranch: {
 		    
 		    sh "'${mvnHome}/bin/mvn' clean deploy -U -f ecm-procedures"
 		}		
-		stage("elasticsearch") {
-		    checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[credentialsId: '', depthOption: 'infinity', ignoreExternalsOption: true, local: 'elasticsearch', remote: 'http://projet.toutatice.fr/repos/toutatice-ecm/opentoutatice-addons/opentoutatice-elasticsearch/trunk']], workspaceUpdater: [$class: 'UpdateUpdater']])
-		    
-		    sh "'${mvnHome}/bin/mvn' clean deploy -U -f elasticsearch"
-		}
+
 		stage("collab-tools") {
 		    checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[credentialsId: '', depthOption: 'infinity', ignoreExternalsOption: true, local: 'collab-tools', remote: 'http://projet.toutatice.fr/repos/toutatice-ecm/opentoutatice-addons/opentoutatice-collab-tools/trunk']], workspaceUpdater: [$class: 'UpdateUpdater']])
 		    
