@@ -131,7 +131,7 @@ parallel portalbranch: {
 		    sh "'${mvnHome}/bin/mvn' clean deploy -U -f webmode"
 		}
 		stage("nx-distrib") {
-		    checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[credentialsId: '', depthOption: 'infinity', ignoreExternalsOption: true, local: 'nx-distrib', remote: 'http://www.osivia.org/repos/osivia-services/nx-distributions/ottc-collab/trunk']], workspaceUpdater: [$class: 'UpdateUpdater']])
+		    checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[credentialsId: '', depthOption: 'infinity', ignoreExternalsOption: true, local: 'nx-distrib', remote: 'http://www.osivia.org/repos/osivia-services/nx-distributions/demo/trunk']], workspaceUpdater: [$class: 'UpdateUpdater']])
 		    sh "'${mvnHome}/bin/mvn' clean deploy -U -f nx-distrib"
 		}
 	}
