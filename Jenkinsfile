@@ -113,11 +113,11 @@ parallel portalbranch: {
 		//    sh "'${mvnHome}/bin/mvn' clean deploy -U -f file-naming"
 		//}
 
-		stage("ottc-news") {
-		    checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[credentialsId: '', depthOption: 'infinity', ignoreExternalsOption: true, local: 'ottc-news', remote: 'http://projet.toutatice.fr/repos/toutatice-ecm/opentoutatice-addons/opentoutatice-news/trunk']], workspaceUpdater: [$class: 'UpdateUpdater']])
-		    
-		    sh "'${mvnHome}/bin/mvn' clean deploy -U -f ottc-news"
-		}		
+		//stage("ottc-news") {
+		//    checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[credentialsId: '', depthOption: 'infinity', ignoreExternalsOption: true, local: 'ottc-news', remote: 'http://projet.toutatice.fr/repos/toutatice-ecm/opentoutatice-addons/opentoutatice-news/trunk']], workspaceUpdater: [$class: 'UpdateUpdater']])
+		//    
+		//    sh "'${mvnHome}/bin/mvn' clean deploy -U -f ottc-news"
+		//}		
 		//stage("drive") {
 		//	checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[credentialsId: '', depthOption: 'infinity', ignoreExternalsOption: true, local: 'drive', remote: 'http://projet.toutatice.fr/repos/toutatice-ecm/opentoutatice-addons/opentoutatice-drive/trunk']], workspaceUpdater: [$class: 'UpdateUpdater']])
 		//	sh "'${mvnHome}/bin/mvn' clean deploy -U -f drive"
