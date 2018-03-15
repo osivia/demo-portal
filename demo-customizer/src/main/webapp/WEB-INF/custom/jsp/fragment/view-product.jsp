@@ -5,7 +5,7 @@
 
 <div class="row">
 	<div class="col-sm-12">
-		<h3 class="head-title-alt">${title}</h3>
+		<h3 class="head-title">${title}</h3>
 	</div>
 </div>
 <div class="row no-ajax-link">
