@@ -1,8 +1,9 @@
-package org.osivia.demo.scheduler.portlet.repository.command;
+package org.osivia.demo.scheduler.calendar.view.portlet.repository.command;
 
-import java.util.List;
+import java.util.Date;
 import java.util.UUID;
 
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.nuxeo.ecm.automation.client.Constants;
 import org.nuxeo.ecm.automation.client.OperationRequest;
 import org.nuxeo.ecm.automation.client.Session;
@@ -12,27 +13,25 @@ import fr.toutatice.portail.cms.nuxeo.api.NuxeoQueryFilter;
 import fr.toutatice.portail.cms.nuxeo.api.NuxeoQueryFilterContext;
 
 /**
- * List Nuxeo events command.
+ * List procedure instances command.
  *
  * @author Julien Barberet
  * @see INuxeoCommand
  */
-public class ProcedureInstanceListCommand implements INuxeoCommand {
+public class ReservationListCommand implements INuxeoCommand {
 
 	private static final String PROCEDURE_REQUEST_FOR_INTERVENTION = "procedure_demande-intervention";
     /** Nuxeo query filter context. */
     private NuxeoQueryFilterContext queryContext;
     /** Start date. */
-    private final String startDate;
-    /** End date */
-    private final String endDate;
+    private final Date startDate;
+    /** End date. */
+    private final Date endDate;
     
-    private final String intervenant;
-    
-    private final List<String> customerUsers;
+    private final String contributor;
 
 
-    /**
+    /**oui
      * Constructor.
      *
      * @param queryContext Nuxeo query filter context
@@ -40,13 +39,12 @@ public class ProcedureInstanceListCommand implements INuxeoCommand {
      * @param startDate start date
      * @param endDate end date
      */
-    public ProcedureInstanceListCommand(NuxeoQueryFilterContext queryContext, String startDate, String endDate, String intervenant, List<String> customerUsers) {
+    public ReservationListCommand(NuxeoQueryFilterContext queryContext, Date startDate, Date endDate, String contributor) {
         super();
         this.queryContext = queryContext;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.intervenant = intervenant;
-        this.customerUsers = customerUsers;
+        this.contributor = contributor;
     }
 
 
@@ -55,31 +53,28 @@ public class ProcedureInstanceListCommand implements INuxeoCommand {
      */
     @Override
     public Object execute(Session nuxeoSession) throws Exception {
+    	//Pour corriger le bug de création des procédures instance avec une heure en moins
+    	this.startDate.setTime(this.startDate.getTime()-(60*60*1000));
+        String start = DateFormatUtils.ISO_DATE_FORMAT.format(this.startDate);
+
+        String end = DateFormatUtils.ISO_DATE_FORMAT.format(this.endDate);
 
         // Clause
         StringBuilder clause = new StringBuilder();
         clause.append("ecm:primaryType = 'ProcedureInstance' ");
         clause.append("and pi:procedureModelWebId = '").append(PROCEDURE_REQUEST_FOR_INTERVENTION).append("' ");
-        clause.append("AND (pi:data/date between DATE '").append(startDate).append("' and DATE '").append(endDate).append("') ");
-        clause.append("and pi:data/intervenant = '").append(intervenant).append("' ");
+        clause.append("AND (pi:data/date between DATE '").append(start).append("' and DATE '").append(end).append("') ");
+        clause.append("and pi:data/intervenant = '").append(contributor).append("' ");
         clause.append("AND (pi:currentStep in ('1','2') OR pi:data/accepted = 'true') ");
-        clause.append("and dc:creator in ('");
-        boolean first = true;
-        for (String user : customerUsers)
-        {
-        	if (!first) clause.append("','");
-        	clause.append(user);
-        	first = false;
-        }
-        clause.append("') ");
-
+        clause.append("ORDER BY pi:data/date ");
+        
         // Filter on published documents
         String filteredRequest = NuxeoQueryFilter.addPublicationFilter(this.queryContext, clause.toString());
 
         // Request
-        OperationRequest request = nuxeoSession.newRequest("Document.QueryES");
+        OperationRequest request;
+        request = nuxeoSession.newRequest("Document.QueryES");
         request.set(Constants.HEADER_NX_SCHEMAS, "*");
-
         request.set("query", "SELECT * FROM Document WHERE " + filteredRequest);
 
         return request.execute();
@@ -90,7 +85,7 @@ public class ProcedureInstanceListCommand implements INuxeoCommand {
      */
     @Override
     public String getId() {
-        return "ProcedureInstanceListCommand :" + UUID.randomUUID();
+        return "Calendar/" + UUID.randomUUID();
     }
 
 }

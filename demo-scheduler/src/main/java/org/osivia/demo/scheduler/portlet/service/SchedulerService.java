@@ -15,7 +15,13 @@ import net.sf.json.JSONArray;
  *
  */
 public interface SchedulerService {
-
+	
+	/**
+	 * Get form
+	 * @param portalControllerContext
+	 * @param infos
+	 * @return
+	 */
 	SchedulerForm getForm(PortalControllerContext portalControllerContext);
 	
 	/**

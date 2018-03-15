@@ -10,9 +10,24 @@
 
     <artifactId>demo-scheduler</artifactId>
     <packaging>war</packaging>
-
     <name>Demo - Scheduler</name>
 
+	<dependencies>
+        <dependency>
+	        <groupId>org.osivia.services</groupId>
+	        <artifactId>osivia-services-calendar</artifactId>
+	        <version>${collaboration.version}</version>
+	        <classifier>classes</classifier>
+            <scope>provided</scope>
+        </dependency>
+
+		<dependency>
+	        <groupId>org.osivia.services</groupId>
+	        <artifactId>osivia-services-calendar</artifactId>
+	        <version>${collaboration.version}</version>
+			<type>war</type>
+		</dependency>
+	</dependencies>
 
     <build>
         <plugins>

@@ -29,5 +29,149 @@
             <title>Scheduler</title>
         </portlet-info>
     </portlet>
+    
+        <portlet>
+        <portlet-name>osivia-services-calendar</portlet-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+
+		<init-param>
+            <name>contextClass</name>
+            <value>org.osivia.portal.api.portlet.AnnotationPortletApplicationContext</value>
+        </init-param>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>org.osivia.demo.scheduler.calendar.view.portlet.configuration.CalendarCustomViewConfiguration</value>
+        </init-param>
+
+        <expiration-cache>180</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+            <portlet-mode>admin</portlet-mode>
+        </supports>
+        
+        <portlet-info>
+            <title>Calendar</title>
+        </portlet-info>
+    </portlet>
+    
+        <portlet>
+        <portlet-name>osivia-services-calendar-edition</portlet-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+
+        <init-param>
+            <name>contextClass</name>
+            <value>org.osivia.portal.api.portlet.AnnotationPortletApplicationContext</value>
+        </init-param>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>org.osivia.services.calendar.edition.portlet.configuration.CalendarEditionConfiguration</value>
+        </init-param>
+
+        <expiration-cache>180</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+        
+        <portlet-info>
+            <title>Calendar edition</title>
+        </portlet-info>
+    </portlet>
+    
+    
+    <portlet>
+        <portlet-name>osivia-services-calendar-synchronization-edition</portlet-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+
+        <init-param>
+            <name>contextClass</name>
+            <value>org.osivia.portal.api.portlet.AnnotationPortletApplicationContext</value>
+        </init-param>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>org.osivia.services.calendar.synchronization.edition.portlet.configuration.CalendarSynchronizationEditionConfiguration</value>
+        </init-param>
+
+        <expiration-cache>180</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+        
+        <portlet-info>
+            <title>Calendar synchronization edition</title>
+        </portlet-info>
+    </portlet>
+
+
+	<portlet>
+        <portlet-name>osivia-services-calendar-event-edition</portlet-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+
+		<init-param>
+            <name>contextClass</name>
+            <value>org.osivia.portal.api.portlet.AnnotationPortletApplicationContext</value>
+        </init-param>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>org.osivia.services.calendar.event.edition.portlet.configuration.CalendarEventEditionConfiguration</value>
+        </init-param>
+
+        <expiration-cache>180</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+        
+        <portlet-info>
+            <title>Calendar event edition</title>
+        </portlet-info>
+    </portlet>
+    
+    <portlet>
+        <portlet-name>osivia-services-calendar-event-view</portlet-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+
+		<init-param>
+            <name>contextClass</name>
+            <value>org.osivia.portal.api.portlet.AnnotationPortletApplicationContext</value>
+        </init-param>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>org.osivia.services.calendar.event.view.portlet.configuration.CalendarEventViewConfiguration</value>
+        </init-param>
+
+        <expiration-cache>180</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+        
+        <portlet-info>
+            <title>Calendar event edition</title>
+        </portlet-info>
+    </portlet>
+
+
+	<portlet>
+		<portlet-name>osivia-services-calendarPlugin</portlet-name>
+		<portlet-class>org.osivia.services.calendar.plugin.CalendarPlugin</portlet-class>
+		
+        <expiration-cache>180</expiration-cache>
+
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+
+		<portlet-info>
+			<title>Calendar plugin</title>
+		</portlet-info>
+	</portlet>
 
 </portlet-app>

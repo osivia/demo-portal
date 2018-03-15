@@ -79,5 +79,5 @@ public interface SchedulerRepository {
      * @param schedulerForm
      * @param user
      */
-    void setCustomerInformation(PortalControllerContext portalControllerContext, SchedulerForm schedulerForm, String user);
+    void setCustomerInformation(PortalControllerContext portalControllerContext, SchedulerForm form, String user);
 }

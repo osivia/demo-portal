@@ -33,6 +33,10 @@ public class SchedulerForm {
 		timeSlots = new SchedulerEvent[10];
 	}
 	
+	public void setCalendar(Calendar calendar) {
+		this.calendar = calendar;
+	}
+
 	public void previousWeek()
 	{
 		calendar.add(Calendar.WEEK_OF_YEAR, -1);

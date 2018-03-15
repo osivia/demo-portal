@@ -72,14 +72,14 @@ public class SchedulerServiceImpl implements SchedulerService {
     @Override
 	public SchedulerForm getForm(PortalControllerContext portalControllerContext)
 	{
-		SchedulerForm form = this.applicationContext.getBean(SchedulerForm.class);
-		
+    	SchedulerForm form = this.applicationContext.getBean(SchedulerForm.class);
+    	
 		//Current user
 		String currentUser = portalControllerContext.getHttpServletRequest().getUserPrincipal().getName();
     	
 		//Set technicians and customerUsers in form
     	this.repository.setCustomerInformation(portalControllerContext, form, currentUser);
-
+    	
 		return form;
 	}
 	
@@ -346,7 +346,5 @@ public class SchedulerServiceImpl implements SchedulerService {
 		response.sendRedirect(url);
 		
 	}
-	
-	
 	
 }

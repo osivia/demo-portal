@@ -207,7 +207,7 @@ public class SchedulerRepositoryImpl implements SchedulerRepository{
         		}
         	}
         	form.setCustomerUsers(customerUsers);
-            form.setTechnicians(technicians);
+        	form.setTechnicians(technicians);
         }        
     }
     

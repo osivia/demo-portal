@@ -15,6 +15,7 @@ import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
 import org.osivia.demo.scheduler.portlet.model.SchedulerForm;
+import org.osivia.demo.scheduler.portlet.model.SessionInformations;
 import org.osivia.demo.scheduler.portlet.service.SchedulerService;
 import org.osivia.portal.api.context.PortalControllerContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,6 @@ public class ViewSchedulerController {
     @RenderMapping
     public String view(RenderRequest request, RenderResponse response, @ModelAttribute("schedulerForm") SchedulerForm form)
     {
-
         return "view";
     }
     
@@ -99,7 +99,7 @@ public class ViewSchedulerController {
      * @throws IOException
      */
     @ActionMapping(name = "startContribution")
-    public void startContribution(ActionRequest request, ActionResponse response, 
+    public void startContribution(ActionRequest request, ActionResponse response,
     		@ModelAttribute("schedulerForm") SchedulerForm form,
     		@RequestParam("halfDay") String halfDay,
     		@RequestParam("day") String day)
@@ -122,7 +122,7 @@ public class ViewSchedulerController {
      * @throws IOException
      */
     @ActionMapping(name = "previousWeek")
-    public void previousWeek(ActionRequest request, ActionResponse response, 
+    public void previousWeek(ActionRequest request, ActionResponse response,
     		@ModelAttribute("schedulerForm") SchedulerForm form)
             throws PortletException, IOException {
 
@@ -140,7 +140,7 @@ public class ViewSchedulerController {
      * @throws IOException
      */
     @ActionMapping(name = "nextWeek")
-    public void nextWeek(ActionRequest request, ActionResponse response, 
+    public void nextWeek(ActionRequest request, ActionResponse response,
     		@ModelAttribute("schedulerForm") SchedulerForm form)
             throws PortletException, IOException {
 
@@ -185,7 +185,7 @@ public class ViewSchedulerController {
      * @return form
      * @throws PortletException
      */
-    @ModelAttribute("schedulerForm")
+    @ModelAttribute(value = "schedulerForm")
     public SchedulerForm getForm(PortletRequest request, PortletResponse response) throws PortletException {
 
     	PortalControllerContext portalControllerContext = new PortalControllerContext(this.portletContext, request, response);

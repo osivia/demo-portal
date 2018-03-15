@@ -15,5 +15,100 @@
             <script type="text/javascript" src="/js/demo-scheduler.js" ></script>
         </header-content>
     </portlet>
+    
+    <portlet>
+        <portlet-name>osivia-services-calendar</portlet-name>
+
+        <transaction>
+            <trans-attribute>Required</trans-attribute>
+        </transaction>
+
+        <header-content>
+            <link rel="stylesheet" type="text/css" href="/css/calendar.min.css" />
+            <link rel="stylesheet" type="text/css" href="/css/calendar-color.min.css" />
+            <script type="text/javascript" src="/js/scheduler/sources/dhtmlxscheduler.js" />
+            <script type="text/javascript" src="/js/scheduler/ext/dhtmlxscheduler_limit.js" />
+            <!-- <script type="text/javascript" src="/js/scheduler/ext/dhtmlxscheduler_key_nav.js" /> -->
+            <link rel="stylesheet" type="text/css" href="/js/scheduler/dhtmlxscheduler.css" />
+            <script type="text/javascript" src="/js/scheduler/locale/locale_fr.js"/>
+            <script type="text/javascript" src="/js/agenda-view.js" />
+        </header-content>
+
+        <portlet-info>
+            <icon>
+                <small-icon>/images/portlet_icon.png</small-icon>
+                <large-icon>/images/portlet_icon.png</large-icon>
+            </icon>
+        </portlet-info>
+    </portlet>
+    
+    <portlet>
+        <portlet-name>osivia-services-calendar-edition</portlet-name>
+
+        <transaction>
+            <trans-attribute>Required</trans-attribute>
+        </transaction>
+        
+        <header-content>
+            <link rel="stylesheet" type="text/css" href="/css/calendar-edition.min.css" />
+            <link rel="stylesheet" type="text/css" href="/css/calendar-color.min.css" />
+            <script type="text/javascript" src="/js/calendar-common.js" />
+            <script type="text/javascript" src="/js/calendar-edition.js" />
+        </header-content>
+    </portlet>
+    
+    
+    <portlet>
+        <portlet-name>osivia-services-calendar-synchronization-edition</portlet-name>
+
+        <transaction>
+            <trans-attribute>Required</trans-attribute>
+        </transaction>        
+    </portlet>
+    
+    
+    <portlet>
+        <portlet-name>osivia-services-calendar-event-edition</portlet-name>
+
+        <transaction>
+            <trans-attribute>Required</trans-attribute>
+        </transaction>
+
+        <header-content>
+            <link rel="stylesheet" type="text/css" href="/css/calendar-color.min.css" />
+            <link rel="stylesheet" type="text/css" href="/css/calendar-edition.min.css" />
+            <script type="text/javascript" src="/js/calendar-common.js" />
+            <script type="text/javascript" src="/js/calendar-event-edition.js" />
+            
+            <!-- Date picker -->
+            <script type="text/javascript" src="/js/datepicker/datepicker-fr.js" />
+            <!-- Time picker -->
+            <link rel="stylesheet" type="text/css" href="/js/timepicker/jquery.timepicker.css" />
+            <script type="text/javascript" src="/js/timepicker/jquery.timepicker.js" />
+            <!-- Datepair.js -->
+            <script type="text/javascript" src="/js/datepair/datepair.min.js" />
+            <script type="text/javascript" src="/js/datepair/jquery.datepair.min.js" />
+        </header-content>
+    </portlet>
+
+    <portlet>
+        <portlet-name>osivia-services-calendar-event-view</portlet-name>
+
+        <transaction>
+            <trans-attribute>Required</trans-attribute>
+        </transaction>
+
+        <header-content>
+            <link rel="stylesheet" type="text/css" href="/css/calendar-color.min.css" />
+            <link rel="stylesheet" type="text/css" href="/css/calendar-edition.min.css" />
+        </header-content>
+    </portlet>
+
+    <service>
+        <service-name>CustomizationModulesRepository</service-name>
+        <service-class>org.osivia.portal.api.customization.ICustomizationModulesRepository</service-class>
+        <service-ref>osivia:service=CustomizationService</service-ref>
+    </service>
+    
 
 </portlet-app>
