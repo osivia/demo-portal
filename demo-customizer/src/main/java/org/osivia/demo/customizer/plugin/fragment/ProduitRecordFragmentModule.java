@@ -18,6 +18,7 @@ import org.osivia.portal.api.windows.WindowFactory;
 import fr.toutatice.portail.cms.nuxeo.api.NuxeoController;
 import fr.toutatice.portail.cms.nuxeo.api.cms.NuxeoDocumentContext;
 import fr.toutatice.portail.cms.nuxeo.api.fragment.FragmentModule;
+import net.sf.json.JSONObject;
 
 /**
  * @author Dorian Licois
@@ -29,6 +30,8 @@ public class ProduitRecordFragmentModule extends FragmentModule {
 
     /** Nuxeo path window property name. */
     public static final String NUXEO_PATH_WINDOW_PROPERTY = Constants.WINDOW_PROP_URI;
+
+    private static final String LAUNCH_PROCEDURE_PROPERTY = "osivia.launch.procedure.webid";
 
     /** JSP name. */
     private static final String JSP_NAME = "product";
@@ -54,6 +57,8 @@ public class ProduitRecordFragmentModule extends FragmentModule {
         // Nuxeo path
         String nuxeoPath = window.getProperty(NUXEO_PATH_WINDOW_PROPERTY);
 
+        String procedureWebid = window.getProperty(LAUNCH_PROCEDURE_PROPERTY);
+
         if (StringUtils.isNotEmpty(nuxeoPath)) {
             // Computed path
             nuxeoPath = nuxeoController.getComputedPath(nuxeoPath);
@@ -76,8 +81,29 @@ public class ProduitRecordFragmentModule extends FragmentModule {
 
                 // description
                 request.setAttribute("description", dataMap.getString(DemoUtils.PRODUCT_PROPERTY_DESCRIPTION));
+
+                // launchSupportUrl
+                String producteWebId = properties.getString("ttc:webid");
+                String launchSupportUrl = getLaunchSupportUrl(procedureWebid, nuxeoController, document, producteWebId);
+                request.setAttribute("launchSupportUrl", launchSupportUrl);
             }
         }
+    }
+
+    /**
+     * Creates the URL to launch the support procedure
+     *
+     * @param procedureWebid
+     * @param nuxeoController
+     * @param document
+     * @param producteWebId
+     * @return
+     */
+    private String getLaunchSupportUrl(String procedureWebid, NuxeoController nuxeoController, Document document, String producteWebId) {
+        JSONObject variables = new JSONObject();
+        variables.put("productWebid", producteWebId);
+        variables.put("produit", document.getTitle());
+        return DemoUtils.getLaunchProcedureUrl(nuxeoController, variables, procedureWebid);
     }
 
     /**
@@ -94,6 +120,9 @@ public class ProduitRecordFragmentModule extends FragmentModule {
         // Nuxeo path
         String nuxeoPath = window.getProperty(NUXEO_PATH_WINDOW_PROPERTY);
         request.setAttribute("nuxeoPath", nuxeoPath);
+
+        String procedureWebid = window.getProperty(LAUNCH_PROCEDURE_PROPERTY);
+        request.setAttribute("procedureWebid", procedureWebid);
     }
 
     /**
@@ -110,6 +139,8 @@ public class ProduitRecordFragmentModule extends FragmentModule {
 
             // Nuxeo path
             window.setProperty(NUXEO_PATH_WINDOW_PROPERTY, StringUtils.trimToNull(request.getParameter("nuxeoPath")));
+
+            window.setProperty(LAUNCH_PROCEDURE_PROPERTY, StringUtils.trimToNull(request.getParameter("procedureWebid")));
         }
     }
 

@@ -4,6 +4,7 @@
 
 <%@ page isELIgnored="false" %>
 
+<h2 class="head-title-alt"><op:translate key="LIST_TEMPLATE_NEWS" /></h2>
 
 <div class="row">
     <c:forEach var="document" items="${documents}">

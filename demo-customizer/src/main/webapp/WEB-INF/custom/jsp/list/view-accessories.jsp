@@ -25,7 +25,8 @@
 	                </c:if>
 	
 	                <div class="text-center no-ajax-link">
-					  	<a class="btn btn-default no-ajax-link" href="${document.properties['orderUrl']}">
+					  	<a class="btn btn-primary no-ajax-link" href="${document.properties['orderUrl']}">
+					  		<i class="glyphicons glyphicons-shopping-cart"></i>
 					  		<op:translate key="LIST_TEMPLATE_ACCESSORIES_ORDER"/>
 					  	</a>
 					</div>

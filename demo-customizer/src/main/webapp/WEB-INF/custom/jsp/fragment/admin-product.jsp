@@ -10,3 +10,10 @@
         <input id="nuxeo-path" type="text" name="nuxeoPath" value="${nuxeoPath}" class="form-control" />
     </div>
 </div>
+
+<div class="form-group">
+    <label for="nuxeo-path" class="control-label col-sm-3"><op:translate key="FRAGMENT_LAUNCH_WEBID" /></label>
+    <div class="col-sm-9">
+        <input id="procedureWebid" type="text" name="procedureWebid" value="${procedureWebid}" class="form-control" />
+    </div>
+</div>
