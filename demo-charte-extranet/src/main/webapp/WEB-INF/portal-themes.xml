@@ -7,6 +7,6 @@
         <link rel="stylesheet" href="/css/demo-extranet.min.css" title="Demo" />
         
         <!-- JavaScript -->
-        <!-- <script type="text/javascript" src="/js/demo.js"></script> -->
+        <script type="text/javascript" src="/js/demo-extranet.js"></script>
     </theme>
 </themes>
