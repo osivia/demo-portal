@@ -19,6 +19,14 @@ public class SessionInformations {
 	
 	private List<Technician> technicians;
 
+	private boolean needTimeSlotLoad;
+	
+	public SessionInformations() {
+		super();
+		this.calendar = Calendar.getInstance();
+		this.needTimeSlotLoad = false;
+	}
+
 	public String getSelectedContributor() {
 		return selectedContributor;
 	}
@@ -50,5 +58,11 @@ public class SessionInformations {
 	public void setTechnicians(List<Technician> technicians) {
 		this.technicians = technicians;
 	}
-	
+	public boolean isNeedTimeSlotLoad() {
+		return needTimeSlotLoad;
+	}
+
+	public void setNeedTimeSlotLoad(boolean needTimeSlotLoad) {
+		this.needTimeSlotLoad = needTimeSlotLoad;
+	}
 }

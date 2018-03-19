@@ -7,8 +7,10 @@ import javax.portlet.PortletException;
 import org.osivia.demo.scheduler.portlet.model.Event;
 import org.osivia.demo.scheduler.portlet.model.Reservation;
 import org.osivia.demo.scheduler.portlet.model.SchedulerForm;
+import org.osivia.demo.scheduler.portlet.model.SessionInformations;
 import org.osivia.portal.api.context.PortalControllerContext;
 import org.osivia.portal.api.directory.v2.model.Person;
+import org.osivia.portal.core.cms.CMSException;
 
 public interface SchedulerRepository {
 
@@ -79,5 +81,5 @@ public interface SchedulerRepository {
      * @param schedulerForm
      * @param user
      */
-    void setCustomerInformation(PortalControllerContext portalControllerContext, SchedulerForm form, String user);
+    void setCustomerInformation(PortalControllerContext portalControllerContext, SessionInformations sessionInformations, String user);
 }

@@ -14,7 +14,7 @@ import org.nuxeo.ecm.automation.client.model.PropertyList;
 import org.nuxeo.ecm.automation.client.model.PropertyMap;
 import org.osivia.demo.scheduler.portlet.model.Event;
 import org.osivia.demo.scheduler.portlet.model.Reservation;
-import org.osivia.demo.scheduler.portlet.model.SchedulerForm;
+import org.osivia.demo.scheduler.portlet.model.SessionInformations;
 import org.osivia.demo.scheduler.portlet.model.Technician;
 import org.osivia.demo.scheduler.portlet.repository.command.CustomerCommand;
 import org.osivia.demo.scheduler.portlet.repository.command.EventListCommand;
@@ -29,6 +29,8 @@ import fr.toutatice.portail.cms.nuxeo.api.INuxeoCommand;
 import fr.toutatice.portail.cms.nuxeo.api.NuxeoController;
 import fr.toutatice.portail.cms.nuxeo.api.NuxeoQueryFilterContext;
 
+import static org.osivia.demo.scheduler.portlet.util.SchedulerConstant.CALENDAR_CMS_SUFFIX;
+
 /**
  * Scheduler Repository Implementation
  * @author Julien Barberet
@@ -36,8 +38,6 @@ import fr.toutatice.portail.cms.nuxeo.api.NuxeoQueryFilterContext;
  */
 @Repository
 public class SchedulerRepositoryImpl implements SchedulerRepository{
-
-	public static final String CALENDAR_PATH_SUFFIX = "/calendrier";
 	
 	private static final String PROCEDURE_INSTANCE_MAP = "pi:data";
 	
@@ -76,7 +76,7 @@ public class SchedulerRepositoryImpl implements SchedulerRepository{
                 portalControllerContext.getPortletCtx());
 
         // CMS path
-        String contextPath = workspacePath+CALENDAR_PATH_SUFFIX;
+        String contextPath = workspacePath+CALENDAR_CMS_SUFFIX;
 
         List<Event> events;
         // Nuxeo command
@@ -167,7 +167,7 @@ public class SchedulerRepositoryImpl implements SchedulerRepository{
      * {@inheritDoc}
      */
     @Override
-    public void setCustomerInformation(PortalControllerContext portalControllerContext, SchedulerForm form, String user)
+    public void setCustomerInformation(PortalControllerContext portalControllerContext, SessionInformations infos, String user)
     {
     	// Nuxeo controller
         NuxeoController nuxeoController = new NuxeoController(portalControllerContext.getRequest(), portalControllerContext.getResponse(),
@@ -206,8 +206,8 @@ public class SchedulerRepositoryImpl implements SchedulerRepository{
         			if (person != null) technicians.add(new Technician(person));
         		}
         	}
-        	form.setCustomerUsers(customerUsers);
-        	form.setTechnicians(technicians);
+        	infos.setCustomerUsers(customerUsers);
+        	infos.setTechnicians(technicians);
         }        
     }
     

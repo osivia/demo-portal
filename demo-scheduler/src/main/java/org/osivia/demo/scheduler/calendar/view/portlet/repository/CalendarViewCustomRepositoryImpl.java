@@ -13,12 +13,14 @@ import org.apache.commons.lang.StringUtils;
 import org.nuxeo.ecm.automation.client.model.Document;
 import org.nuxeo.ecm.automation.client.model.Documents;
 import org.nuxeo.ecm.automation.client.model.PropertyMap;
+import org.osivia.demo.scheduler.calendar.view.portlet.repository.command.ListWorkspaceCommand;
 import org.osivia.demo.scheduler.calendar.view.portlet.repository.command.ReservationListCommand;
 import org.osivia.portal.api.PortalException;
 import org.osivia.portal.api.context.PortalControllerContext;
 import org.osivia.portal.api.urls.IPortalUrlFactory;
 import org.osivia.portal.api.windows.PortalWindow;
 import org.osivia.portal.api.windows.WindowFactory;
+import org.osivia.portal.core.constants.InternalConstants;
 import org.osivia.services.calendar.common.repository.CalendarRepositoryImpl;
 import org.osivia.services.calendar.common.repository.command.EventRemoveCommand;
 import org.osivia.services.calendar.edition.portlet.model.CalendarSynchronizationSource;
@@ -37,6 +39,8 @@ import fr.toutatice.portail.cms.nuxeo.api.INuxeoCommand;
 import fr.toutatice.portail.cms.nuxeo.api.NuxeoController;
 import fr.toutatice.portail.cms.nuxeo.api.NuxeoQueryFilterContext;
 import fr.toutatice.portail.cms.nuxeo.api.cms.NuxeoDocumentContext;
+
+import static org.osivia.demo.scheduler.portlet.util.SchedulerConstant.CALENDAR_CMS_SUFFIX;
 
 /**
  * Calendar repository implementation.
@@ -67,6 +71,11 @@ public class CalendarViewCustomRepositoryImpl extends CalendarViewRepositoryImpl
 	private static final String TIME_SLOT_MORNING = "AM";
 	
 	private static final String TIME_SLOT_AFTERNOON = "PM";
+	
+    /** User workspaces default path. */
+    private static final String USER_WORKSPACES_DEFAULT_PATH = "/default-domain/UserWorkspaces";
+    /** User workspaces default type. */
+    private static final String USER_WORKSPACES_DEFAULT_TYPE = "Workspace";
 	
     /** Portal URL factory. */
     @Autowired
@@ -137,15 +146,28 @@ public class CalendarViewCustomRepositoryImpl extends CalendarViewRepositoryImpl
             //Current user
     		String currentUser = portalControllerContext.getHttpServletRequest().getUserPrincipal().getName();
             
-            // Nuxeo command
-            nuxeoCommand = new ReservationListCommand(NuxeoQueryFilterContext.CONTEXT_LIVE_N_PUBLISHED, start, end, currentUser);
-            documents = (Documents) nuxeoController.executeNuxeoCommand(nuxeoCommand);
-            
-            for (Document document : documents) {
-                // Event
-                Event event = fillReservation(portalControllerContext, document, nuxeoController);
-                if (event != null) events.add(event);
-            }
+    		List<String> userWorkspacePath = getUserWorkspaces(portalControllerContext, currentUser);
+    		boolean isUserWorkspace = false;
+    		for (String workspacePath : userWorkspacePath)
+    		{
+    			if ((cmsPath).equals(workspacePath+CALENDAR_CMS_SUFFIX))
+    			{
+    				isUserWorkspace = true;
+    				break;
+    			}
+    		}
+    		if (isUserWorkspace)
+    		{
+	            // Nuxeo command
+	            nuxeoCommand = new ReservationListCommand(NuxeoQueryFilterContext.CONTEXT_LIVE_N_PUBLISHED, start, end, currentUser);
+	            documents = (Documents) nuxeoController.executeNuxeoCommand(nuxeoCommand);
+	            
+	            for (Document document : documents) {
+	                // Event
+	                Event event = fillReservation(portalControllerContext, document, nuxeoController);
+	                if (event != null) events.add(event);
+	            }
+    		}
         }
 
         return events;
@@ -168,6 +190,57 @@ public class CalendarViewCustomRepositoryImpl extends CalendarViewRepositoryImpl
         return fillEvent(document, nuxeoController);
     }
 
+    private List<String> getUserWorkspaces(PortalControllerContext portalControllerContext, String userName) throws PortletException {
+    	
+    	// Nuxeo controller
+        NuxeoController nuxeoController = new NuxeoController(portalControllerContext.getRequest(), portalControllerContext.getResponse(),
+                portalControllerContext.getPortletCtx());
+        // Query
+        String query = this.getUserWorkspacesQuery(userName);
+        // Schemas
+        String schemas = "dublincore";
+        // Portal policy filter
+        String filter = InternalConstants.PORTAL_CMS_REQUEST_FILTERING_POLICY_NO_FILTER;
+
+        // User workspaces
+        List<String> workspaces;
+        try {
+            String liveStatus = Integer.toString(NuxeoQueryFilterContext.STATE_LIVE);
+            INuxeoCommand nuxeoCommand = new ListWorkspaceCommand(query, liveStatus, 0, -1, schemas, filter);
+            Documents documents = (Documents) nuxeoController.executeNuxeoCommand(nuxeoCommand);
+
+            workspaces = new ArrayList<String>(documents.size());
+            for (Document document : documents.list()) {
+                String path  = document.getPath();
+                workspaces.add(path);
+            }
+        } catch (Exception e) {
+            throw new PortletException(e);
+        }
+
+        return workspaces;
+    }
+    
+    /**
+     * Get user workspaces query.
+     *
+     * @param userName user name, may be empty for getting all user workspaces
+     * @return query
+     */
+    private String getUserWorkspacesQuery(String userName) {
+        StringBuilder query = new StringBuilder();
+        query.append("ecm:primaryType = '");
+        query.append(USER_WORKSPACES_DEFAULT_TYPE);
+        query.append("' AND ecm:path STARTSWITH '");
+        query.append(USER_WORKSPACES_DEFAULT_PATH);
+        query.append("/'");
+        if (StringUtils.isNotEmpty(userName)) {
+            query.append(" AND dc:creator = '");
+            query.append(userName);
+            query.append("'");
+        }
+        return query.toString();
+    }
 
     /**
      * Fill event attributes

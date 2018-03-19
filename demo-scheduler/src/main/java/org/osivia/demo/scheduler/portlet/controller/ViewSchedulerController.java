@@ -9,13 +9,13 @@ import javax.portlet.PortletContext;
 import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
+import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
 import org.osivia.demo.scheduler.portlet.model.SchedulerForm;
-import org.osivia.demo.scheduler.portlet.model.SessionInformations;
 import org.osivia.demo.scheduler.portlet.service.SchedulerService;
 import org.osivia.portal.api.context.PortalControllerContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +23,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 import org.springframework.web.portlet.bind.annotation.ResourceMapping;
+
+import static org.osivia.demo.scheduler.portlet.util.SchedulerConstant.SCHEDULER_SESSION_DATA;
 
 import net.sf.json.JSONArray;
 
@@ -37,7 +38,6 @@ import net.sf.json.JSONArray;
  */
 @Controller
 @RequestMapping(value = "VIEW")
-@SessionAttributes("schedulerForm")
 public class ViewSchedulerController {
 
 	
@@ -63,9 +63,16 @@ public class ViewSchedulerController {
      * @return
      */
     @RenderMapping
-    public String view(RenderRequest request, RenderResponse response, @ModelAttribute("schedulerForm") SchedulerForm form)
+    public String view(RenderRequest request, RenderResponse response, @ModelAttribute("schedulerForm") SchedulerForm form) throws PortletException 
     {
-        return "view";
+        if (form.getSessionInformations().isNeedTimeSlotLoad())
+        {
+        	PortalControllerContext portalControllerContext = new PortalControllerContext(this.portletContext, request, response);
+        	this.service.loadScheduler(portalControllerContext, form);
+        }
+        
+    	
+    	return "view";
     }
     
     /**
@@ -82,6 +89,9 @@ public class ViewSchedulerController {
     	
     	PortalControllerContext portalControllerContext = new PortalControllerContext(this.portletContext, request, response);
     	this.service.loadScheduler(portalControllerContext, form);
+    	form.getSessionInformations().setNeedTimeSlotLoad(false);
+    	//Save inforamtions in session
+    	saveSessionInformations(portalControllerContext,form);
     	
     	//Stay on the edit page
         response.setRenderParameter("view","view");
@@ -110,7 +120,8 @@ public class ViewSchedulerController {
     	{
     		this.service.startContribution(portalControllerContext, form.getSelectedContributor(), day, halfDay);
     	}
-
+    	//Save inforamtions in session
+    	saveSessionInformations(portalControllerContext,form);
     }
     
     /**
@@ -189,8 +200,18 @@ public class ViewSchedulerController {
     public SchedulerForm getForm(PortletRequest request, PortletResponse response) throws PortletException {
 
     	PortalControllerContext portalControllerContext = new PortalControllerContext(this.portletContext, request, response);
-
+    	
     	return this.service.getForm(portalControllerContext);
+    }
+    
+    /**
+     * Save informations (selectedContributor and time slot selected) in session
+     * @param portalControllerContext
+     * @param form
+     */
+    private void saveSessionInformations(PortalControllerContext portalControllerContext, SchedulerForm form)
+    {
+    	portalControllerContext.getHttpServletRequest().getSession().setAttribute(SCHEDULER_SESSION_DATA, form.getSessionInformations());
     }
     
 }

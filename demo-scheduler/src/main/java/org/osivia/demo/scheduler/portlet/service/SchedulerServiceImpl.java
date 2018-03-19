@@ -21,8 +21,10 @@ import org.osivia.demo.scheduler.portlet.model.Event;
 import org.osivia.demo.scheduler.portlet.model.Reservation;
 import org.osivia.demo.scheduler.portlet.model.SchedulerEvent;
 import org.osivia.demo.scheduler.portlet.model.SchedulerForm;
+import org.osivia.demo.scheduler.portlet.model.SessionInformations;
 import org.osivia.demo.scheduler.portlet.model.Technician;
 import org.osivia.demo.scheduler.portlet.repository.SchedulerRepository;
+
 import org.osivia.portal.api.Constants;
 import org.osivia.portal.api.PortalException;
 import org.osivia.portal.api.context.PortalControllerContext;
@@ -40,6 +42,7 @@ import fr.toutatice.portail.cms.nuxeo.api.services.INuxeoService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import static org.osivia.demo.scheduler.portlet.util.SchedulerConstant.SCHEDULER_SESSION_DATA;
 
 @Service
 public class SchedulerServiceImpl implements SchedulerService {
@@ -66,20 +69,31 @@ public class SchedulerServiceImpl implements SchedulerService {
 	
 	private static final long ONE_DAY = (24*60*60*1000);
 	
+	private static final long ONE_HOUR = (60*60*1000);
+	
+	
 	/**
      * {@inheritDoc}
      */
     @Override
 	public SchedulerForm getForm(PortalControllerContext portalControllerContext)
 	{
-    	SchedulerForm form = this.applicationContext.getBean(SchedulerForm.class);
+    	SchedulerForm form = new SchedulerForm();
     	
 		//Current user
 		String currentUser = portalControllerContext.getHttpServletRequest().getUserPrincipal().getName();
-    	
-		//Set technicians and customerUsers in form
-    	this.repository.setCustomerInformation(portalControllerContext, form, currentUser);
-    	
+		
+		SessionInformations sessionInformations = (SessionInformations) portalControllerContext.getHttpServletRequest().getSession().getAttribute(SCHEDULER_SESSION_DATA);
+		if (sessionInformations == null)
+		{
+			sessionInformations = this.applicationContext.getBean(SessionInformations.class);
+			
+			//Set technicians and customerUsers in form
+	    	this.repository.setCustomerInformation(portalControllerContext, sessionInformations, currentUser);
+		}
+
+		form.setSessionInformations(sessionInformations);
+		sessionInformations.setNeedTimeSlotLoad((sessionInformations.getSelectedContributor() != null));
 		return form;
 	}
 	
@@ -220,7 +234,7 @@ public class SchedulerServiceImpl implements SchedulerService {
 		}
         
         //Pour corriger le bug des dates qui sont enregistrées via les procédures avec une heure en moins
-        mondayMorning.setTimeInMillis(mondayMorning.getTimeInMillis()-(60*60*1000));
+        mondayMorning.setTimeInMillis(mondayMorning.getTimeInMillis()-ONE_HOUR);
         //Start date
       	startDate = DateFormatUtils.ISO_DATE_FORMAT.format(mondayMorning.getTime());
       	//End date

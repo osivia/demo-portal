@@ -7,4 +7,18 @@ import org.springframework.stereotype.Component;
 @Refreshable
 public class SchedulerTemp {
 
+	private SchedulerEvent[] timeSlots;
+
+	public SchedulerTemp() {
+		super();
+		this.timeSlots = new SchedulerEvent[10];
+	}
+
+	public SchedulerEvent[] getTimeSlots() {
+		return timeSlots;
+	}
+
+	public void setTimeSlots(SchedulerEvent[] timeSlots) {
+		this.timeSlots = timeSlots;
+	}
 }

@@ -4,8 +4,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,91 +12,91 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class SchedulerForm {
 
-	private String selectedContributor;
-	
-	private List<Technician> technicians;
-	
-	private Calendar calendar;
+	private SessionInformations sessionInformations;
 	
 	private SchedulerEvent[] timeSlots;
 	
-	private List<String> customerUsers;
-
+	
+	
 	public SchedulerForm() {
 		super();
-		calendar = Calendar.getInstance();
-		timeSlots = new SchedulerEvent[10];
+		this.timeSlots = new SchedulerEvent[10];
+		
+		
 	}
 	
-	public void setCalendar(Calendar calendar) {
-		this.calendar = calendar;
+	public SessionInformations getSessionInformations() {
+		return sessionInformations;
+	}
+
+	public void setSessionInformations(SessionInformations sessionInformations) {
+		this.sessionInformations = sessionInformations;
 	}
 
 	public void previousWeek()
 	{
-		calendar.add(Calendar.WEEK_OF_YEAR, -1);
+		sessionInformations.getCalendar().add(Calendar.WEEK_OF_YEAR, -1);
 	}
 	
 	public void nextWeek()
 	{
-		calendar.add(Calendar.WEEK_OF_YEAR, 1);
+		sessionInformations.getCalendar().add(Calendar.WEEK_OF_YEAR, 1);
 	}
 
 	public String getSelectedContributor() {
-		return selectedContributor;
+		return this.sessionInformations.getSelectedContributor();
 	}
 
 	public void setSelectedContributor(String selectedContributor) {
-		this.selectedContributor = selectedContributor;
+		this.sessionInformations.setSelectedContributor(selectedContributor);
 	}
 	
 	public Date getMonday()
 	{
-		calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-		return calendar.getTime();
+		sessionInformations.getCalendar().set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+		return sessionInformations.getCalendar().getTime();
 	}
 	
 	public Date getTuesday()
 	{
-		calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-		return calendar.getTime();
+		sessionInformations.getCalendar().set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+		return sessionInformations.getCalendar().getTime();
 	}
 	
 	public Date getWednesday()
 	{
-		calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
-		return calendar.getTime();
+		sessionInformations.getCalendar().set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+		return sessionInformations.getCalendar().getTime();
 	}
 	
 	public Date getThursday()
 	{
-		calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-		return calendar.getTime();
+		sessionInformations.getCalendar().set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+		return sessionInformations.getCalendar().getTime();
 	}
 	
 	public Date getFriday()
 	{
-		calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-		return calendar.getTime();
+		sessionInformations.getCalendar().set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+		return sessionInformations.getCalendar().getTime();
 	}
 
 	public List<Technician> getTechnicians() {
-		return technicians;
+		return sessionInformations.getTechnicians();
 	}
 
 	public void setTechnicians(List<Technician> technicians) {
-		this.technicians = technicians;
+		this.sessionInformations.setTechnicians(technicians);
 	}
 
 	public List<String> getCustomerUsers() {
-		return customerUsers;
+		return this.sessionInformations.getCustomerUsers();
 	}
 
 	public void setCustomerUsers(List<String> customerUsers) {
-		this.customerUsers = customerUsers;
+		this.sessionInformations.setCustomerUsers(customerUsers);
 	}
 
 	public SchedulerEvent[] getTimeSlots() {
@@ -106,12 +104,12 @@ public class SchedulerForm {
 	}
 
 	public void setTimeSlots(SchedulerEvent[] timeSlots) {
-		this.timeSlots = timeSlots;
+			this.timeSlots = timeSlots;
 	}
-	
+
 	public boolean isShowPreviousButton() {
 		Calendar currentCal = Calendar.getInstance();
-		boolean showPreviousButton = currentCal.get(Calendar.WEEK_OF_YEAR) < calendar.get(Calendar.WEEK_OF_YEAR);
+		boolean showPreviousButton = currentCal.get(Calendar.WEEK_OF_YEAR) < sessionInformations.getCalendar().get(Calendar.WEEK_OF_YEAR);
 		return showPreviousButton;
 	}
 }
