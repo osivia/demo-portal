@@ -124,22 +124,24 @@
 										<c:choose>
 											<c:when test="${timeSlot.reservation && timeSlot.accepted}">
 												<div class="alert alert-success reservation">
+													<b>${timeSlot.title}<br/></b>
+													<small>
+													<op:translate key="REQUEST_FOR_INTERVENTION" />
+													<fmt:formatDate value="${timeSlot.dateCreationReservation}" type="date" pattern="dd MMMM " /><op:translate key="REQUEST_FOR_INTERVENTION_AT" /><fmt:formatDate value="${timeSlot.dateCreationReservation}" type="date" pattern=" HH:mm" /><br/>
+													<op:translate key="REQUEST_FOR_INTERVENTION_BY" args="${timeSlot.creator}" />"<br/>
 													<op:translate key="RESERVATION_ACCEPTED" />
-													<div><a class="alert-link" href="#" data-toggle="popover" 
-													title="<op:translate key="REQUEST_FOR_INTERVENTION" />
-													<fmt:formatDate value="${timeSlot.dateCreationReservation}" type="date" pattern="dd MMMM yyyy HH:mm" />
-													<op:translate key="REQUEST_FOR_INTERVENTION_BY" args="${timeSlot.creator}" />"
-													data-content="${timeSlot.object}"><op:translate key="RESERVATION_OBJECT" /></a></div>
+													</small>
 												</div>
 											</c:when>
 											<c:when test="${timeSlot.reservation && !timeSlot.accepted}">
 												<div class="alert alert-warning reservation">
+													<b>${timeSlot.title}<br/></b>
+													<small>
+													<op:translate key="REQUEST_FOR_INTERVENTION" />
+													<fmt:formatDate value="${timeSlot.dateCreationReservation}" type="date" pattern="dd MMMM " /><op:translate key="REQUEST_FOR_INTERVENTION_AT" /><fmt:formatDate value="${timeSlot.dateCreationReservation}" type="date" pattern=" HH:mm" /><br/>
+													<op:translate key="REQUEST_FOR_INTERVENTION_BY" args="${timeSlot.creator}" /><br/>
 													<op:translate key="WAITING_RESERVATION" />
-													<div><a class="alert-link" href="#" data-toggle="popover" 
-													title="<op:translate key="REQUEST_FOR_INTERVENTION" />
-													<fmt:formatDate value="${timeSlot.dateCreationReservation}" type="date" pattern="dd MMMM yyyy HH:mm" />
-													<op:translate key="REQUEST_FOR_INTERVENTION_BY" args="${timeSlot.creator}" />"
-													data-content="${timeSlot.object}"><op:translate key="RESERVATION_OBJECT" /></a></div>
+													</small>
 												</div>
 											</c:when>
 											<c:otherwise>
@@ -176,22 +178,24 @@
 										<c:choose>
 											<c:when test="${timeSlot.reservation && timeSlot.accepted}">
 												<div class="alert alert-success reservation">
+													<b>${timeSlot.title}<br/></b>
+													<small>
+													<op:translate key="REQUEST_FOR_INTERVENTION" />
+													<fmt:formatDate value="${timeSlot.dateCreationReservation}" type="date" pattern="dd MMMM " /><op:translate key="REQUEST_FOR_INTERVENTION_AT" /><fmt:formatDate value="${timeSlot.dateCreationReservation}" type="date" pattern=" HH:mm" /><br/>
+													<op:translate key="REQUEST_FOR_INTERVENTION_BY" args="${timeSlot.creator}" />"<br/>
 													<op:translate key="RESERVATION_ACCEPTED" />
-													<div><a class="alert-link" href="#" data-toggle="popover"
-													title="<op:translate key="REQUEST_FOR_INTERVENTION" />
-													<fmt:formatDate value="${timeSlot.dateCreationReservation}" type="date" pattern="dd MMMM yyyy HH:mm" />
-													<op:translate key="REQUEST_FOR_INTERVENTION_BY" args="${timeSlot.creator}" />"
-													data-content="${timeSlot.object}"><op:translate key="RESERVATION_OBJECT" /></a></div>
+													</small>
 												</div>
 											</c:when>
 											<c:when test="${timeSlot.reservation && !timeSlot.accepted}">
 												<div class="alert alert-warning reservation">
+													<b>${timeSlot.title}<br/></b>
+													<small>
+													<op:translate key="REQUEST_FOR_INTERVENTION" />
+													<fmt:formatDate value="${timeSlot.dateCreationReservation}" type="date" pattern="dd MMMM " /><op:translate key="REQUEST_FOR_INTERVENTION_AT" /><fmt:formatDate value="${timeSlot.dateCreationReservation}" type="date" pattern=" HH:mm" /><br/>
+													<op:translate key="REQUEST_FOR_INTERVENTION_BY" args="${timeSlot.creator}" /><br/>
 													<op:translate key="WAITING_RESERVATION" />
-													<div><a class="alert-link" href="#" data-toggle="popover"
-													title="<op:translate key="REQUEST_FOR_INTERVENTION" />
-													<fmt:formatDate value="${timeSlot.dateCreationReservation}" type="date" pattern="dd MMMM yyyy HH:mm" />
-													<op:translate key="REQUEST_FOR_INTERVENTION_BY" args="${timeSlot.creator}" />"
-													data-content="${timeSlot.object}"><op:translate key="RESERVATION_OBJECT" /></a></div>
+													</small>
 												</div>
 											</c:when>
 											<c:otherwise>

@@ -248,7 +248,8 @@ public class SchedulerServiceImpl implements SchedulerService {
         	int nbDays = new BigDecimal((float) (nbMillis/ONE_DAY)).setScale(0, BigDecimal.ROUND_HALF_UP).intValue();
         	int nbHalfDays = nbDays*2 + ("PM".equals(reservation.getTimeSlot())? 1 : 0);
         	SchedulerEvent schedulerEvent = new SchedulerEvent(true);
-    		schedulerEvent.setObject(reservation.getObject());
+    		schedulerEvent.setTitle(reservation.getTitle());
+    		schedulerEvent.setComment(reservation.getComment());
     		schedulerEvent.setAccepted(reservation.isAccepted());
     		schedulerEvent.setCreator(reservation.getCreatorName());
     		schedulerEvent.setDateCreationReservation(reservation.getDateCreationReservation());

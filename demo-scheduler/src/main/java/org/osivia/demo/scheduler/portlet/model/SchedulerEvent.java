@@ -9,7 +9,9 @@ public class SchedulerEvent {
 	/** if true accepted state, else if waiting state */
 	private boolean accepted;
 	
-	private String object;
+	private String title;
+	
+	private String comment;
 	
 	private String client;
 	
@@ -29,15 +31,6 @@ public class SchedulerEvent {
 	public void setReservation(boolean reservation) {
 		this.reservation = reservation;
 	}
-
-	public String getObject() {
-		return object;
-	}
-
-	public void setObject(String object) {
-		this.object = object;
-	}
-
 	public String getClient() {
 		return client;
 	}
@@ -68,6 +61,22 @@ public class SchedulerEvent {
 
 	public void setDateCreationReservation(Date dateCreationReservation) {
 		this.dateCreationReservation = dateCreationReservation;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	
 }

@@ -143,31 +143,34 @@ public class CalendarViewCustomRepositoryImpl extends CalendarViewRepositoryImpl
                 }
             }
             
-            //Current user
-    		String currentUser = portalControllerContext.getHttpServletRequest().getUserPrincipal().getName();
-            
-    		List<String> userWorkspacePath = getUserWorkspaces(portalControllerContext, currentUser);
-    		boolean isUserWorkspace = false;
-    		for (String workspacePath : userWorkspacePath)
-    		{
-    			if ((cmsPath).equals(workspacePath+CALENDAR_CMS_SUFFIX))
-    			{
-    				isUserWorkspace = true;
-    				break;
-    			}
-    		}
-    		if (isUserWorkspace)
-    		{
-	            // Nuxeo command
-	            nuxeoCommand = new ReservationListCommand(NuxeoQueryFilterContext.CONTEXT_LIVE_N_PUBLISHED, start, end, currentUser);
-	            documents = (Documents) nuxeoController.executeNuxeoCommand(nuxeoCommand);
+            if (portalControllerContext.getHttpServletRequest().getUserPrincipal() != null)
+            {
+	            //Current user
+	    		String currentUser = portalControllerContext.getHttpServletRequest().getUserPrincipal().getName();
 	            
-	            for (Document document : documents) {
-	                // Event
-	                Event event = fillReservation(portalControllerContext, document, nuxeoController);
-	                if (event != null) events.add(event);
-	            }
-    		}
+	    		List<String> userWorkspacePath = getUserWorkspaces(portalControllerContext, currentUser);
+	    		boolean isUserWorkspace = false;
+	    		for (String workspacePath : userWorkspacePath)
+	    		{
+	    			if ((cmsPath).equals(workspacePath+CALENDAR_CMS_SUFFIX))
+	    			{
+	    				isUserWorkspace = true;
+	    				break;
+	    			}
+	    		}
+	    		if (isUserWorkspace)
+	    		{
+		            // Nuxeo command
+		            nuxeoCommand = new ReservationListCommand(NuxeoQueryFilterContext.CONTEXT_LIVE_N_PUBLISHED, start, end, currentUser);
+		            documents = (Documents) nuxeoController.executeNuxeoCommand(nuxeoCommand);
+		            
+		            for (Document document : documents) {
+		                // Event
+		                Event event = fillReservation(portalControllerContext, document, nuxeoController);
+		                if (event != null) events.add(event);
+		            }
+	    		}
+            }
         }
 
         return events;

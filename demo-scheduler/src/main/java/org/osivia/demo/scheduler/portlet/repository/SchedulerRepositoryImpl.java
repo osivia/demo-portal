@@ -49,6 +49,10 @@ public class SchedulerRepositoryImpl implements SchedulerRepository{
 	
 	private static final String RESERVATION_ACCEPTED = "accepted";
 	
+	private static final String RESERVATION_TITLE = "titre";
+	
+	private static final String RESERVATION_COMMENT = "commentaires";
+	
 	private static final String DATA_MAP = "rcd:data";
 	
 	private static final String CUSTOMER_USERS_DATA = "customerusers";
@@ -116,8 +120,9 @@ public class SchedulerRepositoryImpl implements SchedulerRepository{
         	PropertyMap map = document.getProperties().getMap(PROCEDURE_INSTANCE_MAP);
         	reservation.setDay(map.getDate(RESERVATION_DATE));
         	reservation.setTimeSlot(map.getString(RESERVATION_TIME_SLOT));
-        	reservation.setObject(map.getString(RESERVATION_OBJECT));
         	reservation.setAccepted("true".equals(map.getString(RESERVATION_ACCEPTED)));
+        	reservation.setTitle(map.getString(RESERVATION_TITLE));
+        	reservation.setComment(map.getString(RESERVATION_COMMENT));
         	String creator = document.getString(CREATOR_PROPERTY);
         	reservation.setCreatorId(creator);
         	if (null != creator)

@@ -8,7 +8,9 @@ public class Reservation {
 	
 	private String timeSlot;
 	
-	private String object;
+	private String title;
+	
+	private String comment;
 	
 	private String idClient;
 	
@@ -63,14 +65,6 @@ public class Reservation {
 		this.creatorId = creator;
 	}
 
-	public String getObject() {
-		return object;
-	}
-
-	public void setObject(String object) {
-		this.object = object;
-	}
-
 	public boolean isAccepted() {
 		return accepted;
 	}
@@ -93,6 +87,22 @@ public class Reservation {
 
 	public void setCreatorName(String creatorName) {
 		this.creatorName = creatorName;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	
 }
