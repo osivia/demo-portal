@@ -5,19 +5,22 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.jboss.portal.theme.impl.render.dynamic.DynaRenderOptions;
-import org.nuxeo.ecm.automation.client.model.Document;
 import org.nuxeo.ecm.automation.client.model.PropertyList;
 import org.nuxeo.ecm.automation.client.model.PropertyMap;
 import org.osivia.portal.api.Constants;
 import org.osivia.portal.api.PortalException;
+import org.osivia.portal.core.cms.BinaryDescription;
 
 import fr.toutatice.portail.cms.nuxeo.api.NuxeoController;
+import fr.toutatice.portail.cms.nuxeo.api.services.dao.DocumentDAO;
 import net.sf.json.JSONObject;
 
 /**
  * @author Dorian Licois
  */
 public class DemoUtils {
+
+    public static final String DOCUMENT_PROPERTY_PATH = "ecm:path";
 
     public static final String RECORD_PROPERTY_DATA = "rcd:data";
 
@@ -33,6 +36,10 @@ public class DemoUtils {
 
     public static final String ACCESSORY_PROPERTY_PRIX = "prixht";
 
+    public static final String PRODUCT_PROPERTY_DOCUMENTS = "documents";
+
+    public static final String DOCUMENTS_PROPERTY_FILES = "fichier";
+
     private static final String PROCEDURE_MAP_PROPERTY = "osivia.services.procedure.variables";
 
     private static final String PROCEDURE_PORTLET_INSTANCE = "osivia-services-procedure-portletInstance";
@@ -41,44 +48,35 @@ public class DemoUtils {
     }
 
     /**
-     * creates the URL to download the file in the propertyMap
-     *
-     * @param propertyMap
-     * @param nuxeoController
-     * @return
-     */
-    public static String getFileUrl(PropertyMap propertyMap, NuxeoController nuxeoController) {
-        String fileDigest = propertyMap.getString("digest");
-
-        return GetFileUrl(nuxeoController, fileDigest);
-    }
-
-    /**
-     * creates the URL to download the file in the map
-     *
-     * @param map
-     * @param nuxeoController
-     * @return
-     */
-    public static String getFileUrl(Map<String, Object> map, NuxeoController nuxeoController) {
-        String fileDigest = (String) map.get("digest");
-
-        return GetFileUrl(nuxeoController, fileDigest);
-    }
-
-    /**
      * creates the URL to download the file corresponding to digest
      *
      * @param nuxeoController
      * @param fileDigest
+     * @param documentPath
      * @return
      */
-    private static String GetFileUrl(NuxeoController nuxeoController, String fileDigest) {
-        Document currentDoc = nuxeoController.getCurrentDoc();
-        PropertyMap properties = currentDoc.getProperties();
-        PropertyList files = properties.getList("files:files");
+    public static String getFileUrl(NuxeoController nuxeoController, PropertyMap docProperties, String fileDigest, String documentPath) {
+        PropertyList files = docProperties.getList("files:files");
 
-        return nuxeoController.createAttachedFileLink("files:files", String.valueOf(getFileIndex(fileDigest, files)));
+        BinaryDescription binary = new BinaryDescription(BinaryDescription.Type.ATTACHED_FILE, documentPath);
+        binary.setIndex(String.valueOf(getFileIndex(fileDigest, files)));
+
+        return nuxeoController.getBinaryURL(binary);
+    }
+
+    /**
+     * Returns icon for the mimeType of corresponding file
+     *
+     * @param docProperties
+     * @param fileDigest
+     * @return
+     */
+    public static String getFileIcon(PropertyMap docProperties, String fileDigest) {
+        PropertyList files = docProperties.getList("files:files");
+        PropertyMap filesMap = files.getMap(getFileIndex(fileDigest, files));
+        PropertyMap fileMap = filesMap.getMap("file");
+        String mimeType = fileMap.getString("mime-type");
+        return DocumentDAO.getInstance().getIcon(mimeType);
     }
 
     /**
@@ -136,4 +134,5 @@ public class DemoUtils {
         }
         return launchProcedureUrl;
     }
+
 }

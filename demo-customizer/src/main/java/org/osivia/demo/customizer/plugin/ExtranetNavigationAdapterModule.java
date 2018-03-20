@@ -13,11 +13,13 @@ import fr.toutatice.portail.cms.nuxeo.api.domain.Symlink;
 
 /**
  * Extranet navigation adapter module.
- * 
+ *
  * @author Cédric Krommenhoek
  * @see INavigationAdapterModule
  */
 public class ExtranetNavigationAdapterModule implements INavigationAdapterModule {
+
+    private static final String PRODUITS_PAGE_PATH = "produits";
 
     /** Portlet context. */
     private PortletContext portletContext;
@@ -25,7 +27,7 @@ public class ExtranetNavigationAdapterModule implements INavigationAdapterModule
 
     /**
      * Constructor.
-     * 
+     *
      * @param portletContext portlet context
      */
     public ExtranetNavigationAdapterModule(PortletContext portletContext) {

@@ -2,6 +2,7 @@ package org.osivia.demo.customizer.plugin.fragment;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.nuxeo.ecm.automation.client.model.Document;
+import org.nuxeo.ecm.automation.client.model.PropertyList;
 import org.nuxeo.ecm.automation.client.model.PropertyMap;
 import org.osivia.demo.customizer.plugin.DemoUtils;
 import org.osivia.portal.api.Constants;
@@ -113,28 +115,65 @@ public class ProduitRecordFragmentModule extends FragmentModule {
             // Nuxeo document
             NuxeoDocumentContext documentContext = nuxeoController.getDocumentContext(nuxeoPath);
             Document document = documentContext.getDenormalizedDocument();
-            nuxeoController.setCurrentDoc(document);
 
-            PropertyMap properties = document.getProperties();
-            PropertyMap dataMap = properties.getMap(DemoUtils.RECORD_PROPERTY_DATA);
+            PropertyMap docProperties = document.getProperties();
+            PropertyMap dataMap = docProperties.getMap(DemoUtils.RECORD_PROPERTY_DATA);
             if (dataMap != null) {
                 // title
                 request.setAttribute("title", dataMap.getString(DemoUtils.RECORD_PROPERTY_TITLE));
 
                 // visuel
                 PropertyMap visuelMap = dataMap.getMap(DemoUtils.PRODUCT_PROPERTY_VISUEL);
-                request.setAttribute("visuelUrl", DemoUtils.getFileUrl(visuelMap, nuxeoController));
+                request.setAttribute("visuelUrl", DemoUtils.getFileUrl(nuxeoController, docProperties, visuelMap.getString("digest"), document.getPath()));
                 request.setAttribute("visuelFilename", visuelMap.getString("fileName"));
 
                 // description
                 request.setAttribute("description", dataMap.getString(DemoUtils.PRODUCT_PROPERTY_DESCRIPTION));
 
                 // launchSupportUrl
-                String producteWebId = properties.getString("ttc:webid");
+                String producteWebId = docProperties.getString("ttc:webid");
                 String launchSupportUrl = getLaunchSupportUrl(procedureWebid, nuxeoController, document, producteWebId);
                 request.setAttribute("launchSupportUrl", launchSupportUrl);
+
+                // documents
+                PropertyList documentsList = dataMap.getList(DemoUtils.PRODUCT_PROPERTY_DOCUMENTS);
+                if (documentsList != null) {
+                    List<ProduitDocument> files = new ArrayList<ProduitRecordFragmentModule.ProduitDocument>();
+                    for (Object documentO : documentsList.list()) {
+                        PropertyMap documentMap = (PropertyMap) documentO;
+                        PropertyMap documentDataMap = documentMap.getMap(DemoUtils.RECORD_PROPERTY_DATA);
+                        if (documentDataMap != null) {
+                            files.add(buildProduitDocument(nuxeoController, documentMap, documentDataMap));
+                        }
+                    }
+                    request.setAttribute("files", files);
+                }
             }
         }
+    }
+
+    /**
+     * Creates a ProduitDocument from metadata
+     *
+     * @param nuxeoController
+     * @param documentMap
+     * @param documentDataMap
+     * @return
+     */
+    private ProduitDocument buildProduitDocument(NuxeoController nuxeoController, PropertyMap documentMap,
+            PropertyMap documentDataMap) {
+        String documentPath = documentMap.getString(DemoUtils.DOCUMENT_PROPERTY_PATH);
+
+        PropertyMap fichierMap = documentDataMap.getMap(DemoUtils.DOCUMENTS_PROPERTY_FILES);
+        String fileDigest = fichierMap.getString("digest");
+        String fileUrl = DemoUtils.getFileUrl(nuxeoController, documentMap, fileDigest, documentPath);
+
+        ProduitDocument upFile = new ProduitDocument();
+        upFile.setUrl(fileUrl);
+        upFile.setIcon(DemoUtils.getFileIcon(documentMap, fileDigest));
+        upFile.setFileName(fichierMap.getString("fileName"));
+        upFile.setDocumentTitle(documentDataMap.getString(DemoUtils.RECORD_PROPERTY_TITLE));
+        return upFile;
     }
 
     /**
@@ -240,6 +279,12 @@ public class ProduitRecordFragmentModule extends FragmentModule {
         FileUtils.writeByteArrayToFile(temporaryFile, fileItem.get());
         uploadedFile.setTemporaryFile(temporaryFile);
 
+        uploadedFile.setTemporaryMetadata(getFileMetadata(fileItem));
+        uploadedFile.setDeleted(false);
+        uploadedFiles.put("pj", uploadedFile);
+    }
+
+    private ProcedureUploadedFileMetadata getFileMetadata(FileItem fileItem) {
         ProcedureUploadedFileMetadata metadata = new ProcedureUploadedFileMetadata();
 
         // File name
@@ -255,9 +300,7 @@ public class ProduitRecordFragmentModule extends FragmentModule {
         // Icon
         String icon = DocumentDAO.getInstance().getIcon(mimeType);
         metadata.setIcon(icon);
-        uploadedFile.setTemporaryMetadata(metadata);
-        uploadedFile.setDeleted(false);
-        uploadedFiles.put("pj", uploadedFile);
+        return metadata;
     }
 
 
@@ -346,6 +389,86 @@ public class ProduitRecordFragmentModule extends FragmentModule {
          */
         public void setIcon(String icon) {
             this.icon = icon;
+        }
+
+    }
+
+    /**
+     * Document in a product
+     *
+     * @author Dorian Licois
+     */
+    public class ProduitDocument {
+
+        /** documentTitle */
+        private String documentTitle;
+        /** url */
+        private String url;
+        /** File name. */
+        private String fileName;
+        /** File type icon. */
+        private String icon;
+
+        /**
+         * Getter for url.
+         *
+         * @return the url
+         */
+        public String getUrl() {
+            return url;
+        }
+
+        /**
+         * Setter for url.
+         *
+         * @param url the url to set
+         */
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        /**
+         * Getter for fileName.
+         *
+         * @return the fileName
+         */
+        public String getFileName() {
+            return fileName;
+        }
+
+        /**
+         * Setter for fileName.
+         *
+         * @param fileName the fileName to set
+         */
+        public void setFileName(String fileName) {
+            this.fileName = fileName;
+        }
+
+        /**
+         * Getter for icon.
+         *
+         * @return the icon
+         */
+        public String getIcon() {
+            return icon;
+        }
+
+        /**
+         * Setter for icon.
+         *
+         * @param icon the icon to set
+         */
+        public void setIcon(String icon) {
+            this.icon = icon;
+        }
+
+        public String getDocumentTitle() {
+            return documentTitle;
+        }
+
+        public void setDocumentTitle(String documentTitle) {
+            this.documentTitle = documentTitle;
         }
 
     }

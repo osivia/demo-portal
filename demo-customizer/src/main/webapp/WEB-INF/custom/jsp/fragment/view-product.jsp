@@ -24,16 +24,36 @@
 				<li class="active">
 					<a href="#tab-description" data-toggle="tab" class="no-ajax-link"><op:translate key="FRAGMENT_PRODUCT_RECORD_DESCRIPTION" /></a>
 				</li>
-				<li><a href="#tab-docs" data-toggle="tab" class="no-ajax-link"><op:translate key="FRAGMENT_PRODUCT_RECORD_NEWS" /></a></li>
+				<c:if test="${not empty files}">
+					<li><a href="#tab-docs" data-toggle="tab" class="no-ajax-link"><op:translate key="FRAGMENT_PRODUCT_RECORD_DOCUMENTS" /></a></li>
+				</c:if>
 				<li><a href="#tab-support" data-toggle="tab" class="no-ajax-link"><op:translate key="FRAGMENT_PRODUCT_RECORD_SUPPORT" /></a></li>
 			</ul>
 			<div class="tab-content clearfix">
 				<div class="tab-pane active" id="tab-description">
 					${description}
 				</div>
-				<div class="tab-pane" id="tab-docs">
-					docs
-				</div>
+				<c:if test="${not empty files}">
+					<div class="tab-pane" id="tab-docs">
+						<div class="table">
+							<ul class="list-unstyled">
+								<c:forEach items="${files}" var="file">
+									<li class="table-row">
+										<div class="row"> 
+											<div class="col-sm-6">
+												${file.documentTitle}
+											</div>
+											<div class="col-sm-6">
+												<i class="${file.icon}"></i>
+												<a href="${file.url}" class="no-ajax-link">${file.fileName}</a>
+											</div>
+										</div>
+									</li>
+								</c:forEach>
+							</ul>
+						</div>
+					</div>
+				</c:if>
 				<div class="tab-pane" id="tab-support">
 					<form action="${submitUrl}" class="form-horizontal" method="post" enctype="multipart/form-data" role="form" >
 						<ul class="list-unstyled">

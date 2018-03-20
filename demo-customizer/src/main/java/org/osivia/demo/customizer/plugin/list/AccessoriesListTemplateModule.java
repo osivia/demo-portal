@@ -10,6 +10,7 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.nuxeo.ecm.automation.client.model.PropertyMap;
 import org.osivia.demo.customizer.plugin.DemoUtils;
 
 import fr.toutatice.portail.cms.nuxeo.api.NuxeoController;
@@ -41,22 +42,21 @@ public class AccessoriesListTemplateModule extends PortletModule {
 
             for (DocumentDTO documentDTO : documents) {
 
-                nuxeoController.setCurrentDoc(documentDTO.getDocument());
-
                 Map<String, Object> properties = documentDTO.getProperties();
-                Map<String, Object> dataMap = (Map<String, Object>) properties.get(DemoUtils.RECORD_PROPERTY_DATA);
+                PropertyMap docProperties = documentDTO.getDocument().getProperties();
+                PropertyMap dataMap = docProperties.getMap(DemoUtils.RECORD_PROPERTY_DATA);
 
                 if (dataMap != null) {
                     // title
-                    properties.put("title", dataMap.get(DemoUtils.RECORD_PROPERTY_TITLE));
+                    properties.put("title", dataMap.getString(DemoUtils.RECORD_PROPERTY_TITLE));
 
                     // visuel
-                    Map<String, Object> visuelMap = (Map<String, Object>) dataMap.get(DemoUtils.PRODUCT_PROPERTY_VISUEL);
-                    properties.put("visuelUrl", DemoUtils.getFileUrl(visuelMap, nuxeoController));
+                    PropertyMap visuelMap = dataMap.getMap(DemoUtils.ACCESSORY_PROPERTY_VISUEL);
+                    properties.put("visuelUrl", DemoUtils.getFileUrl(nuxeoController, docProperties, visuelMap.getString("digest"), documentDTO.getPath()));
                     properties.put("visuelFilename", visuelMap.get("fileName"));
 
                     // description
-                    properties.put("description", dataMap.get(DemoUtils.PRODUCT_PROPERTY_DESCRIPTION));
+                    properties.put("description", dataMap.get(DemoUtils.ACCESSORY_PROPERTY_DESCRIPTION));
 
                     // prix
                     properties.put("prixht", dataMap.get(DemoUtils.ACCESSORY_PROPERTY_PRIX));
