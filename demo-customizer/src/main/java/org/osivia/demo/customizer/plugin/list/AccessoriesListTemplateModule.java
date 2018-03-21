@@ -62,7 +62,7 @@ public class AccessoriesListTemplateModule extends PortletModule {
                     properties.put("prixht", dataMap.get(DemoUtils.ACCESSORY_PROPERTY_PRIX));
 
                     // orderUrl
-                    properties.put("orderUrl", getOrderUrl(PROCEDURE_COMMANDE_WEBID, nuxeoController, documentDTO, (String) properties.get("ttc:webid")));
+                    properties.put("orderUrl", getOrderUrl(PROCEDURE_COMMANDE_WEBID, nuxeoController, docProperties.getString("ttc:webid")));
                 }
             }
         }
@@ -73,14 +73,12 @@ public class AccessoriesListTemplateModule extends PortletModule {
      *
      * @param procedureWebid
      * @param nuxeoController
-     * @param documentDTO
-     * @param object
+     * @param webid
      * @return
      */
-    private String getOrderUrl(String procedureWebid, NuxeoController nuxeoController, DocumentDTO documentDTO, String object) {
+    private String getOrderUrl(String procedureWebid, NuxeoController nuxeoController, String webid) {
         JSONObject variables = new JSONObject();
-        variables.put("accessoryWebid", object);
-        variables.put("accessory", documentDTO.getTitle());
+        variables.put("accessoire", webid);
         return DemoUtils.getLaunchProcedureUrl(nuxeoController, variables, procedureWebid);
     }
 
