@@ -84,7 +84,7 @@
 								</div>
 							</li>
 						</ul>
-						<input type="hidden" name="produit" value="${title}">
+						<input type="hidden" name="produit" value="${produitWebid}">
 						<div class="form-group">
 							<div class="col-sm-offset-3 col-sm-9 col-lg-offset-2 col-lg-10">
 								<button type="submit" class="btn btn-primary"><op:translate key="FRAGMENT_PRODUCT_RECORD_SUPPORT_SEND" /></button>

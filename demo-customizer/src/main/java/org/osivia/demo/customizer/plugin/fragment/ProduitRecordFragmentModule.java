@@ -48,7 +48,6 @@ import fr.toutatice.portail.cms.nuxeo.api.forms.FormFilterException;
 import fr.toutatice.portail.cms.nuxeo.api.forms.IFormsService;
 import fr.toutatice.portail.cms.nuxeo.api.fragment.FragmentModule;
 import fr.toutatice.portail.cms.nuxeo.api.services.dao.DocumentDAO;
-import net.sf.json.JSONObject;
 
 /**
  * @author Dorian Licois
@@ -106,8 +105,6 @@ public class ProduitRecordFragmentModule extends FragmentModule {
         // Nuxeo path
         String nuxeoPath = window.getProperty(NUXEO_PATH_WINDOW_PROPERTY);
 
-        String procedureWebid = window.getProperty(LAUNCH_PROCEDURE_PROPERTY);
-
         if (StringUtils.isNotEmpty(nuxeoPath)) {
             // Computed path
             nuxeoPath = nuxeoController.getComputedPath(nuxeoPath);
@@ -122,6 +119,9 @@ public class ProduitRecordFragmentModule extends FragmentModule {
                 // title
                 request.setAttribute("title", dataMap.getString(DemoUtils.RECORD_PROPERTY_TITLE));
 
+                // title
+                request.setAttribute("produitWebid", docProperties.getString("ttc:webid"));
+
                 // visuel
                 PropertyMap visuelMap = dataMap.getMap(DemoUtils.PRODUCT_PROPERTY_VISUEL);
                 request.setAttribute("visuelUrl", DemoUtils.getFileUrl(nuxeoController, docProperties, visuelMap.getString("digest"), document.getPath()));
@@ -129,11 +129,6 @@ public class ProduitRecordFragmentModule extends FragmentModule {
 
                 // description
                 request.setAttribute("description", dataMap.getString(DemoUtils.PRODUCT_PROPERTY_DESCRIPTION));
-
-                // launchSupportUrl
-                String producteWebId = docProperties.getString("ttc:webid");
-                String launchSupportUrl = getLaunchSupportUrl(procedureWebid, nuxeoController, document, producteWebId);
-                request.setAttribute("launchSupportUrl", launchSupportUrl);
 
                 // documents
                 PropertyList documentsList = dataMap.getList(DemoUtils.PRODUCT_PROPERTY_DOCUMENTS);
@@ -174,22 +169,6 @@ public class ProduitRecordFragmentModule extends FragmentModule {
         upFile.setFileName(fichierMap.getString("fileName"));
         upFile.setDocumentTitle(documentDataMap.getString(DemoUtils.RECORD_PROPERTY_TITLE));
         return upFile;
-    }
-
-    /**
-     * Creates the URL to launch the support procedure
-     *
-     * @param procedureWebid
-     * @param nuxeoController
-     * @param document
-     * @param producteWebId
-     * @return
-     */
-    private String getLaunchSupportUrl(String procedureWebid, NuxeoController nuxeoController, Document document, String producteWebId) {
-        JSONObject variables = new JSONObject();
-        variables.put("productWebid", producteWebId);
-        variables.put("produit", document.getTitle());
-        return DemoUtils.getLaunchProcedureUrl(nuxeoController, variables, procedureWebid);
     }
 
     /**
@@ -271,17 +250,17 @@ public class ProduitRecordFragmentModule extends FragmentModule {
 
     private void addUploadedFile(Map<String, UploadedFile> uploadedFiles, FileItem fileItem) throws IOException {
 
-        ProcedureUploadedFile uploadedFile = new ProcedureUploadedFile();
-        uploadedFile.setUpload(null);
-
-        File temporaryFile = File.createTempFile(TEMPORARY_FILE_PREFIX, TEMPORARY_FILE_SUFFIX);
-        temporaryFile.deleteOnExit();
-        FileUtils.writeByteArrayToFile(temporaryFile, fileItem.get());
-        uploadedFile.setTemporaryFile(temporaryFile);
-
-        uploadedFile.setTemporaryMetadata(getFileMetadata(fileItem));
-        uploadedFile.setDeleted(false);
-        uploadedFiles.put("pj", uploadedFile);
+        if (fileItem.getSize() > 0) {
+            ProcedureUploadedFile uploadedFile = new ProcedureUploadedFile();
+            uploadedFile.setUpload(null);
+            File temporaryFile = File.createTempFile(TEMPORARY_FILE_PREFIX, TEMPORARY_FILE_SUFFIX);
+            temporaryFile.deleteOnExit();
+            FileUtils.writeByteArrayToFile(temporaryFile, fileItem.get());
+            uploadedFile.setTemporaryFile(temporaryFile);
+            uploadedFile.setTemporaryMetadata(getFileMetadata(fileItem));
+            uploadedFile.setDeleted(false);
+            uploadedFiles.put("pj", uploadedFile);
+        }
     }
 
     private ProcedureUploadedFileMetadata getFileMetadata(FileItem fileItem) {
