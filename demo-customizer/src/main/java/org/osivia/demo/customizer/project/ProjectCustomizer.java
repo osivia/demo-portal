@@ -59,6 +59,9 @@ public class ProjectCustomizer extends CMSPortlet implements ICustomizationModul
     /** CGU path attribute. */
     private static final String CGU_PATH_ATTRIBUTE = "osivia.services.cgu.path";
 
+    /** Marker for set up the platform (data injection) */
+    private static final String PLATFORM_INITIALIZED = "osivia.platform.initialized";
+	private static final String INIT_INDICATOR_PROPERTY = "init-indicator";
 
     /** Portal URL factory. */
     private final IPortalUrlFactory portalUrlFactory;
@@ -74,7 +77,7 @@ public class ProjectCustomizer extends CMSPortlet implements ICustomizationModul
     /** Customization modules repository. */
     private ICustomizationModulesRepository repository;
 
-
+    
     /**
      * Constructor.
      */
@@ -136,17 +139,82 @@ public class ProjectCustomizer extends CMSPortlet implements ICustomizationModul
         // Bundle
         Bundle bundle = this.bundleFactory.getBundle(customizationContext.getLocale());
 
-        if (configuration.isBeforeInvocation() && (principal != null)) {
-            this.firstConnectionRedirection(portalControllerContext, configuration, principal, bundle);
-
-            if (StringUtils.isNotEmpty(configuration.getCMSPath())) {
-                this.cguRedirection(portalControllerContext, configuration, principal, bundle);
-            }
+        if (configuration.isBeforeInvocation()) {
+        	
+        	
+        	this.preparePlatformRedicrection(portalControllerContext, configuration, bundle);
+        	
+			if((principal != null)) {
+				this.firstConnectionRedirection(portalControllerContext, configuration, principal, bundle);
+			
+				if (StringUtils.isNotEmpty(configuration.getCMSPath())) {
+					this.cguRedirection(portalControllerContext, configuration, principal, bundle);
+				}
+			}
         }
     }
 
 
     /**
+     * Interceptor used to prepare the platform data
+     * @param portalControllerContext
+     * @param configuration
+     * @param bundle
+     */
+    private void preparePlatformRedicrection(
+			PortalControllerContext portalControllerContext,
+			IProjectCustomizationConfiguration configuration, Bundle bundle) {
+		
+        // Page
+        Page page = configuration.getPage();
+
+        if (page != null) {
+        	
+        	// Test init flag
+            String flag = page.getProperty(PLATFORM_INITIALIZED);
+            Window window = page.getChild("virtual", Window.class);
+            
+
+            // Prevent loops
+            if ((window == null) || !BooleanUtils.toBoolean(window.getDeclaredProperty(INIT_INDICATOR_PROPERTY))) {
+
+	            if(flag == null) {
+	            	page.setDeclaredProperty(PLATFORM_INITIALIZED, "1");
+	            	
+	            	// HTTP servlet request
+	                HttpServletRequest servletRequest = configuration.getHttpServletRequest();
+	                // HTTP session
+	                HttpSession session = servletRequest.getSession();
+	                session.setAttribute("osivia.platform.init.pathToRedirect", configuration.buildRestorableURL());
+	
+	            	
+	            	// Page display name
+	                String displayName = bundle.getString("PLATFORM_INIT");
+	
+	                // Window properties
+	                Map<String, String> properties = new HashMap<>();
+	                properties.put(InternalConstants.PROP_WINDOW_TITLE, displayName);
+	                properties.put("osivia.ajaxLink", "1");
+	                properties.put(DynaRenderOptions.PARTIAL_REFRESH_ENABLED, String.valueOf(true));
+	                properties.put(INIT_INDICATOR_PROPERTY, String.valueOf(true));
+	                
+	                // Redirection URL
+	                String redirectionUrl;
+	                try {
+	                    redirectionUrl = this.portalUrlFactory.getStartPortletInNewPage(portalControllerContext, "platform-init", displayName,
+	                            "demo-initializer-instance", properties, null);
+	                } catch (PortalException e) {
+	                    throw new RuntimeException(e);
+	                }
+	
+	                configuration.setRedirectionURL(redirectionUrl);
+	            }
+            }
+        }
+	}
+
+
+	/**
      * First connection redirection.
      *
      * @param portalControllerContext portal controller context

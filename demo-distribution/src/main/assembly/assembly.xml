@@ -22,6 +22,7 @@
                 <include>${project.groupId}:demo-customizer:war:${project.version}</include>
                 <include>${project.groupId}.directory:demo-directory-ear:ear:${project.version}</include>
                 <include>${project.groupId}:demo-generator:war:${project.version}</include>
+                <include>${project.groupId}:demo-initializer:war:${project.version}</include>                
                 <include>${project.groupId}:demo-simple-document-creator:war:${project.version}</include>
                 <!-- Toutatice CMS -->
                 <include>toutatice-portail.cms:toutatice-portail-cms-nuxeo-web:war:${toutatice.version}</include>

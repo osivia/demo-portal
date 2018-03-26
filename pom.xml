@@ -69,6 +69,7 @@
         <module>demo-directory</module>
         
         <module>demo-generator</module>
+        <module>demo-initializer</module>
         <module>demo-simple-document-creator</module>
         <module>demo-scheduler</module>
         
