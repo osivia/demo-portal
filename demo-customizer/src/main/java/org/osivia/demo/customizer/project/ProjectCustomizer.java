@@ -13,6 +13,7 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jboss.portal.core.model.portal.Page;
+import org.jboss.portal.core.model.portal.Portal;
 import org.jboss.portal.core.model.portal.Window;
 import org.jboss.portal.theme.impl.render.dynamic.DynaRenderOptions;
 import org.nuxeo.ecm.automation.client.model.Document;
@@ -170,8 +171,9 @@ public class ProjectCustomizer extends CMSPortlet implements ICustomizationModul
 
         if (page != null) {
         	
+            Portal portal = page.getPortal();
         	// Test init flag
-            String flag = page.getProperty(PLATFORM_INITIALIZED);
+            String flag = portal.getProperty(PLATFORM_INITIALIZED);
             Window window = page.getChild("virtual", Window.class);
             
 
@@ -179,7 +181,7 @@ public class ProjectCustomizer extends CMSPortlet implements ICustomizationModul
             if ((window == null) || !BooleanUtils.toBoolean(window.getDeclaredProperty(INIT_INDICATOR_PROPERTY))) {
 
 	            if(flag == null) {
-	            	page.setDeclaredProperty(PLATFORM_INITIALIZED, "1");
+	            	portal.setDeclaredProperty(PLATFORM_INITIALIZED, "1");
 	            	
 	            	// HTTP servlet request
 	                HttpServletRequest servletRequest = configuration.getHttpServletRequest();
