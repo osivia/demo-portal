@@ -5,6 +5,7 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 
 import org.nuxeo.ecm.automation.client.model.Document;
+import org.osivia.demo.initializer.service.commands.CreateExtranetCommand;
 import org.osivia.demo.initializer.service.commands.CreateProcedureContainerCommand;
 import org.osivia.demo.initializer.service.commands.CreateProcedureModelsCommand;
 import org.osivia.portal.api.cache.services.CacheInfo;
@@ -36,7 +37,9 @@ public class InitalizerServiceImpl implements InitializerService {
         // Models
         nuxeoController.executeNuxeoCommand(new CreateProcedureModelsCommand(modelsContainer));
         
-        
+        // Extranet
+        nuxeoController.executeNuxeoCommand(new CreateExtranetCommand());
+
 	}
 	
 	/**

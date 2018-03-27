@@ -14,6 +14,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jboss.portal.core.model.portal.Page;
 import org.jboss.portal.core.model.portal.Portal;
+import org.jboss.portal.core.model.portal.PortalObject;
 import org.jboss.portal.core.model.portal.Window;
 import org.jboss.portal.theme.impl.render.dynamic.DynaRenderOptions;
 import org.nuxeo.ecm.automation.client.model.Document;
@@ -172,8 +173,11 @@ public class ProjectCustomizer extends CMSPortlet implements ICustomizationModul
         if (page != null) {
         	
             Portal portal = page.getPortal();
+            
+            PortalObject intranet = portal.getParent().getChild("default");
+
         	// Test init flag
-            String flag = portal.getProperty(PLATFORM_INITIALIZED);
+            String flag = intranet.getProperty(PLATFORM_INITIALIZED);
             Window window = page.getChild("virtual", Window.class);
             
 
@@ -181,7 +185,22 @@ public class ProjectCustomizer extends CMSPortlet implements ICustomizationModul
             if ((window == null) || !BooleanUtils.toBoolean(window.getDeclaredProperty(INIT_INDICATOR_PROPERTY))) {
 
 	            if(flag == null) {
-	            	portal.setDeclaredProperty(PLATFORM_INITIALIZED, "1");
+	            	
+	                // Set intranet hostname
+	                String intranetUrl = System.getProperty("demo.intranet.url");
+	                if(intranet != null && intranet instanceof Portal && intranetUrl != null) {
+	                	intranet.setDeclaredProperty("osivia.site.hostName", intranetUrl);
+	                	intranet.setDeclaredProperty(PLATFORM_INITIALIZED, "1");
+
+	                }
+	            	
+	                // Set extranet hostname 
+	                PortalObject extranet = portal.getParent().getChild("extranet");
+	                String extranetUrl = System.getProperty("demo.extranet.url");
+	                if(extranet != null && extranet instanceof Portal && extranetUrl != null) {
+	                	extranet.setDeclaredProperty("osivia.site.hostName", extranetUrl);
+	                }
+	            	
 	            	
 	            	// HTTP servlet request
 	                HttpServletRequest servletRequest = configuration.getHttpServletRequest();
