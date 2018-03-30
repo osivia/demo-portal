@@ -7,6 +7,7 @@ import java.util.SortedMap;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletException;
 
+import org.osivia.demo.customizer.plugin.cms.ExtranetNavigationAdapterModule;
 import org.osivia.demo.customizer.plugin.fragment.LaunchSupportPortletModule;
 import org.osivia.demo.customizer.plugin.fragment.ProduitRecordFragmentModule;
 import org.osivia.demo.customizer.plugin.list.AccessoriesListTemplateModule;

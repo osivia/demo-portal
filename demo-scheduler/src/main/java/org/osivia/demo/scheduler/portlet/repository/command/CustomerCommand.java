@@ -1,7 +1,5 @@
 package org.osivia.demo.scheduler.portlet.repository.command;
 
-import java.util.UUID;
-
 import org.nuxeo.ecm.automation.client.Constants;
 import org.nuxeo.ecm.automation.client.OperationRequest;
 import org.nuxeo.ecm.automation.client.Session;
@@ -18,27 +16,20 @@ import fr.toutatice.portail.cms.nuxeo.api.NuxeoQueryFilterContext;
  */
 public class CustomerCommand implements INuxeoCommand {
 
-	private static final String CUSTOMER_WEBID = "rec_client";
+	private static final String CUSTOMER_WEBID = "record_clients";
 	
-    /** Nuxeo query filter context. */
-    private NuxeoQueryFilterContext queryContext;
-    /** Start date. */
+    /** User. */
     private final String user;
 
 
     /**
      * Constructor.
      *
-     * @param queryContext Nuxeo query filter context
-     * @param contextPath context path
-     * @param startDate start date
-     * @param endDate end date
+     * @param user user
      */
-    public CustomerCommand(NuxeoQueryFilterContext queryContext, String user) {
+    public CustomerCommand(String user) {
         super();
-        this.queryContext = queryContext;
         this.user = user; 
-        		
     }
 
 
@@ -47,15 +38,14 @@ public class CustomerCommand implements INuxeoCommand {
      */
     @Override
     public Object execute(Session nuxeoSession) throws Exception {
-
         // Clause
         StringBuilder clause = new StringBuilder();
         clause.append("ecm:primaryType = 'Record' ");
         clause.append("and rcd:procedureModelWebId = '").append(CUSTOMER_WEBID).append("' ");
-        clause.append("and rcd:data.customerusers.user = '").append(user).append("' ");
+        clause.append("and rcd:data.customerusers/*/user = '").append(user).append("' ");
 
         // Filter on published documents
-        String filteredRequest = NuxeoQueryFilter.addPublicationFilter(this.queryContext, clause.toString());
+        String filteredRequest = NuxeoQueryFilter.addPublicationFilter(NuxeoQueryFilterContext.CONTEXT_LIVE, clause.toString());
 
         // Request
         OperationRequest request = nuxeoSession.newRequest("Document.QueryES");
@@ -71,7 +61,7 @@ public class CustomerCommand implements INuxeoCommand {
      */
     @Override
     public String getId() {
-        return "CustomerUsers/" + UUID.randomUUID();
+        return null;
     }
 
 }

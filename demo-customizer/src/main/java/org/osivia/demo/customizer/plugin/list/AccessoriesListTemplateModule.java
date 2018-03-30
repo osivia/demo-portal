@@ -52,8 +52,10 @@ public class AccessoriesListTemplateModule extends PortletModule {
 
                     // visuel
                     PropertyMap visuelMap = dataMap.getMap(DemoUtils.ACCESSORY_PROPERTY_VISUEL);
-                    properties.put("visuelUrl", DemoUtils.getFileUrl(nuxeoController, docProperties, visuelMap.getString("digest"), documentDTO.getPath()));
-                    properties.put("visuelFilename", visuelMap.get("fileName"));
+                    if (visuelMap != null) {
+                        properties.put("visuelUrl", DemoUtils.getFileUrl(nuxeoController, docProperties, visuelMap.getString("digest"), documentDTO.getPath()));
+                        properties.put("visuelFilename", visuelMap.get("fileName"));
+                    }
 
                     // description
                     properties.put("description", dataMap.get(DemoUtils.ACCESSORY_PROPERTY_DESCRIPTION));

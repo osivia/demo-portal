@@ -144,7 +144,7 @@
                 </property>
                 <property>
                     <name>osivia.profils</name>
-                    <value>&lt;profils&gt;&lt;profil&gt;&lt;roleName&gt;Administrators&lt;/roleName&gt;&lt;name&gt;Adminsitrateur&lt;/name&gt;&lt;nuxeoVirtualUser&gt;&lt;/nuxeoVirtualUser&gt;&lt;defaultPageName&gt;&lt;/defaultPageName&gt;&lt;/profil&gt;&lt;profil&gt;&lt;roleName&gt;Authenticated&lt;/roleName&gt;&lt;name&gt;Utilisateur-connecte&lt;/name&gt;&lt;nuxeoVirtualUser&gt;&lt;/nuxeoVirtualUser&gt;&lt;defaultPageName&gt;&lt;/defaultPageName&gt;&lt;/profil&gt;&lt;/profils&gt;</value>
+                    <value>&lt;profils&gt;&lt;profil&gt;&lt;roleName&gt;Administrators&lt;/roleName&gt;&lt;name&gt;Administrateur&lt;/name&gt;&lt;nuxeoVirtualUser&gt;&lt;/nuxeoVirtualUser&gt;&lt;defaultPageName&gt;&lt;/defaultPageName&gt;&lt;/profil&gt;&lt;profil&gt;&lt;roleName&gt;Authenticated&lt;/roleName&gt;&lt;name&gt;Utilisateur-connecte&lt;/name&gt;&lt;nuxeoVirtualUser&gt;&lt;/nuxeoVirtualUser&gt;&lt;defaultPageName&gt;&lt;/defaultPageName&gt;&lt;/profil&gt;&lt;/profils&gt;</value>
                 </property>
                 <property>
                     <name>coordination.parameter.implicit_mode</name>
@@ -2337,7 +2337,7 @@ return nuxeoRequest.toString();</value>
     
     <deployment>
         <parent-ref />
-        <if-exists>overwrite</if-exists>
+        <if-exists>keep</if-exists>
         <portal>
             <portal-name>extranet</portal-name>
             <supported-modes>

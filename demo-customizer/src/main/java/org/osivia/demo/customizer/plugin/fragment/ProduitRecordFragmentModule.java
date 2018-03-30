@@ -124,8 +124,10 @@ public class ProduitRecordFragmentModule extends FragmentModule {
 
                 // visuel
                 PropertyMap visuelMap = dataMap.getMap(DemoUtils.PRODUCT_PROPERTY_VISUEL);
-                request.setAttribute("visuelUrl", DemoUtils.getFileUrl(nuxeoController, docProperties, visuelMap.getString("digest"), document.getPath()));
-                request.setAttribute("visuelFilename", visuelMap.getString("fileName"));
+                if (visuelMap != null) {
+                    request.setAttribute("visuelUrl", DemoUtils.getFileUrl(nuxeoController, docProperties, visuelMap.getString("digest"), document.getPath()));
+                    request.setAttribute("visuelFilename", visuelMap.getString("fileName"));
+                }
 
                 // description
                 request.setAttribute("description", dataMap.getString(DemoUtils.PRODUCT_PROPERTY_DESCRIPTION));

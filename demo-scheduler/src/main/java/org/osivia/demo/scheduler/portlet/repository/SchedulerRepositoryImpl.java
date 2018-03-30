@@ -19,6 +19,7 @@ import org.osivia.demo.scheduler.portlet.model.Technician;
 import org.osivia.demo.scheduler.portlet.repository.command.CustomerCommand;
 import org.osivia.demo.scheduler.portlet.repository.command.EventListCommand;
 import org.osivia.demo.scheduler.portlet.repository.command.ProcedureInstanceListCommand;
+import org.osivia.portal.api.cache.services.CacheInfo;
 import org.osivia.portal.api.context.PortalControllerContext;
 import org.osivia.portal.api.directory.v2.model.Person;
 import org.osivia.portal.api.directory.v2.service.PersonService;
@@ -28,8 +29,7 @@ import org.springframework.stereotype.Repository;
 import fr.toutatice.portail.cms.nuxeo.api.INuxeoCommand;
 import fr.toutatice.portail.cms.nuxeo.api.NuxeoController;
 import fr.toutatice.portail.cms.nuxeo.api.NuxeoQueryFilterContext;
-
-import static org.osivia.demo.scheduler.portlet.util.SchedulerConstant.CALENDAR_CMS_SUFFIX;
+import fr.toutatice.portail.cms.nuxeo.api.services.NuxeoCommandContext;
 
 /**
  * Scheduler Repository Implementation
@@ -79,12 +79,9 @@ public class SchedulerRepositoryImpl implements SchedulerRepository{
         NuxeoController nuxeoController = new NuxeoController(portalControllerContext.getRequest(), portalControllerContext.getResponse(),
                 portalControllerContext.getPortletCtx());
 
-        // CMS path
-        String contextPath = workspacePath+CALENDAR_CMS_SUFFIX;
-
         List<Event> events;
         // Nuxeo command
-        INuxeoCommand nuxeoCommand = new EventListCommand(NuxeoQueryFilterContext.CONTEXT_LIVE_N_PUBLISHED, contextPath, startDate, endDate);
+        INuxeoCommand nuxeoCommand = new EventListCommand(NuxeoQueryFilterContext.CONTEXT_LIVE_N_PUBLISHED, workspacePath, startDate, endDate);
         Documents documents = (Documents) nuxeoController.executeNuxeoCommand(nuxeoCommand);
 
         // Events
@@ -177,9 +174,11 @@ public class SchedulerRepositoryImpl implements SchedulerRepository{
     	// Nuxeo controller
         NuxeoController nuxeoController = new NuxeoController(portalControllerContext.getRequest(), portalControllerContext.getResponse(),
                 portalControllerContext.getPortletCtx());
+        nuxeoController.setAuthType(NuxeoCommandContext.AUTH_TYPE_SUPERUSER);
+        nuxeoController.setCacheType(CacheInfo.CACHE_SCOPE_NONE);
 
         // Nuxeo command
-        INuxeoCommand nuxeoCommand = new CustomerCommand(NuxeoQueryFilterContext.CONTEXT_LIVE_N_PUBLISHED, user);
+        INuxeoCommand nuxeoCommand = new CustomerCommand(user);
         
         Documents documents = (Documents) nuxeoController.executeNuxeoCommand(nuxeoCommand);
         

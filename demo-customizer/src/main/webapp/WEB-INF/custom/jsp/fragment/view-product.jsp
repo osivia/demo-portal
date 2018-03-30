@@ -12,11 +12,13 @@
 	</div>
 </div>
 <div class="row no-ajax-link">
-	<div class="col-sm-12">
-		<a class="thumbnail no-margin-bottom no-ajax-link" href="${visuelUrl}" data-fancybox="gallery" data-caption="${visuelFilename}" data-type="image">
-		  <img src="${visuelUrl}" alt="${visuelFilename}">
-		</a>
-	</div>
+    <c:if test="${not empty visuelUrl}">
+    	<div class="col-sm-12">
+    		<a class="thumbnail no-margin-bottom no-ajax-link" href="${visuelUrl}" data-fancybox="gallery" data-caption="${visuelFilename}" data-type="image">
+    		  <img src="${visuelUrl}" alt="${visuelFilename}">
+    		</a>
+    	</div>
+    </c:if>
 	
 	<div class="col-sm-12">
 		<div class="tabs-panel">

@@ -14,7 +14,7 @@
 <portlet:resourceURL id="searchContributor" var="searchContributorUrl"/>
 
 <div class="demo-scheduler-contribution" >
-<form:form action="${loadSchedulerUrl}" method="post" modelAttribute="schedulerForm" cssClass="form-horizontal" role="form">
+<form:form action="${loadSchedulerUrl}" method="post" modelAttribute="schedulerForm" role="form">
 
 	<div class="form-group required">
 	

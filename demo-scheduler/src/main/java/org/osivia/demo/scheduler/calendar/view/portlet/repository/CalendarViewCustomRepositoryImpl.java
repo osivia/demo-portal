@@ -40,8 +40,6 @@ import fr.toutatice.portail.cms.nuxeo.api.NuxeoController;
 import fr.toutatice.portail.cms.nuxeo.api.NuxeoQueryFilterContext;
 import fr.toutatice.portail.cms.nuxeo.api.cms.NuxeoDocumentContext;
 
-import static org.osivia.demo.scheduler.portlet.util.SchedulerConstant.CALENDAR_CMS_SUFFIX;
-
 /**
  * Calendar repository implementation.
  *
@@ -152,7 +150,7 @@ public class CalendarViewCustomRepositoryImpl extends CalendarViewRepositoryImpl
 	    		boolean isUserWorkspace = false;
 	    		for (String workspacePath : userWorkspacePath)
 	    		{
-	    			if ((cmsPath).equals(workspacePath+CALENDAR_CMS_SUFFIX))
+                    if (cmsPath.startsWith(workspacePath))
 	    			{
 	    				isUserWorkspace = true;
 	    				break;

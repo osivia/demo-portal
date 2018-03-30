@@ -17,6 +17,7 @@
     <properties>
         <!-- JBoss -->
         <jboss-portal.version>2.7.2</jboss-portal.version>
+        <!-- <jboss.version>4.2.3.GA</jboss.version> -->
     </properties>
 
 
@@ -35,13 +36,35 @@
             <version>${jboss-portal.version}</version>
             <scope>provided</scope>
         </dependency>
+        <!-- <dependency>
+            <groupId>org.jboss.portal</groupId>
+            <artifactId>portal-server-lib</artifactId>
+            <version>${jboss-portal.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.portal</groupId>
+            <artifactId>portal-jems-lib</artifactId>
+            <version>${jboss-portal.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jboss</groupId>
+            <artifactId>jboss-system</artifactId>
+            <version>${jboss.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jboss</groupId>
+            <artifactId>jboss-jmx</artifactId>
+            <version>${jboss.version}</version>
+            <scope>provided</scope>
+        </dependency> -->
         
         <!-- Directory -->
         <dependency>
             <groupId>org.osivia.services.directory.socle</groupId>
             <artifactId>osivia-services-directory-socle-interfaces</artifactId>
-            <version>${directory.version}</version>
-            <scope>provided</scope>
         </dependency>
         
         <dependency>
@@ -49,7 +72,7 @@
             <artifactId>commons-fileupload</artifactId>
             <version>1.3.1</version>
         </dependency>
- 
+        
     </dependencies>
 
 </project>
