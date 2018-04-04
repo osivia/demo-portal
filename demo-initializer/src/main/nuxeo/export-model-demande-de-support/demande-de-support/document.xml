@@ -94,15 +94,15 @@
       </definition>
       <definition>
         <varOptions><![CDATA[]]></varOptions>
-        <name><![CDATA[demande]]></name>
-        <label><![CDATA[Demande du client]]></label>
-        <type><![CDATA[WYSIWYG]]></type>
-      </definition>
-      <definition>
-        <varOptions><![CDATA[]]></varOptions>
         <name><![CDATA[pj]]></name>
         <label><![CDATA[Pièce jointe]]></label>
         <type><![CDATA[FILE]]></type>
+      </definition>
+      <definition>
+        <varOptions><![CDATA[]]></varOptions>
+        <name><![CDATA[demande]]></name>
+        <label><![CDATA[Demande du client]]></label>
+        <type><![CDATA[WYSIWYG]]></type>
       </definition>
     </pcd:globalVariablesDefinitions>
     <pcd:webIdParent/>
@@ -112,19 +112,28 @@
       <step>
         <stringMsg><![CDATA[${document:linkWithText(taskPath,taskName)}]]></stringMsg>
         <index><![CDATA[0]]></index>
-        <actionIdYes/>
-        <actionIdClosable/>
+        <actionIdYes><![CDATA[]]></actionIdYes>
+        <actionIdClosable><![CDATA[]]></actionIdClosable>
         <reference><![CDATA[0]]></reference>
         <acquitable><![CDATA[false]]></acquitable>
         <endStepMsg><![CDATA[]]></endStepMsg>
         <initAction>
           <filtersList/>
-          <label/>
-          <actionId/>
-          <stepReference/>
+          <label><![CDATA[]]></label>
+          <actionId><![CDATA[]]></actionId>
+          <stepReference><![CDATA[]]></stepReference>
         </initAction>
         <closable><![CDATA[false]]></closable>
         <globalVariablesReferences>
+          <globalVariablesReference>
+            <variableName><![CDATA[pj]]></variableName>
+            <isInput><![CDATA[true]]></isInput>
+            <path><![CDATA[2]]></path>
+            <isFieldSet><![CDATA[false]]></isFieldSet>
+            <superLabel><![CDATA[Pièce jointe]]></superLabel>
+            <helpText><![CDATA[]]></helpText>
+            <required><![CDATA[false]]></required>
+          </globalVariablesReference>
           <globalVariablesReference>
             <variableName><![CDATA[produit]]></variableName>
             <isInput><![CDATA[true]]></isInput>
@@ -143,18 +152,9 @@
             <helpText><![CDATA[]]></helpText>
             <required><![CDATA[true]]></required>
           </globalVariablesReference>
-          <globalVariablesReference>
-            <variableName><![CDATA[pj]]></variableName>
-            <isInput><![CDATA[true]]></isInput>
-            <path><![CDATA[2]]></path>
-            <isFieldSet><![CDATA[false]]></isFieldSet>
-            <superLabel><![CDATA[Pièce jointe]]></superLabel>
-            <helpText><![CDATA[]]></helpText>
-            <required><![CDATA[false]]></required>
-          </globalVariablesReference>
         </globalVariablesReferences>
         <name><![CDATA[Nouvelle demande de support]]></name>
-        <actionIdDefault/>
+        <actionIdDefault><![CDATA[]]></actionIdDefault>
         <actors/>
         <notifiable><![CDATA[true]]></notifiable>
         <actions>
@@ -166,7 +166,7 @@
           </action>
         </actions>
         <notifEmail><![CDATA[false]]></notifEmail>
-        <actionIdNo/>
+        <actionIdNo><![CDATA[]]></actionIdNo>
       </step>
       <step>
         <stringMsg><![CDATA[${document:linkWithText(taskPath,taskName)}]]></stringMsg>
@@ -178,9 +178,9 @@
         <endStepMsg><![CDATA[]]></endStepMsg>
         <initAction>
           <filtersList/>
-          <label/>
-          <actionId/>
-          <stepReference/>
+          <label><![CDATA[]]></label>
+          <actionId><![CDATA[]]></actionId>
+          <stepReference><![CDATA[]]></stepReference>
         </initAction>
         <closable><![CDATA[false]]></closable>
         <globalVariablesReferences>
@@ -190,15 +190,6 @@
             <path><![CDATA[1]]></path>
             <isFieldSet><![CDATA[false]]></isFieldSet>
             <superLabel><![CDATA[Demande du client]]></superLabel>
-            <helpText><![CDATA[]]></helpText>
-            <required><![CDATA[false]]></required>
-          </globalVariablesReference>
-          <globalVariablesReference>
-            <variableName><![CDATA[produit]]></variableName>
-            <isInput><![CDATA[false]]></isInput>
-            <path><![CDATA[0]]></path>
-            <isFieldSet><![CDATA[false]]></isFieldSet>
-            <superLabel><![CDATA[Produit]]></superLabel>
             <helpText><![CDATA[]]></helpText>
             <required><![CDATA[false]]></required>
           </globalVariablesReference>
@@ -219,6 +210,15 @@
             <superLabel><![CDATA[Réponse]]></superLabel>
             <helpText><![CDATA[]]></helpText>
             <required><![CDATA[true]]></required>
+          </globalVariablesReference>
+          <globalVariablesReference>
+            <variableName><![CDATA[produit]]></variableName>
+            <isInput><![CDATA[false]]></isInput>
+            <path><![CDATA[0]]></path>
+            <isFieldSet><![CDATA[false]]></isFieldSet>
+            <superLabel><![CDATA[Produit]]></superLabel>
+            <helpText><![CDATA[]]></helpText>
+            <required><![CDATA[false]]></required>
           </globalVariablesReference>
         </globalVariablesReferences>
         <name><![CDATA[Demande de support]]></name>
@@ -255,16 +255,16 @@
       <step>
         <stringMsg><![CDATA[${document:linkWithText(taskPath,taskName)}]]></stringMsg>
         <index><![CDATA[2]]></index>
-        <actionIdYes/>
-        <actionIdClosable/>
+        <actionIdYes><![CDATA[]]></actionIdYes>
+        <actionIdClosable><![CDATA[]]></actionIdClosable>
         <reference><![CDATA[2]]></reference>
         <acquitable><![CDATA[false]]></acquitable>
         <endStepMsg><![CDATA[]]></endStepMsg>
         <initAction>
           <filtersList/>
-          <label/>
-          <actionId/>
-          <stepReference/>
+          <label><![CDATA[]]></label>
+          <actionId><![CDATA[]]></actionId>
+          <stepReference><![CDATA[]]></stepReference>
         </initAction>
         <closable><![CDATA[false]]></closable>
         <globalVariablesReferences>
@@ -279,7 +279,7 @@
           </globalVariablesReference>
         </globalVariablesReferences>
         <name><![CDATA[Réponse à une demande de support]]></name>
-        <actionIdDefault/>
+        <actionIdDefault><![CDATA[]]></actionIdDefault>
         <actors/>
         <notifiable><![CDATA[true]]></notifiable>
         <actions>
@@ -291,11 +291,44 @@
           </action>
         </actions>
         <notifEmail><![CDATA[false]]></notifEmail>
-        <actionIdNo/>
+        <actionIdNo><![CDATA[]]></actionIdNo>
       </step>
     </pcd:steps>
     <pcd:authorizedGroups/>
-    <pcd:dashboards/>
+    <pcd:dashboards>
+      <dashboard>
+        <exportVarList/>
+        <name><![CDATA[Accueil]]></name>
+        <columns>
+          <column>
+            <variableName><![CDATA[dc:created]]></variableName>
+            <sortable><![CDATA[true]]></sortable>
+            <label><![CDATA[Date]]></label>
+            <enableLink><![CDATA[false]]></enableLink>
+          </column>
+          <column>
+            <variableName><![CDATA[produit]]></variableName>
+            <sortable><![CDATA[false]]></sortable>
+            <label><![CDATA[Produit]]></label>
+            <enableLink><![CDATA[false]]></enableLink>
+          </column>
+          <column>
+            <variableName><![CDATA[demande]]></variableName>
+            <sortable><![CDATA[false]]></sortable>
+            <label><![CDATA[Demande]]></label>
+            <enableLink><![CDATA[false]]></enableLink>
+          </column>
+          <column>
+            <variableName><![CDATA[reponse]]></variableName>
+            <sortable><![CDATA[false]]></sortable>
+            <label><![CDATA[Réponse]]></label>
+            <enableLink><![CDATA[false]]></enableLink>
+          </column>
+        </columns>
+        <groups/>
+        <requestFilter><![CDATA[pi:procedureInitiator = '${user}']]></requestFilter>
+      </dashboard>
+    </pcd:dashboards>
     <pcd:procedureObjects/>
   </schema>
 </document>

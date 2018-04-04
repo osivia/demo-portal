@@ -1,5 +1,7 @@
 package org.osivia.demo.scheduler.portlet.service;
 
+import static org.osivia.demo.scheduler.portlet.util.SchedulerConstant.SCHEDULER_SESSION_DATA;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -24,7 +26,6 @@ import org.osivia.demo.scheduler.portlet.model.SchedulerForm;
 import org.osivia.demo.scheduler.portlet.model.SessionInformations;
 import org.osivia.demo.scheduler.portlet.model.Technician;
 import org.osivia.demo.scheduler.portlet.repository.SchedulerRepository;
-
 import org.osivia.portal.api.Constants;
 import org.osivia.portal.api.PortalException;
 import org.osivia.portal.api.context.PortalControllerContext;
@@ -41,8 +42,6 @@ import fr.toutatice.portail.cms.nuxeo.api.services.INuxeoCustomizer;
 import fr.toutatice.portail.cms.nuxeo.api.services.INuxeoService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
-import static org.osivia.demo.scheduler.portlet.util.SchedulerConstant.SCHEDULER_SESSION_DATA;
 
 @Service
 public class SchedulerServiceImpl implements SchedulerService {
@@ -82,10 +81,12 @@ public class SchedulerServiceImpl implements SchedulerService {
     	
 		//Current user
 		String currentUser = portalControllerContext.getHttpServletRequest().getUserPrincipal().getName();
-		
-		SessionInformations sessionInformations = (SessionInformations) portalControllerContext.getHttpServletRequest().getSession().getAttribute(SCHEDULER_SESSION_DATA);
-		if (sessionInformations == null)
-		{
+
+        SessionInformations sessionInformations;
+        Object sessionInformationsAttribute = portalControllerContext.getHttpServletRequest().getSession().getAttribute(SCHEDULER_SESSION_DATA);
+        if ((sessionInformationsAttribute != null) && (sessionInformationsAttribute instanceof SessionInformations)) {
+            sessionInformations = (SessionInformations) sessionInformationsAttribute;
+        } else {
 			sessionInformations = this.applicationContext.getBean(SessionInformations.class);
 			
 			//Set technicians and customerUsers in form

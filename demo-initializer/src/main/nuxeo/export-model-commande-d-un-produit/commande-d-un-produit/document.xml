@@ -82,12 +82,18 @@
     <pcd:globalVariablesDefinitions>
       <definition>
         <varOptions><![CDATA[]]></varOptions>
+        <name><![CDATA[state]]></name>
+        <label><![CDATA[État de la commande]]></label>
+        <type><![CDATA[TEXT]]></type>
+      </definition>
+      <definition>
+        <varOptions><![CDATA[]]></varOptions>
         <name><![CDATA[nbraccessory]]></name>
         <label><![CDATA[Quantité]]></label>
         <type><![CDATA[NUMBER]]></type>
       </definition>
       <definition>
-        <varOptions><![CDATA[{"recordFolderWebId":"oYLEQQ"}]]></varOptions>
+        <varOptions><![CDATA[{"recordFolderWebId":"record_accessories"}]]></varOptions>
         <name><![CDATA[accessoire]]></name>
         <label><![CDATA[]]></label>
         <type><![CDATA[RECORD]]></type>
@@ -104,12 +110,12 @@
         <actionIdClosable><![CDATA[]]></actionIdClosable>
         <reference><![CDATA[0]]></reference>
         <acquitable><![CDATA[false]]></acquitable>
-        <endStepMsg><![CDATA[]]></endStepMsg>
+        <endStepMsg><![CDATA[La commande a été enregistrée]]></endStepMsg>
         <initAction>
           <filtersList/>
-          <label/>
-          <actionId/>
-          <stepReference/>
+          <label><![CDATA[]]></label>
+          <actionId><![CDATA[]]></actionId>
+          <stepReference><![CDATA[]]></stepReference>
         </initAction>
         <closable><![CDATA[false]]></closable>
         <globalVariablesReferences>
@@ -129,7 +135,7 @@
             <isFieldSet><![CDATA[false]]></isFieldSet>
             <superLabel><![CDATA[Quantité]]></superLabel>
             <helpText><![CDATA[]]></helpText>
-            <required><![CDATA[false]]></required>
+            <required><![CDATA[true]]></required>
           </globalVariablesReference>
         </globalVariablesReferences>
         <name><![CDATA[Nouvelle commande]]></name>
@@ -141,15 +147,111 @@
             <filtersList/>
             <label><![CDATA[Commander]]></label>
             <actionId><![CDATA[00]]></actionId>
-            <stepReference><![CDATA[endStep]]></stepReference>
+            <stepReference><![CDATA[1]]></stepReference>
           </action>
         </actions>
         <notifEmail><![CDATA[false]]></notifEmail>
         <actionIdNo><![CDATA[]]></actionIdNo>
       </step>
+      <step>
+        <stringMsg><![CDATA[La commande ${document:linkWithText(taskPath,taskName)} est en attente de traitement.]]></stringMsg>
+        <index><![CDATA[1]]></index>
+        <actionIdYes/>
+        <actionIdClosable/>
+        <reference><![CDATA[1]]></reference>
+        <acquitable><![CDATA[false]]></acquitable>
+        <endStepMsg><![CDATA[La commande a été traitée.]]></endStepMsg>
+        <initAction>
+          <filtersList/>
+          <label/>
+          <actionId/>
+          <stepReference/>
+        </initAction>
+        <closable><![CDATA[false]]></closable>
+        <globalVariablesReferences>
+          <globalVariablesReference>
+            <variableName><![CDATA[accessoire]]></variableName>
+            <isInput><![CDATA[false]]></isInput>
+            <path><![CDATA[0]]></path>
+            <isFieldSet><![CDATA[false]]></isFieldSet>
+            <superLabel><![CDATA[Accessoire]]></superLabel>
+            <helpText><![CDATA[]]></helpText>
+            <required><![CDATA[false]]></required>
+          </globalVariablesReference>
+          <globalVariablesReference>
+            <variableName><![CDATA[nbraccessory]]></variableName>
+            <isInput><![CDATA[false]]></isInput>
+            <path><![CDATA[1]]></path>
+            <isFieldSet><![CDATA[false]]></isFieldSet>
+            <superLabel><![CDATA[Quantité]]></superLabel>
+            <helpText><![CDATA[]]></helpText>
+            <required><![CDATA[false]]></required>
+          </globalVariablesReference>
+          <globalVariablesReference>
+            <variableName><![CDATA[state]]></variableName>
+            <isInput><![CDATA[false]]></isInput>
+            <path><![CDATA[2]]></path>
+            <isFieldSet><![CDATA[false]]></isFieldSet>
+            <superLabel><![CDATA[État de la commande]]></superLabel>
+            <helpText><![CDATA[]]></helpText>
+            <required><![CDATA[false]]></required>
+          </globalVariablesReference>
+        </globalVariablesReferences>
+        <name><![CDATA[Validation]]></name>
+        <actionIdDefault/>
+        <actors>
+          <item><![CDATA[Administrators]]></item>
+        </actors>
+        <notifiable><![CDATA[true]]></notifiable>
+        <actions>
+          <action>
+            <filtersList/>
+            <label><![CDATA[Traiter]]></label>
+            <actionId><![CDATA[10]]></actionId>
+            <stepReference><![CDATA[endStep]]></stepReference>
+          </action>
+        </actions>
+        <notifEmail><![CDATA[false]]></notifEmail>
+        <actionIdNo/>
+      </step>
     </pcd:steps>
     <pcd:authorizedGroups/>
-    <pcd:dashboards/>
+    <pcd:dashboards>
+      <dashboard>
+        <exportVarList/>
+        <name><![CDATA[Accueil]]></name>
+        <columns>
+          <column>
+            <variableName><![CDATA[accessoire]]></variableName>
+            <sortable><![CDATA[false]]></sortable>
+            <label><![CDATA[Accessoire]]></label>
+            <enableLink><![CDATA[false]]></enableLink>
+          </column>
+          <column>
+            <variableName><![CDATA[nbraccessory]]></variableName>
+            <sortable><![CDATA[false]]></sortable>
+            <label><![CDATA[Quantité]]></label>
+            <enableLink><![CDATA[false]]></enableLink>
+          </column>
+          <column>
+            <variableName><![CDATA[dc:created]]></variableName>
+            <sortable><![CDATA[true]]></sortable>
+            <label><![CDATA[Date]]></label>
+            <enableLink><![CDATA[false]]></enableLink>
+          </column>
+          <column>
+            <variableName><![CDATA[state]]></variableName>
+            <sortable><![CDATA[false]]></sortable>
+            <label><![CDATA[État]]></label>
+            <enableLink><![CDATA[false]]></enableLink>
+          </column>
+        </columns>
+        <groups>
+          <item><![CDATA[members]]></item>
+        </groups>
+        <requestFilter><![CDATA[pi:procedureInitiator = '${user}']]></requestFilter>
+      </dashboard>
+    </pcd:dashboards>
     <pcd:procedureObjects/>
   </schema>
 </document>
