@@ -12,18 +12,21 @@ import org.osivia.demo.customizer.plugin.fragment.LaunchSupportPortletModule;
 import org.osivia.demo.customizer.plugin.fragment.ProduitRecordFragmentModule;
 import org.osivia.demo.customizer.plugin.list.AccessoriesListTemplateModule;
 import org.osivia.demo.customizer.plugin.menubar.DemoMenubarModule;
+import org.osivia.demo.customizer.plugin.player.RecordPlayer;
 import org.osivia.portal.api.customization.CustomizationContext;
 import org.osivia.portal.api.internationalization.Bundle;
 import org.osivia.portal.api.internationalization.IBundleFactory;
 import org.osivia.portal.api.internationalization.IInternationalizationService;
 import org.osivia.portal.api.locator.Locator;
 import org.osivia.portal.api.menubar.MenubarModule;
+import org.osivia.portal.api.player.IPlayerModule;
 import org.osivia.portal.api.theming.TemplateAdapter;
 
 import fr.toutatice.portail.cms.nuxeo.api.domain.AbstractPluginPortlet;
 import fr.toutatice.portail.cms.nuxeo.api.domain.FragmentType;
 import fr.toutatice.portail.cms.nuxeo.api.domain.INavigationAdapterModule;
 import fr.toutatice.portail.cms.nuxeo.api.domain.ListTemplate;
+import fr.toutatice.portail.cms.nuxeo.api.player.INuxeoPlayerModule;
 
 /**
  * Demo plugin.
@@ -36,12 +39,8 @@ public class DemoPlugin extends AbstractPluginPortlet {
     /** Plugin name. */
     private static final String PLUGIN_NAME = "demo.plugin";
 
-    /** Search results list schemas. */
-    private static final String SEARCH_RESULTS_SCHEMAS = "dublincore, toutatice";
-
-    private static final String LAUNCH_PROCEDURE_LIST_SCHEMAS = "dublincore, common, toutatice, procedureInstance";
-
-    private static final String RECORD_LIST_SCHEMAS = "dublincore, common, toutatice, record";
+    /** Record list schemas. */
+    private static final String RECORD_LIST_SCHEMAS = "dublincore, common, toutatice, files, record";
 
 
     /** Internationalization bundle factory. */
@@ -93,6 +92,8 @@ public class DemoPlugin extends AbstractPluginPortlet {
      */
     @Override
     protected void customizeCMSProperties(CustomizationContext customizationContext) {
+        // Players
+        this.customizePlayers(customizationContext);
         // List templates
         this.customizeListTemplates(customizationContext);
         // Menu templates
@@ -105,6 +106,22 @@ public class DemoPlugin extends AbstractPluginPortlet {
         this.customizeFragments(customizationContext);
         // Navigation adapters
         this.customizeNavigationAdapters(customizationContext);
+    }
+
+
+    /**
+     * Customize players.
+     * 
+     * @param customizationContext customization context
+     */
+    @SuppressWarnings("rawtypes")
+    private void customizePlayers(CustomizationContext customizationContext) {
+        // Players
+        List<IPlayerModule> players = this.getPlayers(customizationContext);
+
+        // Record player
+        INuxeoPlayerModule record = new RecordPlayer();
+        players.add(0, record);
     }
 
 
@@ -146,7 +163,7 @@ public class DemoPlugin extends AbstractPluginPortlet {
         templates.put(newsList.getKey(), newsList);
 
         // Documents list
-        ListTemplate documentsList = new ListTemplate("documents-records", bundle.getString("LIST_TEMPLATE_DOCUMENTS"), RECORD_LIST_SCHEMAS);
+        ListTemplate documentsList = new ListTemplate("documents", bundle.getString("LIST_TEMPLATE_DOCUMENTS"), RECORD_LIST_SCHEMAS);
         templates.put(documentsList.getKey(), documentsList);
 
     }

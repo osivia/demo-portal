@@ -7,7 +7,7 @@
 
 
 <ul class="list-unstyled">
-    <c:forEach var="document" items="${documents}" varStatus="status">
+    <c:forEach var="document" items="${documents}">
         <c:set var="data" value="${document.properties['pi:data']}" />
     
         <li class="media">

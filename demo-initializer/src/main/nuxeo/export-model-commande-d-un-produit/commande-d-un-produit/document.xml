@@ -87,16 +87,16 @@
         <type><![CDATA[TEXT]]></type>
       </definition>
       <definition>
-        <varOptions><![CDATA[]]></varOptions>
-        <name><![CDATA[nbraccessory]]></name>
-        <label><![CDATA[Quantité]]></label>
-        <type><![CDATA[NUMBER]]></type>
-      </definition>
-      <definition>
         <varOptions><![CDATA[{"recordFolderWebId":"record_accessories"}]]></varOptions>
         <name><![CDATA[accessoire]]></name>
         <label><![CDATA[]]></label>
         <type><![CDATA[RECORD]]></type>
+      </definition>
+      <definition>
+        <varOptions><![CDATA[]]></varOptions>
+        <name><![CDATA[nbraccessory]]></name>
+        <label><![CDATA[Quantité]]></label>
+        <type><![CDATA[NUMBER]]></type>
       </definition>
     </pcd:globalVariablesDefinitions>
     <pcd:webIdParent/>
@@ -120,15 +120,6 @@
         <closable><![CDATA[false]]></closable>
         <globalVariablesReferences>
           <globalVariablesReference>
-            <variableName><![CDATA[accessoire]]></variableName>
-            <isInput><![CDATA[false]]></isInput>
-            <path><![CDATA[0]]></path>
-            <isFieldSet><![CDATA[false]]></isFieldSet>
-            <superLabel><![CDATA[Accessoire]]></superLabel>
-            <helpText><![CDATA[]]></helpText>
-            <required><![CDATA[false]]></required>
-          </globalVariablesReference>
-          <globalVariablesReference>
             <variableName><![CDATA[nbraccessory]]></variableName>
             <isInput><![CDATA[true]]></isInput>
             <path><![CDATA[1]]></path>
@@ -137,6 +128,15 @@
             <helpText><![CDATA[]]></helpText>
             <required><![CDATA[true]]></required>
           </globalVariablesReference>
+          <globalVariablesReference>
+            <variableName><![CDATA[accessoire]]></variableName>
+            <isInput><![CDATA[false]]></isInput>
+            <path><![CDATA[0]]></path>
+            <isFieldSet><![CDATA[false]]></isFieldSet>
+            <superLabel><![CDATA[Accessoire]]></superLabel>
+            <helpText><![CDATA[]]></helpText>
+            <required><![CDATA[false]]></required>
+          </globalVariablesReference>
         </globalVariablesReferences>
         <name><![CDATA[Nouvelle commande]]></name>
         <actionIdDefault><![CDATA[]]></actionIdDefault>
@@ -144,7 +144,26 @@
         <notifiable><![CDATA[true]]></notifiable>
         <actions>
           <action>
-            <filtersList/>
+            <filtersList>
+              <filter>
+                <filterInstanceId><![CDATA[DefineVarFilter0]]></filterInstanceId>
+                <filterId><![CDATA[DefineVarFilter]]></filterId>
+                <argumentsList>
+                  <argument>
+                    <argumentValue><![CDATA[En cours]]></argumentValue>
+                    <argumentType><![CDATA[TEXT]]></argumentType>
+                    <argumentName><![CDATA[variableValue]]></argumentName>
+                  </argument>
+                  <argument>
+                    <argumentValue><![CDATA[state]]></argumentValue>
+                    <argumentType><![CDATA[TEXT]]></argumentType>
+                    <argumentName><![CDATA[variableName]]></argumentName>
+                  </argument>
+                </argumentsList>
+                <filterName><![CDATA[]]></filterName>
+                <filterPath><![CDATA[0]]></filterPath>
+              </filter>
+            </filtersList>
             <label><![CDATA[Commander]]></label>
             <actionId><![CDATA[00]]></actionId>
             <stepReference><![CDATA[1]]></stepReference>
@@ -156,34 +175,34 @@
       <step>
         <stringMsg><![CDATA[La commande ${document:linkWithText(taskPath,taskName)} est en attente de traitement.]]></stringMsg>
         <index><![CDATA[1]]></index>
-        <actionIdYes/>
-        <actionIdClosable/>
+        <actionIdYes><![CDATA[]]></actionIdYes>
+        <actionIdClosable><![CDATA[]]></actionIdClosable>
         <reference><![CDATA[1]]></reference>
         <acquitable><![CDATA[false]]></acquitable>
         <endStepMsg><![CDATA[La commande a été traitée.]]></endStepMsg>
         <initAction>
           <filtersList/>
-          <label/>
-          <actionId/>
-          <stepReference/>
+          <label><![CDATA[]]></label>
+          <actionId><![CDATA[]]></actionId>
+          <stepReference><![CDATA[]]></stepReference>
         </initAction>
         <closable><![CDATA[false]]></closable>
         <globalVariablesReferences>
-          <globalVariablesReference>
-            <variableName><![CDATA[accessoire]]></variableName>
-            <isInput><![CDATA[false]]></isInput>
-            <path><![CDATA[0]]></path>
-            <isFieldSet><![CDATA[false]]></isFieldSet>
-            <superLabel><![CDATA[Accessoire]]></superLabel>
-            <helpText><![CDATA[]]></helpText>
-            <required><![CDATA[false]]></required>
-          </globalVariablesReference>
           <globalVariablesReference>
             <variableName><![CDATA[nbraccessory]]></variableName>
             <isInput><![CDATA[false]]></isInput>
             <path><![CDATA[1]]></path>
             <isFieldSet><![CDATA[false]]></isFieldSet>
             <superLabel><![CDATA[Quantité]]></superLabel>
+            <helpText><![CDATA[]]></helpText>
+            <required><![CDATA[false]]></required>
+          </globalVariablesReference>
+          <globalVariablesReference>
+            <variableName><![CDATA[accessoire]]></variableName>
+            <isInput><![CDATA[false]]></isInput>
+            <path><![CDATA[0]]></path>
+            <isFieldSet><![CDATA[false]]></isFieldSet>
+            <superLabel><![CDATA[Accessoire]]></superLabel>
             <helpText><![CDATA[]]></helpText>
             <required><![CDATA[false]]></required>
           </globalVariablesReference>
@@ -198,21 +217,40 @@
           </globalVariablesReference>
         </globalVariablesReferences>
         <name><![CDATA[Validation]]></name>
-        <actionIdDefault/>
+        <actionIdDefault><![CDATA[]]></actionIdDefault>
         <actors>
           <item><![CDATA[Administrators]]></item>
         </actors>
         <notifiable><![CDATA[true]]></notifiable>
         <actions>
           <action>
-            <filtersList/>
+            <filtersList>
+              <filter>
+                <filterInstanceId><![CDATA[DefineVarFilter0]]></filterInstanceId>
+                <filterId><![CDATA[DefineVarFilter]]></filterId>
+                <argumentsList>
+                  <argument>
+                    <argumentValue><![CDATA[Traitée]]></argumentValue>
+                    <argumentType><![CDATA[TEXT]]></argumentType>
+                    <argumentName><![CDATA[variableValue]]></argumentName>
+                  </argument>
+                  <argument>
+                    <argumentValue><![CDATA[state]]></argumentValue>
+                    <argumentType><![CDATA[TEXT]]></argumentType>
+                    <argumentName><![CDATA[variableName]]></argumentName>
+                  </argument>
+                </argumentsList>
+                <filterName><![CDATA[]]></filterName>
+                <filterPath><![CDATA[0]]></filterPath>
+              </filter>
+            </filtersList>
             <label><![CDATA[Traiter]]></label>
             <actionId><![CDATA[10]]></actionId>
             <stepReference><![CDATA[endStep]]></stepReference>
           </action>
         </actions>
         <notifEmail><![CDATA[false]]></notifEmail>
-        <actionIdNo/>
+        <actionIdNo><![CDATA[]]></actionIdNo>
       </step>
     </pcd:steps>
     <pcd:authorizedGroups/>
