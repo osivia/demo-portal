@@ -269,7 +269,8 @@ public class CalendarViewCustomRepositoryImpl extends CalendarViewRepositoryImpl
     {
     	
     	PropertyMap map = document.getProperties().getMap(DATA_MAP);
-    	String id = map.getString(UUID_RESERVATION_PROPERTY);
+    	//String id = map.getString(UUID_RESERVATION_PROPERTY);
+    	String id = document.getId();
         String title = map.getString(TITLE_RESERVATION_PROPERTY);
         Date date = map.getDate(DATE_RESERVATION_PROPERTY);
         //Correction du bug des procédures qui enregistre les dates avec une heure en moins
