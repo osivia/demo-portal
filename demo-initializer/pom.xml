@@ -29,10 +29,10 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>nuxeo-exports</id>
+                        <id>nuxeo-exports-models</id>
                         <phase>process-resources</phase>
                         <configuration>
-                            <descriptorSourceDirectory>src/main/assembly/nuxeo</descriptorSourceDirectory>
+                            <descriptorSourceDirectory>src/main/assembly/models</descriptorSourceDirectory>
                             <finalName>export</finalName>
                           	<outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/docs/models</outputDirectory>
                         </configuration>
@@ -40,6 +40,18 @@
                             <goal>single</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>nuxeo-exports-extranet</id>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <descriptorSourceDirectory>src/main/assembly/extranet</descriptorSourceDirectory>
+                            <finalName>export</finalName>
+                          	<outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/docs/extranet</outputDirectory>
+                        </configuration>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>                    
                 </executions>
             </plugin>
         </plugins>
