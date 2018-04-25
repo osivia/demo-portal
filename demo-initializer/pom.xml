@@ -51,7 +51,19 @@
                         <goals>
                             <goal>single</goal>
                         </goals>
-                    </execution>                    
+                    </execution>
+                    <execution>
+                        <id>nuxeo-exports-records</id>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <descriptorSourceDirectory>src/main/assembly/records</descriptorSourceDirectory>
+                            <finalName>export</finalName>
+                          	<outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/docs/records</outputDirectory>
+                        </configuration>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>     
                 </executions>
             </plugin>
         </plugins>

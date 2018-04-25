@@ -49,7 +49,7 @@ public class InitializerController {
 	}
 	
     @ActionMapping(params = "action=checkInit")
-    public void checkInit(ActionRequest request, ActionResponse response) throws PortalException, IOException {
+    public void checkInit(ActionRequest request, ActionResponse response) throws PortalException, IOException, PortletException {
     	
     	PortalControllerContext portalControllerContext = new PortalControllerContext(portletContext, request, response);
 		service.initialize(portalControllerContext);

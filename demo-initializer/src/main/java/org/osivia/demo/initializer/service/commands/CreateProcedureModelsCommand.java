@@ -31,9 +31,12 @@ public class CreateProcedureModelsCommand implements INuxeoCommand {
 		File[] procedures = dir.listFiles();
 		for (int i = 0; i < procedures.length; i++) {
 			
+			
+			
 			logger.info("Add procedure : " + procedures[i].getName());
 			
 			try {
+				
 				Blob blob = new FileBlob(procedures[i]);
 				
 				OperationRequest operationRequest = nuxeoSession.newRequest("FileManager.Import").setInput(blob);

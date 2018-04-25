@@ -4,11 +4,14 @@ import javax.annotation.PostConstruct;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletException;
 
+import org.osivia.portal.api.directory.v2.DirServiceFactory;
+import org.osivia.portal.api.directory.v2.service.PersonService;
 import org.osivia.portal.api.internationalization.IBundleFactory;
 import org.osivia.portal.api.internationalization.IInternationalizationService;
 import org.osivia.portal.api.locator.Locator;
 import org.osivia.portal.api.notifications.INotificationsService;
 import org.osivia.portal.api.urls.IPortalUrlFactory;
+import org.osivia.services.workspace.portlet.service.WorkspaceCreationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -24,7 +27,7 @@ import fr.toutatice.portail.cms.nuxeo.api.CMSPortlet;
  *
  */
 @Configuration
-@ComponentScan(basePackages = "org.osivia.demo.initializer")
+@ComponentScan(basePackages = {"org.osivia.demo.initializer", "org.osivia.services.workspace.portlet"})
 public class InitializerConfig  extends CMSPortlet  {
 
     /** Portlet config. */
@@ -91,5 +94,14 @@ public class InitializerConfig  extends CMSPortlet  {
         return Locator.findMBean(IPortalUrlFactory.class, IPortalUrlFactory.MBEAN_NAME);
     }
 
-    
+    /**
+     * Get person service.
+     *
+     * @return person service
+     */
+    @Bean
+    public PersonService getPersonService() {
+    	return DirServiceFactory.getService(PersonService.class);
+    }
+
 }
