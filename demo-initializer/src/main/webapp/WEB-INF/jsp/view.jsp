@@ -4,22 +4,26 @@
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/ajaxcall.js"></script>
 
+<style>
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+
+</style>
+
+
 <portlet:defineObjects />
 <portlet:actionURL var="checkInitialized">
 	<portlet:param name="action" value="checkInit" />
 </portlet:actionURL>
 
-<div data-url="${checkInitialized}" data-service="waitUntilInitialized">
-	<center>
-		<h1>
-			<img src="${pageContext.request.contextPath}/images/spinner.gif" alt="" > <op:translate key="WAIT_TITLE" />
-
-		</h1>
-	
-		<p>
+<div class="container" data-url="${checkInitialized}" data-service="waitUntilInitialized">
+    	<div>
+    		<img src="${pageContext.request.contextPath}/images/spinner.gif" alt="" > 
 			<op:translate key="WAIT" />
-		</p>
-
-	
-	</center>
+		</div>
 </div>

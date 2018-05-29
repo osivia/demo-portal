@@ -170,7 +170,8 @@ public class ProjectCustomizer extends CMSPortlet implements ICustomizationModul
         // Page
         Page page = configuration.getPage();
 
-        if (page != null) {
+        if (page != null && !"admin".equals(page.getPortal().getName())) {
+
         	
             Portal portal = page.getPortal();
             
@@ -216,6 +217,8 @@ public class ProjectCustomizer extends CMSPortlet implements ICustomizationModul
 	                Map<String, String> properties = new HashMap<>();
 	                properties.put(InternalConstants.PROP_WINDOW_TITLE, displayName);
 	                properties.put("osivia.ajaxLink", "1");
+	                properties.put("osivia.hideTitle", "1");	                
+	                
 	                properties.put(DynaRenderOptions.PARTIAL_REFRESH_ENABLED, String.valueOf(true));
 	                properties.put(INIT_INDICATOR_PROPERTY, String.valueOf(true));
 	                

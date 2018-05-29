@@ -321,7 +321,7 @@ public class CalendarViewCustomRepositoryImpl extends CalendarViewRepositoryImpl
      * @return CMS path
      * @throws PortletException
      */
-    private String getCMSPath(NuxeoController nuxeoController) throws PortletException {
+    protected String getCMSPath(NuxeoController nuxeoController) throws PortletException {
         // Portlet configuration
         CalendarOptions configuration = this.getConfiguration(nuxeoController.getPortalCtx());
 
