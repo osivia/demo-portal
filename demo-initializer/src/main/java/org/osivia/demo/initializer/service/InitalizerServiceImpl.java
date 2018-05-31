@@ -10,6 +10,7 @@ import org.osivia.demo.initializer.service.commands.CreateExtranetCommand;
 import org.osivia.demo.initializer.service.commands.CreateProcedureContainerCommand;
 import org.osivia.demo.initializer.service.commands.CreateProcedureModelsCommand;
 import org.osivia.demo.initializer.service.commands.LoadRecordsCommand;
+import org.osivia.directory.v2.service.PersonUpdateService;
 import org.osivia.portal.api.cache.services.CacheInfo;
 import org.osivia.portal.api.context.PortalControllerContext;
 import org.osivia.portal.api.directory.v2.model.Person;
@@ -36,6 +37,11 @@ public class InitalizerServiceImpl implements InitializerService {
 	@Autowired
 	private PersonService personService;
 	
+	/*
+	@Autowired
+	private PersonUpdateService personUpdateService;
+	*/	
+	
 	public void initialize(PortalControllerContext portalControllerContext) throws PortletException {
 		
 		// Nuxeo controller
@@ -60,6 +66,7 @@ public class InitalizerServiceImpl implements InitializerService {
     	form.setDescription(workspaceId);
     	
     	Person owner = personService.getPerson("demo");
+
     	
     	form.setOwner(owner.getUid());
     	

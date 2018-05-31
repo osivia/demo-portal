@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletException;
 
+import org.osivia.directory.v2.service.PersonUpdateService;
 import org.osivia.portal.api.directory.v2.DirServiceFactory;
 import org.osivia.portal.api.directory.v2.service.PersonService;
 import org.osivia.portal.api.internationalization.IBundleFactory;
@@ -103,5 +104,17 @@ public class InitializerConfig  extends CMSPortlet  {
     public PersonService getPersonService() {
     	return DirServiceFactory.getService(PersonService.class);
     }
+    
+    /**
+     * Get person service.
+     *
+     * @return person service
+     */
+    /*
+    @Bean
+    public PersonUpdateService getPersonUpdateService() {
+    	return DirServiceFactory.getService(PersonUpdateService.class);
+    }
+    */
 
 }
