@@ -1,9 +1,11 @@
 package org.osivia.demo.initializer.service;
 
+
 import javax.portlet.PortletContext;
 import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
+
 
 import org.nuxeo.ecm.automation.client.model.Document;
 import org.osivia.demo.initializer.service.commands.CreateExtranetCommand;
@@ -11,10 +13,13 @@ import org.osivia.demo.initializer.service.commands.CreateProcedureContainerComm
 import org.osivia.demo.initializer.service.commands.CreateProcedureModelsCommand;
 import org.osivia.demo.initializer.service.commands.LoadRecordsCommand;
 import org.osivia.directory.v2.service.PersonUpdateService;
+
 import org.osivia.portal.api.cache.services.CacheInfo;
 import org.osivia.portal.api.context.PortalControllerContext;
 import org.osivia.portal.api.directory.v2.model.Person;
 import org.osivia.portal.api.directory.v2.service.PersonService;
+import org.osivia.portal.api.locator.Locator;
+import org.osivia.portal.core.deploiement.IParametresPortailDeploymentManager;
 import org.osivia.services.workspace.portlet.model.WorkspaceCreationForm;
 import org.osivia.services.workspace.portlet.service.WorkspaceCreationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +79,9 @@ public class InitalizerServiceImpl implements InitializerService {
     	
     	// Load some records
         nuxeoController.executeNuxeoCommand(new LoadRecordsCommand());
+        
+        
+   
 
 
 	}
