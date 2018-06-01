@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.osivia.demo</groupId>
         <artifactId>demo-parent</artifactId>
-        <version>4.7.2</version>
+        <version>4.6-SNAPSHOT</version>
     </parent>
 
     <artifactId>demo-distribution</artifactId>
@@ -46,41 +46,6 @@
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}.directory</groupId>
-            <artifactId>demo-directory-interfaces</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}.directory</groupId>
-            <artifactId>demo-directory-ear</artifactId>
-            <version>${project.version}</version>
-            <type>ear</type>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>demo-generator</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>demo-initializer</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-        </dependency>        
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>demo-simple-document-creator</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>demo-scheduler</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-        </dependency>
         
         <!-- Toutatice CMS -->
         <dependency>
@@ -92,9 +57,15 @@
         
         <!-- Directory -->
         <dependency>
+            <groupId>org.osivia.services.directory</groupId>
+            <artifactId>osivia-services-directory-ear</artifactId>
+            <version>${directory.version}</version>
+            <type>ear</type>
+        </dependency>
+        <dependency>
             <groupId>org.osivia.services.directory.socle</groupId>
             <artifactId>osivia-services-directory-socle-interfaces</artifactId>
-            <scope>compile</scope>
+            <version>${directory.version}</version>
         </dependency>
 
         <!-- Collaboration -->        
