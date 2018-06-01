@@ -170,7 +170,11 @@ public class ProjectCustomizer extends CMSPortlet implements ICustomizationModul
         // Page
         Page page = configuration.getPage();
 
-        if (page != null && !"admin".equals(page.getPortal().getName())) {
+        String reqHost = portalControllerContext.getHttpServletRequest().getServerName();
+        String intraHost = System.getProperty("demo.intranet.url");
+        
+        
+        if (page != null && !"admin".equals(page.getPortal().getName()) && (reqHost.equals(intraHost))) {
 
         	
             Portal portal = page.getPortal();
