@@ -65,7 +65,7 @@
         <dependency>
             <groupId>org.osivia.services.directory.socle</groupId>
             <artifactId>osivia-services-directory-socle-interfaces</artifactId>
-            <version>${directory.version}</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- Collaboration -->        
