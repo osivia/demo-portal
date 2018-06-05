@@ -13,8 +13,6 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jboss.portal.core.model.portal.Page;
-import org.jboss.portal.core.model.portal.Portal;
-import org.jboss.portal.core.model.portal.PortalObject;
 import org.jboss.portal.core.model.portal.Window;
 import org.jboss.portal.theme.impl.render.dynamic.DynaRenderOptions;
 import org.nuxeo.ecm.automation.client.model.Document;
@@ -61,9 +59,6 @@ public class ProjectCustomizer extends CMSPortlet implements ICustomizationModul
     /** CGU path attribute. */
     private static final String CGU_PATH_ATTRIBUTE = "osivia.services.cgu.path";
 
-    /** Marker for set up the platform (data injection) */
-    private static final String PLATFORM_INITIALIZED = "osivia.platform.initialized";
-	private static final String INIT_INDICATOR_PROPERTY = "init-indicator";
 
     /** Portal URL factory. */
     private final IPortalUrlFactory portalUrlFactory;
@@ -142,10 +137,6 @@ public class ProjectCustomizer extends CMSPortlet implements ICustomizationModul
         Bundle bundle = this.bundleFactory.getBundle(customizationContext.getLocale());
 
         if (configuration.isBeforeInvocation()) {
-        	
-        	
-        	this.preparePlatformRedicrection(portalControllerContext, configuration, bundle);
-        	
 			if((principal != null)) {
 				this.firstConnectionRedirection(portalControllerContext, configuration, principal, bundle);
 			
@@ -155,84 +146,6 @@ public class ProjectCustomizer extends CMSPortlet implements ICustomizationModul
 			}
         }
     }
-
-
-    /**
-     * Interceptor used to prepare the platform data
-     * @param portalControllerContext
-     * @param configuration
-     * @param bundle
-     */
-    private void preparePlatformRedicrection(
-			PortalControllerContext portalControllerContext,
-			IProjectCustomizationConfiguration configuration, Bundle bundle) {
-		
-        // Page
-        Page page = configuration.getPage();
-
-        if (page != null) {
-        	
-            Portal portal = page.getPortal();
-            
-            PortalObject intranet = portal.getParent().getChild("default");
-
-        	// Test init flag
-            String flag = intranet.getProperty(PLATFORM_INITIALIZED);
-            Window window = page.getChild("virtual", Window.class);
-            
-
-            // Prevent loops
-            if ((window == null) || !BooleanUtils.toBoolean(window.getDeclaredProperty(INIT_INDICATOR_PROPERTY))) {
-
-	            if(flag == null) {
-	            	
-	                // Set intranet hostname
-	                String intranetUrl = System.getProperty("demo.intranet.url");
-	                if(intranet != null && intranet instanceof Portal && intranetUrl != null) {
-	                	intranet.setDeclaredProperty("osivia.site.hostName", intranetUrl);
-	                	intranet.setDeclaredProperty(PLATFORM_INITIALIZED, "1");
-
-	                }
-	            	
-	                // Set extranet hostname 
-	                PortalObject extranet = portal.getParent().getChild("extranet");
-	                String extranetUrl = System.getProperty("demo.extranet.url");
-	                if(extranet != null && extranet instanceof Portal && extranetUrl != null) {
-	                	extranet.setDeclaredProperty("osivia.site.hostName", extranetUrl);
-	                }
-	            	
-	            	
-	            	// HTTP servlet request
-	                HttpServletRequest servletRequest = configuration.getHttpServletRequest();
-	                // HTTP session
-	                HttpSession session = servletRequest.getSession();
-	                session.setAttribute("osivia.platform.init.pathToRedirect", configuration.buildRestorableURL());
-	
-	            	
-	            	// Page display name
-	                String displayName = bundle.getString("PLATFORM_INIT");
-	
-	                // Window properties
-	                Map<String, String> properties = new HashMap<>();
-	                properties.put(InternalConstants.PROP_WINDOW_TITLE, displayName);
-	                properties.put("osivia.ajaxLink", "1");
-	                properties.put(DynaRenderOptions.PARTIAL_REFRESH_ENABLED, String.valueOf(true));
-	                properties.put(INIT_INDICATOR_PROPERTY, String.valueOf(true));
-	                
-	                // Redirection URL
-	                String redirectionUrl;
-	                try {
-	                    redirectionUrl = this.portalUrlFactory.getStartPortletInNewPage(portalControllerContext, "platform-init", displayName,
-	                            "demo-initializer-instance", properties, null);
-	                } catch (PortalException e) {
-	                    throw new RuntimeException(e);
-	                }
-	
-	                configuration.setRedirectionURL(redirectionUrl);
-	            }
-            }
-        }
-	}
 
 
 	/**
