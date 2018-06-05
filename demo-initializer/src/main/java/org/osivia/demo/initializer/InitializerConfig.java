@@ -102,19 +102,9 @@ public class InitializerConfig  extends CMSPortlet  {
      */
     @Bean
     public PersonService getPersonService() {
-    	return DirServiceFactory.getService(PersonService.class);
-    }
-    
-    /**
-     * Get person service.
-     *
-     * @return person service
-     */
-    /*
-    @Bean
-    public PersonUpdateService getPersonUpdateService() {
     	return DirServiceFactory.getService(PersonUpdateService.class);
     }
-    */
+    
+
 
 }

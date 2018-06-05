@@ -39,13 +39,10 @@ public class InitalizerServiceImpl implements InitializerService {
 	@Autowired
 	private WorkspaceCreationService workspaceCreationService;
 	
-	@Autowired
-	private PersonService personService;
 	
-	/*
 	@Autowired
-	private PersonUpdateService personUpdateService;
-	*/	
+	private PersonUpdateService personService;
+	
 	
 	public void initialize(PortalControllerContext portalControllerContext) throws PortletException {
 		
@@ -54,6 +51,18 @@ public class InitalizerServiceImpl implements InitializerService {
         nuxeoController.setAuthType(NuxeoCommandContext.AUTH_TYPE_SUPERUSER);
         nuxeoController.setCacheType(CacheInfo.CACHE_SCOPE_PORTLET_CONTEXT);
         nuxeoController.setAsynchronousCommand(false);
+        
+        // Person
+        Person person = personService.getEmptyPerson();
+        person.setUid("technicien");
+        person.setCn("technicien");
+        person.setSn("technicien");
+        person.setGivenName("technicien");
+        person.setDisplayName("technicien osivia");
+        person.setTitle("M.");
+        
+        personService.create(person);
+   		personService.updatePassword(person, "osivia");
 		
         // Containers
         Document modelsContainer = (Document) nuxeoController.executeNuxeoCommand(new CreateProcedureContainerCommand());
@@ -80,7 +89,8 @@ public class InitalizerServiceImpl implements InitializerService {
     	// Load some records
         nuxeoController.executeNuxeoCommand(new LoadRecordsCommand());
         
-        
+
+
    
 
 
