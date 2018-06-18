@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 
 import fr.toutatice.portail.cms.nuxeo.api.NuxeoController;
 import fr.toutatice.portail.cms.nuxeo.api.services.NuxeoCommandContext;
+import fr.toutatice.portail.cms.nuxeo.api.workspace.WorkspaceType;
 
 /**
  * 
@@ -78,6 +79,7 @@ public class InitalizerServiceImpl implements InitializerService {
     	WorkspaceCreationForm form = new WorkspaceCreationForm();
     	form.setTitle(workspaceId);
     	form.setDescription(workspaceId);
+    	form.setType( WorkspaceType.PRIVATE);    	
     	
     	Person owner = personService.getPerson("demo");
 

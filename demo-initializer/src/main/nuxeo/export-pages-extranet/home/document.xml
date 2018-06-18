@@ -201,18 +201,6 @@
     <ttc:theme><![CDATA[]]></ttc:theme>
     <ttc:lstTargetedPublic/>
   </schema>
-  <schema xmlns:htmlfgt="http://www.nuxeo.org/ecm/project/schemas/ACRENNES5/html_fragments" name="html_fragments">
-    <htmlfgt:htmlFragment>
-      <item>
-        <data><![CDATA[<p><a href="/nuxeo/web/66yEvW"><img src="/nuxeo/nxfile/default/a7398b57-f5c2-4973-bf67-a23d59f99ca5/ttc:images/0/file/logo.png" alt="" /></a></p>]]></data>
-        <refURI><![CDATA[1520260464482]]></refURI>
-      </item>
-      <item>
-        <data><![CDATA[<p>Contenu de la page d'accueil.</p>]]></data>
-        <refURI><![CDATA[1520264962719]]></refURI>
-      </item>
-    </htmlfgt:htmlFragment>
-  </schema>
   <schema xmlns:ewf="http://www.nuxeo.org/ecm/project/schemas/ACRENNES5/portlet_fragments" name="ew_fragments">
     <ewf:ewFragmentList/>
   </schema>
