@@ -22,22 +22,22 @@
   </schema>
   <schema xmlns:dc="http://www.nuxeo.org/ecm/schemas/dublincore/" name="dublincore">
     <dc:creator><![CDATA[admin]]></dc:creator>
-    <dc:source><![CDATA[]]></dc:source>
-    <dc:nature><![CDATA[]]></dc:nature>
+    <dc:source/>
+    <dc:nature/>
     <dc:contributors>
       <item><![CDATA[admin]]></item>
     </dc:contributors>
     <dc:created><![CDATA[2018-06-18T14:01:15.96Z]]></dc:created>
-    <dc:description><![CDATA[]]></dc:description>
-    <dc:rights><![CDATA[]]></dc:rights>
+    <dc:description/>
+    <dc:rights/>
     <dc:subjects/>
     <dc:publisher><![CDATA[]]></dc:publisher>
     <dc:valid/>
-    <dc:format><![CDATA[]]></dc:format>
+    <dc:format/>
     <dc:issued/>
     <dc:modified><![CDATA[2018-06-18T14:37:56.00Z]]></dc:modified>
-    <dc:language><![CDATA[]]></dc:language>
-    <dc:coverage><![CDATA[]]></dc:coverage>
+    <dc:language/>
+    <dc:coverage/>
     <dc:expired/>
     <dc:lastContributor><![CDATA[admin]]></dc:lastContributor>
     <dc:title><![CDATA[Commande d'un produit]]></dc:title>
@@ -283,9 +283,11 @@
             <enableLink><![CDATA[false]]></enableLink>
           </column>
         </columns>
+        <groups/>
+        <!-- 
         <groups>
           <item><![CDATA[members]]></item>
-        </groups>
+        </groups> -->
         <requestFilter><![CDATA[pi:procedureInitiator = '${user}']]></requestFilter>
       </dashboard>
       <dashboard>
@@ -305,9 +307,11 @@
             <enableLink><![CDATA[true]]></enableLink>
           </column>
         </columns>
+        <groups/>
+        <!-- 
         <groups>
           <item><![CDATA[Administrators]]></item>
-        </groups>
+        </groups> -->
         <requestFilter><![CDATA[]]></requestFilter>
       </dashboard>
     </pcd:dashboards>

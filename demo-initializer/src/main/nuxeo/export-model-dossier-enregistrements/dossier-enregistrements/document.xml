@@ -23,23 +23,23 @@
   </schema>
   <schema xmlns:dc="http://www.nuxeo.org/ecm/schemas/dublincore/" name="dublincore">
     <dc:creator><![CDATA[Administrator]]></dc:creator>
-    <dc:source><![CDATA[]]></dc:source>
-    <dc:nature><![CDATA[]]></dc:nature>
+    <dc:source/>
+    <dc:nature/>
     <dc:contributors>
       <item><![CDATA[Administrator]]></item>
       <item><![CDATA[admin]]></item>
     </dc:contributors>
     <dc:created><![CDATA[2018-01-08T14:15:09.67Z]]></dc:created>
-    <dc:description><![CDATA[]]></dc:description>
-    <dc:rights><![CDATA[]]></dc:rights>
+    <dc:description/>
+    <dc:rights/>
     <dc:subjects/>
-    <dc:publisher><![CDATA[]]></dc:publisher>
+    <dc:publisher/>
     <dc:valid/>
-    <dc:format><![CDATA[]]></dc:format>
+    <dc:format/>
     <dc:issued/>
     <dc:modified><![CDATA[2018-01-08T14:15:50.00Z]]></dc:modified>
-    <dc:language><![CDATA[]]></dc:language>
-    <dc:coverage><![CDATA[]]></dc:coverage>
+    <dc:language/>
+    <dc:coverage/>
     <dc:expired/>
     <dc:lastContributor><![CDATA[admin]]></dc:lastContributor>
     <dc:title><![CDATA[Dossiers d'enregistrements]]></dc:title>

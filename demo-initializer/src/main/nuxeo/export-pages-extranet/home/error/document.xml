@@ -108,7 +108,7 @@
   <schema xmlns:dc="http://www.nuxeo.org/ecm/schemas/dublincore/" name="dublincore">
     <dc:creator><![CDATA[admin]]></dc:creator>
     <dc:source/>
-    <dc:nature><![CDATA[]]></dc:nature>
+    <dc:nature/>
     <dc:contributors>
       <item><![CDATA[admin]]></item>
     </dc:contributors>
@@ -122,7 +122,7 @@
     <dc:issued/>
     <dc:modified><![CDATA[2018-03-14T13:54:50.00Z]]></dc:modified>
     <dc:language/>
-    <dc:coverage><![CDATA[]]></dc:coverage>
+    <dc:coverage/>
     <dc:expired/>
     <dc:lastContributor><![CDATA[admin]]></dc:lastContributor>
     <dc:title><![CDATA[Erreur]]></dc:title>

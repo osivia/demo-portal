@@ -21,22 +21,22 @@
   </schema>
   <schema xmlns:dc="http://www.nuxeo.org/ecm/schemas/dublincore/" name="dublincore">
     <dc:creator><![CDATA[admin]]></dc:creator>
-    <dc:source><![CDATA[]]></dc:source>
-    <dc:nature><![CDATA[]]></dc:nature>
+    <dc:source/>
+    <dc:nature/>
     <dc:contributors>
       <item><![CDATA[admin]]></item>
     </dc:contributors>
     <dc:created><![CDATA[2016-11-23T14:22:17.25Z]]></dc:created>
-    <dc:description><![CDATA[]]></dc:description>
-    <dc:rights><![CDATA[]]></dc:rights>
+    <dc:description/>
+    <dc:rights/>
     <dc:subjects/>
-    <dc:publisher><![CDATA[]]></dc:publisher>
+    <dc:publisher/>
     <dc:valid/>
-    <dc:format><![CDATA[]]></dc:format>
+    <dc:format/>
     <dc:issued/>
     <dc:modified><![CDATA[2017-04-13T12:46:07.99Z]]></dc:modified>
-    <dc:language><![CDATA[]]></dc:language>
-    <dc:coverage><![CDATA[]]></dc:coverage>
+    <dc:language/>
+    <dc:coverage/>
     <dc:expired/>
     <dc:lastContributor><![CDATA[admin]]></dc:lastContributor>
     <dc:title><![CDATA[Invitation]]></dc:title>

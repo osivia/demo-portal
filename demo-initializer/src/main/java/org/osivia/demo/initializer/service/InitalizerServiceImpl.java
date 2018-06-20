@@ -54,17 +54,20 @@ public class InitalizerServiceImpl implements InitializerService {
         nuxeoController.setAsynchronousCommand(false);
         
         // Person
-        Person person = personService.getEmptyPerson();
-        person.setUid("technicien");
-        person.setCn("technicien");
-        person.setSn("technicien");
-        person.setGivenName("technicien");
-        person.setDisplayName("technicien osivia");
-        person.setTitle("M.");
+        Person tech = personService.getPerson("technicien");
+        if(tech == null) {
+	        Person person = personService.getEmptyPerson();
+	        person.setUid("technicien");
+	        person.setCn("technicien");
+	        person.setSn("technicien");
+	        person.setGivenName("technicien");
+	        person.setDisplayName("technicien osivia");
+	        person.setTitle("M.");
+	        
+	        personService.create(person);
+	   		personService.updatePassword(person, "osivia");
+        }
         
-        personService.create(person);
-   		personService.updatePassword(person, "osivia");
-		
         // Containers
         Document modelsContainer = (Document) nuxeoController.executeNuxeoCommand(new CreateProcedureContainerCommand());
         

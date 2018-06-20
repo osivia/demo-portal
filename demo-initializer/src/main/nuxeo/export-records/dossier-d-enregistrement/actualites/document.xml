@@ -24,12 +24,12 @@
   <schema xmlns:dc="http://www.nuxeo.org/ecm/schemas/dublincore/" name="dublincore">
     <dc:creator><![CDATA[admin]]></dc:creator>
     <dc:source/>
-    <dc:nature><![CDATA[]]></dc:nature>
+    <dc:nature/>
     <dc:contributors>
       <item><![CDATA[admin]]></item>
     </dc:contributors>
     <dc:created><![CDATA[2018-03-14T13:34:20.17Z]]></dc:created>
-    <dc:description><![CDATA[]]></dc:description>
+    <dc:description/>
     <dc:rights/>
     <dc:subjects/>
     <dc:publisher/>
@@ -38,7 +38,7 @@
     <dc:issued/>
     <dc:modified><![CDATA[2018-03-14T13:37:13.77Z]]></dc:modified>
     <dc:language/>
-    <dc:coverage><![CDATA[]]></dc:coverage>
+    <dc:coverage/>
     <dc:expired/>
     <dc:lastContributor><![CDATA[admin]]></dc:lastContributor>
     <dc:title><![CDATA[Actualités]]></dc:title>
