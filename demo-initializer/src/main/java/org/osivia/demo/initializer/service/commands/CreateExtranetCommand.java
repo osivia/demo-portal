@@ -3,8 +3,10 @@ package org.osivia.demo.initializer.service.commands;
 import java.io.File;
 import java.net.URL;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.nuxeo.ecm.automation.client.Constants;
 import org.nuxeo.ecm.automation.client.OperationRequest;
 import org.nuxeo.ecm.automation.client.Session;
 import org.nuxeo.ecm.automation.client.adapters.DocumentService;
@@ -16,6 +18,7 @@ import org.nuxeo.ecm.automation.client.model.PathRef;
 import org.nuxeo.ecm.automation.client.model.PropertyMap;
 
 import fr.toutatice.portail.cms.nuxeo.api.INuxeoCommand;
+import fr.toutatice.portail.cms.nuxeo.api.NuxeoController;
 
 public class CreateExtranetCommand implements INuxeoCommand {
 
@@ -63,6 +66,21 @@ public class CreateExtranetCommand implements INuxeoCommand {
         operationRequest.set("overwite", "true");
 
         operationRequest.execute();        
+        
+  
+        // replace urls
+        
+        Document accueil = (Document) nuxeoSession
+                .newRequest("Document.FetchLiveDocument").setHeader(Constants.HEADER_NX_SCHEMAS, "*").set("value", ("/extranet/home/message-d-accueil")).set("permission", "Read")
+                .execute();        
+        PropertyMap properties = new PropertyMap();
+        String accueilProp = accueil.getString("note:note");
+        accueilProp=StringUtils.replace(accueilProp, "public-url",System.getProperty("demo.extranet.url"));
+        accueilProp=StringUtils.replace(accueilProp, "intra-url",System.getProperty("demo.intranet.url"));        
+        properties.set("note:note", accueilProp);
+        documentService.update(accueil, properties);
+
+        
         
         // Mass publication
         Documents extranetPages = documentService.query("SELECT * FROM Document WHERE ecm:path STARTSWITH '/extranet/home'");

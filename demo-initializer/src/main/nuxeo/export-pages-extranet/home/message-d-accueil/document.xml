@@ -91,7 +91,7 @@
     <relatedtext:relatedtextresources/>
   </schema>
   <schema xmlns:annonce="http://www.nuxeo.org/ecm/project/schemas/ACRENNES2/annonce" name="annonce">
-    <annonce:resume><![CDATA[<p>Cette d&eacute;monstration comprend : 1 portail Extranet: https://demo-public.local 1 portail Intranet : https://demo-intra.local 3 comptes utilisateurs sont &agrave; disposition : demo / osivia : utilisateur externe &agrave; l'organisation qui se connecte &agrave; l'Extranet technicien / osivia : utilisateur interne &agrave; l'orga ...</p>]]></annonce:resume>
+    <annonce:resume><![CDATA[<p>Cette d&eacute;monstration comprend : 1 portail Extranet, 1 portail Intranet. 3 comptes utilisateurs sont &agrave; disposition : demo / osivia : utilisateur externe &agrave; l'organisation qui se connecte &agrave; l'Extranet technicien / osivia : utilisateur interne &agrave; l'orga ...</p>]]></annonce:resume>
     <annonce:resume_mime_type/>
     <annonce:image/>
   </schema>
@@ -103,17 +103,17 @@
     <note:note><![CDATA[<p>Cette d&eacute;monstration comprend :</p>
 
 <ul>
-<li>1 portail Extranet: <a href="https://demo-public.local">https://demo-public.local</a></li>
-<li>1 portail Intranet : <a
-      href="https://demo-intra.local">https://demo-intra.local</a></li>
+
+<li>1 portail Intranet qui contient les espaces personnels et collaboratifs, ainsi que les outils d'administration : <a href="https://intra-url">https://intra-url</a></li>
+<li>1 portail Extranet accessible aux personnes externes à l'organisation : <a href="https://public-url">https://public-url</a></li>
 </ul>
 
 <p>3 comptes utilisateurs sont &agrave; disposition :</p>
 
 <ul>
-<li>demo / osivia : utilisateur externe &agrave; l'organisation qui se connecte &agrave; l'Extranet</li>
-<li>technicien / osivia : utilisateur interne &agrave; l'organisation qui se connecte &agrave; l'Intranet</li>
-<li>admin / osivia : administrateur de la plate-forme</li>
+<li>demo / osivia : client de l'organisation qui se connecte &agrave; <a href="https://public-url">l'Extranet</a>. Il consulte les produits auxquels il a souscrit, peut effectuer des demandes d'intervention de de support, commande des accessoires.</li>
+<li>technicien / osivia : utilisateur interne &agrave; l'organisation qui se connecte &agrave; <a href="https://intra-url">l'Intranet</a>. Il valide les demandes d'intervention et répond aux demandes de support.</li>
+<li>admin / osivia : administrateur de la plate-forme. Il gère les clients, les produits, les commandes et administre les t&eacute;l&eacute;proc&eacute;dures.</li>
 </ul>]]></note:note>
   </schema>
 </document>
