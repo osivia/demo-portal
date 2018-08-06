@@ -1,10 +1,13 @@
 package org.osivia.demo.scheduler.plugin.configuration;
 
+import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 
+import org.osivia.portal.api.Constants;
 import org.osivia.portal.api.internationalization.IBundleFactory;
 import org.osivia.portal.api.internationalization.IInternationalizationService;
 import org.osivia.portal.api.locator.Locator;
+import org.osivia.portal.api.portlet.PortletAppUtils;
 import org.osivia.portal.api.urls.IPortalUrlFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -13,6 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.portlet.context.PortletConfigAware;
 import org.springframework.web.portlet.context.PortletContextAware;
 
 /**
@@ -23,7 +27,7 @@ import org.springframework.web.portlet.context.PortletContextAware;
  */
 @Configuration
 @ComponentScan(basePackages = "org.osivia.demo.scheduler.plugin")
-public class SchedulerPluginConfiguration implements PortletContextAware {
+public class SchedulerPluginConfiguration implements PortletConfigAware {
 
     /** Application context . */
     @Autowired
@@ -38,13 +42,7 @@ public class SchedulerPluginConfiguration implements PortletContextAware {
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setPortletContext(PortletContext portletContext) {
-        portletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, this.applicationContext);
-    }
+
 
 
     /**
@@ -82,5 +80,12 @@ public class SchedulerPluginConfiguration implements PortletContextAware {
                 IInternationalizationService.MBEAN_NAME);
         return internationalizationService.getBundleFactory(this.getClass().getClassLoader(), this.applicationContext);
     }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setPortletConfig(PortletConfig portletConfig) {
+            PortletAppUtils.registerApplication(portletConfig, applicationContext);            
 
+    }
 }

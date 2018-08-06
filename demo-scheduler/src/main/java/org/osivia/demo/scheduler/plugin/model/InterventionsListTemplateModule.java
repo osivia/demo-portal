@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -15,10 +16,12 @@ import javax.portlet.RenderResponse;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.jboss.portal.theme.impl.render.dynamic.DynaRenderOptions;
+import org.osivia.portal.api.Constants;
 import org.osivia.portal.api.PortalException;
 import org.osivia.portal.api.context.PortalControllerContext;
 import org.osivia.portal.api.internationalization.Bundle;
 import org.osivia.portal.api.internationalization.IBundleFactory;
+import org.osivia.portal.api.portlet.PortletAppUtils;
 import org.osivia.portal.api.urls.IPortalUrlFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -59,6 +62,9 @@ public class InterventionsListTemplateModule extends PrivilegedPortletModule {
     /** Internationalization bundle factory. */
     @Autowired
     private IBundleFactory bundleFactory;
+    
+    @Autowired
+    private PortletConfig portletConfig;
 
 
     /**
@@ -85,8 +91,8 @@ public class InterventionsListTemplateModule extends PrivilegedPortletModule {
         Bundle bundle = this.bundleFactory.getBundle(request.getLocale());
         
         // Application context
-        portletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, this.applicationContext);
-
+        PortletAppUtils.registerApplication(portletConfig, applicationContext); 
+        
         // Intervention request URL
         String url;
         try {
