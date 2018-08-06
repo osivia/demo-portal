@@ -7,8 +7,10 @@ import javax.portlet.PortletException;
 import org.osivia.portal.api.directory.v2.DirServiceFactory;
 import org.osivia.portal.api.directory.v2.service.PersonService;
 import org.osivia.portal.api.locator.Locator;
+import org.osivia.portal.api.portlet.PortletAppUtils;
 import org.osivia.portal.api.urls.IPortalUrlFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +36,10 @@ public class SchedulerConfiguration extends CMSPortlet{
     @Autowired
     private PortletConfig portletConfig;
     
+    /** Application context. */
+    @Autowired
+    private ApplicationContext applicationContext;
+    
     /**
      * Constructor
      */
@@ -51,9 +57,12 @@ public class SchedulerConfiguration extends CMSPortlet{
     @PostConstruct
     public void postConstruct() throws PortletException {
         super.init(this.portletConfig);
+        PortletAppUtils.registerApplication(portletConfig, applicationContext);
     }
     
 
+    
+    
 
     /**
      * Get view resolver.
@@ -79,7 +88,7 @@ public class SchedulerConfiguration extends CMSPortlet{
     @Bean(name = "messageSource")
     public ResourceBundleMessageSource getMessageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename("Resource");
+        messageSource.setBasenames("Resource","Resource-custom");
         return messageSource;
     }
     

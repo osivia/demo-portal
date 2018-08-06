@@ -91,7 +91,7 @@ public class InterventionsListTemplateModule extends PrivilegedPortletModule {
         Bundle bundle = this.bundleFactory.getBundle(request.getLocale());
         
         // Application context
-        PortletAppUtils.registerApplication(portletConfig, applicationContext); 
+        request.setAttribute(Constants.PORTLET_ATTR_WEBAPP_CONTEXT, applicationContext);
         
         // Intervention request URL
         String url;
