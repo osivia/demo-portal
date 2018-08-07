@@ -295,7 +295,7 @@
       </step>
     </pcd:steps>
     <pcd:authorizedGroups/>
-    <pcd:dashboards>
+       <pcd:dashboards>
       <dashboard>
         <exportVarList/>
         <name><![CDATA[Accueil]]></name>
@@ -325,8 +325,39 @@
             <enableLink><![CDATA[false]]></enableLink>
           </column>
         </columns>
-        <groups/>
+        <groups>
+          <item><![CDATA[members]]></item>
+        </groups>
         <requestFilter><![CDATA[pi:procedureInitiator = '${user}']]></requestFilter>
+      </dashboard>
+      <dashboard>
+        <exportVarList/>
+        <name><![CDATA[Toutes les demandes]]></name>
+        <columns>
+          <column>
+            <variableName><![CDATA[dc:created]]></variableName>
+            <sortable><![CDATA[true]]></sortable>
+            <label><![CDATA[Date]]></label>
+            <enableLink><![CDATA[false]]></enableLink>
+          </column>
+          <column>
+            <variableName><![CDATA[produit]]></variableName>
+            <sortable><![CDATA[true]]></sortable>
+            <label><![CDATA[Produit]]></label>
+            <enableLink><![CDATA[false]]></enableLink>
+          </column>
+          <column>
+            <variableName><![CDATA[demande]]></variableName>
+            <sortable><![CDATA[false]]></sortable>
+            <label><![CDATA[Demande du client]]></label>
+            <enableLink><![CDATA[true]]></enableLink>
+          </column>
+        </columns>
+        <groups>
+          <item><![CDATA[Administrators]]></item>
+          <item><![CDATA[sav]]></item>
+        </groups>
+        <requestFilter><![CDATA[]]></requestFilter>
       </dashboard>
     </pcd:dashboards>
     <pcd:procedureObjects/>

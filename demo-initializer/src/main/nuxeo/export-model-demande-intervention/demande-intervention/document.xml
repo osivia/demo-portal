@@ -413,13 +413,54 @@
       </step>
     </pcd:steps>
     <pcd:authorizedGroups/>
-    <pcd:dashboards>
+	<pcd:dashboards>
       <dashboard>
         <exportVarList/>
-        <name><![CDATA[Mes demandes]]></name>
-        <columns/>
+        <name><![CDATA[Demandes qui me sont assignées]]></name>
+        <columns>
+          <column>
+            <variableName><![CDATA[date]]></variableName>
+            <sortable><![CDATA[true]]></sortable>
+            <label><![CDATA[Date]]></label>
+            <enableLink><![CDATA[false]]></enableLink>
+          </column>
+          <column>
+            <variableName><![CDATA[titre]]></variableName>
+            <sortable><![CDATA[false]]></sortable>
+            <label><![CDATA[titre]]></label>
+            <enableLink><![CDATA[true]]></enableLink>
+          </column>
+          <column>
+            <variableName><![CDATA[objet]]></variableName>
+            <sortable><![CDATA[false]]></sortable>
+            <label><![CDATA[objet]]></label>
+            <enableLink><![CDATA[false]]></enableLink>
+          </column>
+        </columns>
         <groups/>
-        <requestFilter><![CDATA[pi:procedureInitiator = ${user}]]></requestFilter>
+        <requestFilter><![CDATA[pi:data.intervenant = ${user}]]></requestFilter>
+      </dashboard>
+      <dashboard>
+        <exportVarList/>
+        <name><![CDATA[Toutes les demandes]]></name>
+        <columns>
+          <column>
+            <variableName><![CDATA[titre]]></variableName>
+            <sortable><![CDATA[false]]></sortable>
+            <label><![CDATA[titre]]></label>
+            <enableLink><![CDATA[true]]></enableLink>
+          </column>
+          <column>
+            <variableName><![CDATA[date]]></variableName>
+            <sortable><![CDATA[true]]></sortable>
+            <label><![CDATA[Date]]></label>
+            <enableLink><![CDATA[false]]></enableLink>
+          </column>
+        </columns>
+        <groups>
+          <item><![CDATA[Administrators]]></item>
+        </groups>
+        <requestFilter><![CDATA[]]></requestFilter>
       </dashboard>
     </pcd:dashboards>
     <pcd:procedureObjects/>
