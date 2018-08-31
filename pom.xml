@@ -13,17 +13,17 @@
     <properties>
         
         <!-- Toutatice -->
-        <toutatice.version>4.7.6</toutatice.version>
+        <toutatice.version>4.7-SNAPSHOT</toutatice.version>
         
         <!-- Directory -->
-        <directory.version>4.7.2</directory.version>
+        <directory.version>4.7-SNAPSHOT</directory.version>
         
         <!-- Collaboration -->
-        <collaboration.version>4.7.3</collaboration.version>
+        <collaboration.version>4.7-SNAPSHOT</collaboration.version>
         
         <!-- Other services -->
         <tasks.version>4.7</tasks.version>
-        <procedure.version>4.7.3</procedure.version>
+        <procedure.version>4.7-SNAPSHOT</procedure.version>
         <cgu.version>4.7</cgu.version>
         
         <!-- Identity SSO -->
@@ -59,26 +59,23 @@
             
         </dependencies>
     </dependencyManagement>
-    
-    
-    <modules>
-        <module>demo-charte</module>
-        <module>demo-charte-web</module>
-        <module>demo-charte-extranet</module>
-        <module>demo-customizer</module>
-        <module>demo-directory</module>
-        
-        <module>demo-generator</module>
-        <module>demo-initializer</module>
-        <module>demo-simple-document-creator</module>
-        <module>demo-scheduler</module>
-        
-        <module>demo-distribution</module>
 
-        <module>demo-transaction</module>
 
-        <module>demo-nx-custom</module>
-    </modules>
+	<modules>
+		<module>demo-charte</module>
+		<module>demo-charte-web</module>
+		<module>demo-charte-extranet</module>
+		<module>demo-customizer</module>
+		<module>demo-directory</module>
+		<module>demo-generator</module>
+		<module>demo-initializer</module>
+		<module>demo-simple-document-creator</module>
+		<module>demo-scheduler</module>
+		<module>demo-distribution</module>
+		<module>demo-transaction</module>
+		<module>demo-nx-custom</module>
+		<module>demo-selenium</module>
+	</modules>
     
     
     <dependencies>
