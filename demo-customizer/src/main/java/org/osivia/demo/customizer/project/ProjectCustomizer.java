@@ -215,11 +215,16 @@ public class ProjectCustomizer extends CMSPortlet implements ICustomizationModul
 						String displayName = bundle.getString("PLATFORM_INIT");
 
 						// Window properties
+						
+						
 						Map<String, String> properties = new HashMap<>();
 						properties.put(InternalConstants.PROP_WINDOW_TITLE, displayName);
 						properties.put("osivia.ajaxLink", "1");
 						properties.put("osivia.hideTitle", "1");
 
+						if(servletRequest.getParameter("noajax") != null)
+	                        properties.put("noajax", "1");						
+						
 						properties.put(DynaRenderOptions.PARTIAL_REFRESH_ENABLED, String.valueOf(true));
 						properties.put(INIT_INDICATOR_PROPERTY, String.valueOf(true));
 
