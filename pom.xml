@@ -74,7 +74,6 @@
 		<module>demo-distribution</module>
 		<module>demo-transaction</module>
 		<module>demo-nx-custom</module>
-		<module>demo-selenium</module>
 	</modules>
     
     
