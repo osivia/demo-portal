@@ -13,7 +13,7 @@
     <div class="header-top">
         <div class="container">
             <div class="row">
-                <div class="col-sm-4 col-md-3 logo">
+                <div class="col-sm-4 col-md-3 col-lg-4 logo">
                     <p:region regionName="logo" cms="true" />
                 </div>
                 

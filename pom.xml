@@ -13,7 +13,7 @@
     <properties>
         
         <!-- Toutatice -->
-        <toutatice.version>4.7.6</toutatice.version>
+        <toutatice.version>4.7.7</toutatice.version>
         
         <!-- Directory -->
         <directory.version>4.7.2</directory.version>
