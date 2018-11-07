@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.osivia.demo.directory</groupId>
         <artifactId>demo-directory-parent</artifactId>
-        <version>4.7-SNAPSHOT</version>
+        <version>4.7.9</version>
     </parent>
 
     <artifactId>demo-directory-socle-parent</artifactId>
