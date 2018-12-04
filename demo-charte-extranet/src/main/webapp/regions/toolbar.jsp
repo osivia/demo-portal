@@ -4,15 +4,16 @@
 
 <%@ page contentType="text/html" isELIgnored="false"%>
 
+<div class="col-sm-8 col-lg-10 col-md-10">
 
 <!-- Administration -->
-<div class="col-md-3 col-lg-4  hidden-sm hidden-xs">
+<div class="col-md-7 col-lg-7  hidden-sm hidden-xs">
     <c:out value="${requestScope['osivia.toolbar.administrationContent']}" escapeXml="false" />
 </div>
 
 
 <!-- User links -->
-<div class="col-sm-8 col-md-5 col-lg-3">
+<div class="col-sm-8 col-md-5 col-lg-4">
     <div class="text-right">
         <c:choose>
             <c:when test="${empty requestScope['osivia.toolbar.principal']}">
@@ -119,7 +120,7 @@
    
  </div>
  
-    <div class="col-md-1 col-lg-1  hidden-sm hidden-xs">
+    <div class="col-md-1 col-lg-1  hidden-sm hidden-xs hidden-md">
     <a href="/portal/web/welcome" class="btn btn-link">
            <span><op:translate key="HELP" /></span>
     </a>    
@@ -139,4 +140,6 @@
     </div>
 
     <div class="apps-container hidden"></div>
+</div>
+
 </div>
