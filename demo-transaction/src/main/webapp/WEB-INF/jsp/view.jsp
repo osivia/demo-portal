@@ -11,6 +11,9 @@
 <portlet:actionURL name="createseveral" var="createSeveralUrl" />
 <portlet:actionURL name="createandrollback" var="createAndRollbackUrl" />
 <portlet:actionURL name="createandupdate" var="createAndUpdateUrl" />
+<portlet:actionURL name="createandupdatetx2" var="createAndUpdateTx2Url" />
+
+
 <portlet:actionURL name="deleteandrollback" var="deleteAndRollbackUrl" />
 <portlet:actionURL name="createblob" var="createBlobUrl" />
 <portlet:actionURL name="createblobs" var="createBlobsUrl" />
@@ -35,6 +38,11 @@
     
     <a href="${createAndUpdateUrl}" class="btn btn-primary no-ajax-link">
         <span><op:translate key="CREATE_AND_UPDATE" /></span>
+    </a>
+    <br/><br/>
+    
+        <a href="${createAndUpdateTx2Url}" class="btn btn-primary no-ajax-link">
+        <span><op:translate key="CREATE_AND_UPDATE_TX2" /></span>
     </a>
     <br/><br/>
     

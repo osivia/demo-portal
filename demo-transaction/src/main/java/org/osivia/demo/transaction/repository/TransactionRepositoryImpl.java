@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 import org.osivia.demo.transaction.model.CommandNotification;
 import org.osivia.demo.transaction.model.Configuration;
 import org.osivia.demo.transaction.repository.command.CreateAndRollbackCommand;
+import org.osivia.demo.transaction.repository.command.CreateAndTxUpdateCommand;
 import org.osivia.demo.transaction.repository.command.CreateAndUpdateCommand;
 import org.osivia.demo.transaction.repository.command.CreateBlobCommand;
 import org.osivia.demo.transaction.repository.command.CreateBlobsCommand;
@@ -115,14 +116,23 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     @Override
     public void setConfiguration(PortalControllerContext portalControllerContext, Configuration configuration) throws PortletException {
     	
+        
+        // Window
+      PortalWindow window = WindowFactory.getWindow(portalControllerContext.getRequest());
+
       if (configuration.getPath() == null) {
     	  configuration.setPath(this.properties.getProperty(PATH_PROPERTY));
       }
       if (configuration.getWebid() == null) {
     	  configuration.setWebid(this.properties.getProperty(WEBID));
       }
+      
+      // Nuxeo request
+      window.setProperty(PATH_PROPERTY, configuration.getPath());
 
-      portalControllerContext.getRequest().getPortletSession().setAttribute(PORTLET_TRANSACTION_CONFIGURATION, configuration);
+      // BeanShell
+      window.setProperty(WEBID,configuration.getWebid());
+
     }
 
     
@@ -186,6 +196,27 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         nuxeoController.setAsynchronousCommand(false);
         
         CommandNotification commandNotification = (CommandNotification) nuxeoController.executeNuxeoCommand(new CreateAndUpdateCommand(configuration,UUID.randomUUID().toString()));
+        return commandNotification;
+    }
+    
+    
+    /** 
+     * {@inheritDoc}
+     * @throws PortletException 
+     */
+    @Override
+    public CommandNotification createAndUpdateTx2(PortalControllerContext portalControllerContext) throws PortletException {
+        
+        // Configuration
+        Configuration configuration = this.getConfiguration(portalControllerContext);
+        
+        // Nuxeo controller
+        NuxeoController nuxeoController = this.getNuxeoController(portalControllerContext);
+        nuxeoController.setAuthType(NuxeoCommandContext.AUTH_TYPE_SUPERUSER);
+        nuxeoController.setCacheType(CacheInfo.CACHE_SCOPE_PORTLET_CONTEXT);
+        nuxeoController.setAsynchronousCommand(false);
+        
+        CommandNotification commandNotification = (CommandNotification) nuxeoController.executeNuxeoCommand(new CreateAndTxUpdateCommand(configuration,UUID.randomUUID().toString()));
         return commandNotification;
     }
     

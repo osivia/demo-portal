@@ -38,7 +38,9 @@ public interface TransactionRepository {
     CommandNotification createSeveral(PortalControllerContext portalControllerContext) throws PortletException;
     
     CommandNotification createAndUpdate(PortalControllerContext portalControllerContext) throws PortletException;
-    
+  
+    CommandNotification createAndUpdateTx2(PortalControllerContext portalControllerContext) throws PortletException;
+
     CommandNotification createAndRollback(PortalControllerContext portalControllerContext) throws PortletException;
     
     CommandNotification deleteAndRollback(PortalControllerContext portalControllerContext) throws PortletException;

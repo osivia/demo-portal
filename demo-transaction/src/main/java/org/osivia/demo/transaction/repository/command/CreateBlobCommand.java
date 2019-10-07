@@ -59,7 +59,7 @@ public class CreateBlobCommand implements INuxeoCommand {
                     
                     OperationRequest req = session.newRequest("Blob.Attach").setInput(blob).set(
                             "document", createdDoc.getPath());
-                    req.setHeader(Constants.HEADER_NX_VOIDOP, "true");
+                    //req.setHeader(Constants.HEADER_NX_VOIDOP, "true");
                     req.setHeader("Tx-conversation-id", txId);
                     req.set("xpath", "ttc:vignette");
                     Document blobAdded = (Document) req.execute();

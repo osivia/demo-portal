@@ -55,6 +55,15 @@ public interface TransactionService {
      */
     CommandNotification createAndUpdate(PortalControllerContext portalControllerContext) throws PortletException;
     
+    
+    /**
+     * Create and update document
+     * 
+     * @param portalControllerContext
+     * @throws PortletException
+     */
+    CommandNotification createAndUpdateTx2(PortalControllerContext portalControllerContext) throws PortletException;
+    
     /**
      * Create and rollback
      * 

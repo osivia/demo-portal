@@ -83,6 +83,15 @@ public class TransactionServiceImpl implements TransactionService {
      * {@inheritDoc}
      */
     @Override
+    public CommandNotification createAndUpdateTx2(PortalControllerContext portalControllerContext) throws PortletException {
+        return this.repository.createAndUpdateTx2(portalControllerContext);
+        
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public CommandNotification createAndRollback(PortalControllerContext portalControllerContext) throws PortletException {
         return this.repository.createAndRollback(portalControllerContext);
         
